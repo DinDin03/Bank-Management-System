@@ -1,8 +1,9 @@
 double array_mean(int array[], int n){
   int sum = 0;
+  double average;
   for (int i = 0; i < n; i++) {
-    sum = sum + array[i];
+    sum += array[i];
   }
-  double average = sum/n;
+  average = ((double(sum))/n);
   return average;
 }
