@@ -12,8 +12,8 @@ int median_array(int array[], int n, int sorting)
     }
     if (n % 2 == 1)
     {
-        middle = (n + 1) / 2;
+        middle = ((n + 1) / 2)-1;
     }
-    int median = array[middle - 1];
+    int median = array[middle];
     return median;
 }
