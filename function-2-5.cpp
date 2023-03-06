@@ -1,13 +1,12 @@
-// checking if the numbers are in descending order or not
-#include <iostream>
-
-using namespace std;
-bool is_descending(int array[], int n) {
-  for (int i = 1; i < n; i++) {
-    if (array[i - 1] < array[i]) {
-      return false;
+bool is_descending(int array[], int n){
+    int count = 0;
+    for(int i = 0;i < n; i++){
+        if(array[i] >= array[i+1]){
+            count++;
+        }
     }
-  }
-
-  return true;
+    if(count == n){
+        return true;
+    }
+    return false;
 }
