@@ -1,11 +1,27 @@
 #include <iostream>
 using namespace std;
-extern int array_mean(int[], int);
 
-int 
+void transform(int n){
+    int number = n;
+    int count = 0;
+    int array[8] = {0,0,0,0,0,0,0,0};
+    while(number > 0){
+        if(number%2==0){
+            array[count] = 0;
+        }
+        else{
+            array[count] = 1;
+        }
+        number = number/2;
+        count++;
+    }
+    for(int i = 7;i>=0;i--){
+        std::cout << array[i] << std::endl;
+    }
+}
 
-int main() {
-    int array[5] = {4,5,6,7,8};
-    std::cout << "The mean is: " << array_mean(array, 5) << std::endl;
+int main(){
+    int n = 76;
+    transform(n);
     return 0;
 }
