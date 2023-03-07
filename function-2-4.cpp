@@ -8,7 +8,7 @@ bool is_ascending(int array[], int n){
     if(count == n){
         return true;
     }
-    else if (count != n || n < 1){
+    if (count != n || n < 1){
         return false;
     }
     return 0;
