@@ -16,8 +16,9 @@ void transform(int n){
         count++;
     }
     for(int i = 7;i>=0;i--){
-        std::cout << array[i] << std::endl;
+        std::cout << array[i];
     }
+    std::cout<<std::endl;
 }
 
 int main(){
