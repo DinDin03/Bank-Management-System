@@ -1,9 +1,27 @@
 #include <iostream>
 using namespace std;
 
+int sum_if_palindrome(int integers[], int length){
+    int sum = 0;
+    for(int i = 0; i<length; i++){
+        sum += integers[i];
+    }
+    std::cout << "The sum of palindrome array is: " << sum << std::endl;
+    return 0;
+}
+
+int sum_array_elements(int integers[], int length){
+    int sum2 = 0;
+    for(int i = 0; i<length; i++){
+        sum2 += integers[i];
+    }
+    std::cout << "The sum of non-palindrome array is: " << sum2 << std::endl;
+    return 0;
+}
+
 bool is_palindrome(int integers[], int length)
-int ispalindrome = 0;
 {
+    int ispalindrome = 0;
     for (int i = 0; i < length / 2 && length != 0; i++)
     {
         if(integers[i] != integers[length-1-i]){
@@ -12,11 +30,11 @@ int ispalindrome = 0;
         }
     }
     if(ispalindrome == 1){
-        std::cout << "IS NOT PALINDROME" << std::endl;
+        sum_array_elements(integers,length);
         return -2;
     }
     else
-        std::cout << "IS PALINDROME" << std::endl;
+        sum_if_palindrome(integers,length);
+        return 0;
 }
 
-int sum_if_palindrome(int integers[], )
