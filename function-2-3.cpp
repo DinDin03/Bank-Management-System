@@ -2,6 +2,9 @@
 using namespace std;
 
 int sum_if_palindrome(int integers[], int length){
+    if(length <= 0){
+        return false;
+    }
     int sum = 0;
     for(int i = 0; i<length; i++){
         sum += integers[i];
@@ -11,6 +14,9 @@ int sum_if_palindrome(int integers[], int length){
 }
 
 int sum_array_elements(int integers[], int length){
+    if(length <= 0){
+        return false;
+    }
     int sum2 = 0;
     for(int i = 0; i<length; i++){
         sum2 += integers[i];
@@ -21,6 +27,9 @@ int sum_array_elements(int integers[], int length){
 
 bool is_palindrome(int integers[], int length)
 {
+    if(length <= 0){
+        return false;
+    }
     int ispalindrome = 0;
     for (int i = 0; i < length / 2 && length != 0; i++)
     {
