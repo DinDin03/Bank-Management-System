@@ -6,6 +6,7 @@ int sum_if_palindrome(int integers[], int length){
     for(int i = 0; i<length; i++){
         sum += integers[i];
     }
+    std::cout << sum << std::endl;
     return 0;
 }
 
@@ -14,6 +15,7 @@ int sum_array_elements(int integers[], int length){
     for(int i = 0; i<length; i++){
         sum2 += integers[i];
     }
+    std::cout << sum2 << std::endl;
     return 0;
 }
 
