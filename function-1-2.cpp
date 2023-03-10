@@ -16,9 +16,9 @@ int is_identity(int array[10][10])
     }
     if (flag == 1)
     {
-        std::cout << "Is NOT identity" << std::endl;
         return 0;
     }
-    std::cout << "Is identity" << std::endl;
-    return 1;
+    else   
+        return 1;
+    
 }
