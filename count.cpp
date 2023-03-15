@@ -8,3 +8,4 @@ int count(int array[], int n) {
   }
   return even;
 }
+//test
