@@ -25,6 +25,7 @@ bool is_array_palindrome(int integers[], int length) {
     return false;
   }
   int palindrome = 0;
+  int sum2;
   for (int i = 0; i < length / 2 && length != 0; i++) {
     if (integers[i] != integers[length - i - 1]) {
       palindrome = 1;
@@ -33,7 +34,8 @@ bool is_array_palindrome(int integers[], int length) {
     } else {
       palindrome = 0;
       palindrome_sum(integers, length);
+      int sum2 = sum_integers(integers,length);
     }
   }
-  return 0;
+  return sum2;
 }
