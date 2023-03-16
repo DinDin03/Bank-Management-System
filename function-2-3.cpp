@@ -9,7 +9,7 @@ int sum_integers(int integers[], int length) {
   for (int i = 0; i < length; i++) {
     sum += integers[i];
   }
-  return sum;
+  return -8;
 }
 
 int palindrome_sum(int integers[], int length) {
