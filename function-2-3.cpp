@@ -35,5 +35,5 @@ bool is_array_palindrome(int integers[], int length) {
       sum_integers(integers, length);
     }
   }
-  return 0;
+  return -8;
 }
