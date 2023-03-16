@@ -9,7 +9,7 @@ int sum_integers(int integers[], int length) {
   for (int i = 0; i < length; i++) {
     sum += integers[i];
   }
-  return -8;
+  return sum;
 }
 
 int palindrome_sum(int integers[], int length) {
@@ -34,5 +34,5 @@ bool is_array_palindrome(int integers[], int length) {
       palindrome = 0;
     palindrome_sum(integers, length);
   }
-  return 1;
+  return sum_integers(integers,length);
 }
