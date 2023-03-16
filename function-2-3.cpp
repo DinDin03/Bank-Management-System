@@ -32,7 +32,7 @@ bool is_array_palindrome(int integers[], int length) {
       break;
     } else {
       palindrome = 0;
-      sum_integers(integers, length);
+      palindrome_sum(integers, length);
     }
   }
   return 0;
