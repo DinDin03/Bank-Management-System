@@ -4,9 +4,11 @@ using namespace std;
 
 void decimal_to_hexadecimal(int *ptr){
     int decimal = *ptr;
+    int decimal2 = decimal;
     int rem = decimal/16;
     int mod;
     for(int i = 0;i<rem;i++){
+      decimal2 = decimal
       mod = decimal%16;
     }
     
