@@ -1,11 +1,15 @@
 #include <math.h>
-
 #include <iostream>
 using namespace std;
 
-void check(int *ptr){
-    int num = *ptr;
-    cout << "The value pointing at this address is: "<< num << endl;
+void decimal_to_hexadecimal(int *ptr){
+    int decimal = *ptr;
+    int rem = decimal/16;
+    int mod;
+    for(int i = 0;i<rem;i++){
+      mod = decimal%16;
+    }
+    
 }
 
 int binary_to_decimal(int num, int binary[]) {
