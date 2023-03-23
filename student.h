@@ -11,6 +11,7 @@ class Student {
   Student(string s_name, int s_ID, double s_grade);
   Student(string s_name, int s_ID);
   Student(); 
+  ~Student();
 
   string getName() { return name; }
   int getID() { return ID; }
@@ -33,8 +34,12 @@ Student::Student(string s_name, int s_ID) {
   grade = 0;
 }
 
-Student::Student(): name("N/A"), ID(0), grade(0.0){
-    
+Student::Student(): Student("Placeholder",0,0.0){
+    cout << "A student object was created" << endl;
+}
+
+Student::~Student(){
+  cout << "A student object was deleted" << endl;
 }
 
 string Student::is_pass() {
