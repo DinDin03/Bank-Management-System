@@ -10,5 +10,4 @@ Person* createPersonArray(int n){
         array[i].age = 0;
     }
     return array;
-} 
-
+}
