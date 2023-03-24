@@ -15,7 +15,7 @@ PersonList createPersonList(int n){
     return pList;
 }
 
-PersonList shallowCopyPersonList(PersonList pl){
+PersonList shallowCopyPersonList(PersonList pList){
     PersonList pList2;
     pList2.numPeople = pl.numPeople;
     Person* newarray = new Person[pl.numPeople];
