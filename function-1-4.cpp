@@ -9,22 +9,18 @@ PersonList createPersonList(int n){
     Person* array = new Person[pList.numPeople];
     pList.people = array;
     for(int i = 0; i < n; i++){
-        array[i].name = "Jane Doe";
-        array[i].age = 1;
+        array[i].name = "John doe";
+        array[i].age = 0;
     }
     return pList;
 }
 
 PersonList shallowCopyPersonList(PersonList pl){
-    PersonList pList2;
-    pList2.numPeople = pl.numPeople;
-    Person* newarray = new Person[pList2.numPeople];
-    Person* oldArray;
-    pList2.people = newarray;
-    oldArray = pl.people;
+    Person* newarray = new Person[pl.numPeople];
+    pl.people = newarray;
     for(int i = 0; i < pl.numPeople; i++){
-        newarray[i].name = oldArray[i].name;
-        newarray[i].age = oldArray[i].age;
+        newarray[i].name = "John Doe";
+        newarray[i].age = 0;
     }
-    return pList2;
+    return pl;
 }
