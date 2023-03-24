@@ -11,7 +11,7 @@ PersonList createPersonList(int n){
     Person* array = new Person[pList.numPeople];
     pList.people = array;
     for(int i = 0; i < n; i++){
-        array[i].name = "John Doe";
+        array[i].name = "Jane Doe";
         array[i].age = 1;
     }
     return pList;
