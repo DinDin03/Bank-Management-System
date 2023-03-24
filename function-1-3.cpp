@@ -16,15 +16,15 @@ PersonList createPersonList(int n){
 }
 
 PersonList deepCopyPersonList(PersonList pl){
-    PersonList pList;
-    pList.numPeople = pl.numPeople;
-    Person* newarray = new Person[pl.numPeople];
+    PersonList pList2;
+    pList2.numPeople = pl.numPeople;
+    Person* newarray = new Person[pList2.numPeople];
     Person* oldArray;
-    pList.people = newarray;
-    pl.people = oldArray;
+    pList2.people = newarray;
+    oldArray = pl.people;
     for(int i = 0; i < pl.numPeople; i++){
         newarray[i].name = oldArray[i].name;
         newarray[i].age = oldArray[i].age;
     }
-    return pList;
+    return pList2;
 }
