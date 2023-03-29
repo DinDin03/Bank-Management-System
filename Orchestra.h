@@ -1,12 +1,13 @@
 #ifndef ORCHESTRA_H
 #define ORCHESTRA_H
-
+#include "Musician.h"
 #include <string>
 
 class Orchestra {
  private:
    int size;
-   std::string instrument;
+   int tSize;
+   Musician* musicians;
 
  public:
   Orchestra();          // default constructor
