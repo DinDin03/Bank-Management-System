@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>
+#include <ifstream>
 #include <string>
 #include "student.h"
 using namespace std;
