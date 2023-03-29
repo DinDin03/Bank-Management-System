@@ -10,7 +10,7 @@ Student* Factory(){
 
 int main(){
 
-    Student *p = Factory();
+    Student *p = Factory()  ;
     p -> setGrade(55.5);
 
     cout << p->getName() << endl;
