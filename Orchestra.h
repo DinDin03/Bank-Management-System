@@ -26,5 +26,5 @@ class Orchestra {
   bool add_musician(Musician new_musician);
 
   ~Orchestra();
-}
+};
 #endif

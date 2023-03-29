@@ -2,6 +2,7 @@
 #ifndef ORCHESTRA_H
 #define ORCHESTRA_H
 #include "Musician.h"
+#include "Orchestra.h"
 
 class Orchestra{
     private:
