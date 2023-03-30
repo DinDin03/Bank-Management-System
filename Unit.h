@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
-
+#ifndef UNIT_H
+#define UNIT_H
 class Unit{
     private:
         int marketVal;
@@ -13,3 +14,4 @@ class Unit{
         int get_value();
         double get_area();
 };
+#endif

@@ -1,6 +1,8 @@
 #include "Unit.h"
 #include <string>
 #include <iostream>
+#ifndef APARTMENTBUILDING_H
+#define APARTMENTBUILDING_H
 
 class ApartmentBuilding : public Unit{
     public:
@@ -15,3 +17,4 @@ class ApartmentBuilding : public Unit{
         bool add_unit(Unit unit);
         ~ApartmentBuilding();
 };
+#endif

@@ -1,14 +1,12 @@
 #include "ApartmentBuilding.h"
+#include "Unit.h"
 #include <string>
 #include <iostream>
 
 ApartmentBuilding::ApartmentBuilding(){
-    int capacity = 10;
-    int nowCap = 0;
     units = new Unit[10];
 }
 ApartmentBuilding::ApartmentBuilding(int capacity){
-    int nowCap = 0;
     units = new Unit[capacity];
 }
 int ApartmentBuilding::get_capacity(){
