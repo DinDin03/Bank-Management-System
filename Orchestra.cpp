@@ -1,23 +1,38 @@
 #include "Orchestra.h"
 
-#include <string>
+Orchestra::Orchestra() {
+    max_size = 0;
+}
 
-Orchestra::Orchestra() {}
+Orchestra::Orchestra(int size) {
+    max_size = size;
+}
 
-Orchestra::Orchestra(int s_size) { size = s_size; }
+int Orchestra::get_current_number_of_members() {
+    return members.size();
+}
 
-int Orchestra::get_current_number_of_members() { return size; }
-bool Orchestra::has_instrument(std::strinng instrument) {
-  if (instrument == "violin") {
-    return true;
-  } else
+bool Orchestra::has_instrument(std::string instrument) {
+    for (Musician musician : members) {
+        if (musician.get_instrument() == instrument) {
+            return true;
+        }
+    }
     return false;
 }
-Orchestra::Musician *get_members() { Orchestra *array = new Orchestra[size]; }
+
+Musician* Orchestra::get_members() {
+    return members.data();
+}
 
 bool Orchestra::add_musician(Musician new_musician) {
-  if (size <= 50) {
-    return true;
-  } else
-    return false
+    if (members.size() < max_size) {
+        members.push_back(new_musician);
+        return true;
+    }
+    return false;
+}
+
+Orchestra::~Orchestra() {
+    // empty destructor
 }
