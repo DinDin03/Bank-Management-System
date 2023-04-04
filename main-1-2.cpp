@@ -7,12 +7,12 @@ int main() {
     Orchestra orchestra(5);
 
     // create some musicians
-    Musician m1("trumpet", 5);
+    Musician m1("violin", 5);
     Musician m2("viola", 3);
     Musician m3("cello", 7);
     Musician m4("double bass", 2);
     Musician m5("flute", 4);
-    Musician m6("violin", 6);
+    Musician m6("tumpet", 6);
 
     // add musicians to the orchestra
     if (orchestra.add_musician(m1)) {
