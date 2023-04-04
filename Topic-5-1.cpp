@@ -20,7 +20,7 @@ class B : public A {
     public:
     void set_x(double x){this->x = x;}
       double foo(){
-        return x*a;
+        return x+a;
       }
 
 };
