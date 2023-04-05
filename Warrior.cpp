@@ -15,5 +15,5 @@ void Warrior::setWeapon(std::string weapon) {
 void Warrior::swingWeapon(Player* opponent) {
     int damage = getDamage();
     opponent->takeDamage(damage);
-    std::cout << name << " swings their " << weapon << " at " << opponent->getName() << "!\n";
+    std::cout << name << " swings their " << weapon << " at " << opponent->getName() << "!\n" << std::endl;
 }
