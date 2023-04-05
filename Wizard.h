@@ -15,3 +15,4 @@ class Wizard : public Player {
 };
 
 #endif
+

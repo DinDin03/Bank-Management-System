@@ -22,7 +22,7 @@ int main() {
     }
   }
   if (wizard.getHealth() > 0) {
-    cout << wizard.getName() << " wins!" << endl;
+    cout << wizard.getName() << " wins! " << endl;
   } else {
     cout << warrior.getName() << " wins!" << endl;
   }

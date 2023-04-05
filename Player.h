@@ -21,4 +21,5 @@ public:
     void setDamage(int damage);
 };
 
+
 #endif

@@ -29,5 +29,5 @@ void Player::attack(Player* opponent, int damage) {
 
 void Player::takeDamage(int damage) {
     health -= damage;
-    std::cout << name << " takes " << damage << " damage. Remaining health: " << health << "\n" << std::endl;
+    std::cout << name << " takes " << damage << " damage. Remaining health : " << health << "\n" << std::endl;
 }

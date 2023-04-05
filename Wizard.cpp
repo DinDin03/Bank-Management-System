@@ -17,3 +17,4 @@ void Wizard::castSpell(Player* opponent) {
     opponent->takeDamage(damage);
     std::cout << name << " casts a spell on " << opponent->getName() << " for " << damage << " damage.\n" << std::endl;
 }
+

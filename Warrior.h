@@ -15,3 +15,4 @@ class Warrior : public Player {
 };
 
 #endif
+
