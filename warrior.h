@@ -1,12 +1,14 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef WARRIOR_H
+#define WARRIOR_H
 #include <string>
 using namespace std;
 #include "player.h"
 
-class Wizard : public Player{
-    public: 
-      int mana;
+class Warrior : public Player{
+    private: 
+      string weapon;
+    public:
+      void swingWeapon(Player* opponent);
     
 };
 
