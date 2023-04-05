@@ -1,31 +1,29 @@
 #include "player.h"
-#include <string>
+
 #include <iostream>
+#include <string>
 using namespace std;
 
-Player::Player(string name, int health, int damage){
-    this->name = name;
-    this->health = health;
-    this->damage = damage;
+Player::Player(string name, int health, int damage) {
+  this->name = name;
+  this->health = health;
+  this->damage = damage;
 }
-string Player::setName(string name){
-    this->name = name;
+void Player::setName(string name) { this->name = name; }
+void Player::setHealth(int health) { this->health = health; }
+void Player::setDamage(int damage) { this->damage = damage; }
+string Player::getName() { return name; }
+int Player::getHealth() { return health; }
+int Player::getDamage() { return damage; }
+void Player::attack(Player* opponent, int damage) {
+  opponent->takeDamage(damage);
 }
-int Player::setHealth(int health){
-    this->health = health;
-}
-int Player::setDamage(int damage){
-    this->damage = damage;
-}
-string Player::getName(string name){
-    return name;
-}
-int Player::getHealth(int health){
-    return health;
-}
-int Player::getDamage(int damage){
-    return damage;
-}
-void Player::attack(Player* opponent, int damage){
-    this->opponent =
+void Player::takeDamage(int damage) {
+  cout << name << " took " << damage << " damage" << endl;
+  health -= damage;
+  if (health > 0) {
+    cout << "remaining health is " << health << endl;
+  } else {
+    cout << "no health left" << endl;
+  }
 }
