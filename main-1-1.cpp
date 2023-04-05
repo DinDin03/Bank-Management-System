@@ -11,8 +11,8 @@ int main() {
   // Warrior(name, health, damage, weapon)
   Warrior warrior("Aragorn", 120, 25, "Sword");
   cout << "Let the battle begin!\n" << endl;
-  cout << wizard.getName() << " has " << wizard.getHealth() << " health" << endl;
-  cout << warrior.getName() << " has " << warrior.getHealth() << " health\n" << endl;
+  cout << wizard.getName() << " has " <<wizard.getHealth() << " health" << endl;
+  cout << warrior.getName() << " has " <<warrior.getHealth() << " health\n" << endl;
   while (wizard.getHealth() > 0 && warrior.getHealth() > 0) {
     cout << wizard.getName() << " casts a spell on " << warrior.getName() << " for " << wizard.getDamage() << " damage." << endl;
     warrior.takeDamage(wizard.getDamage());
