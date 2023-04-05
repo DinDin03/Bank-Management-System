@@ -19,6 +19,14 @@ class B : public A {
       double x;
     public:
     void set_x(double x){this->x = x;}
+    void set_a(int new_a){
+      if(new_a < 0){
+        a = 0;
+      }
+      else{
+        A::set_a(new_a);
+      }
+    }
       double foo(){
         return x*a;
       }
@@ -27,8 +35,9 @@ class B : public A {
 
 int main(){
     B b;
-    b.set_a(10);
-    b.set_x(0.2);
-    cout << b.foo() << endl;
+    A a;
+    a.set_a(10);
+    b.set_a(-50);
+    cout << b.get_a() << endl;
     return 0;
 }
