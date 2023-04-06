@@ -1,4 +1,4 @@
-#include "parkingLot.h"
+#include "ParkingLot.h"
 #include <iostream>
 
 ParkingLot::ParkingLot(int capacity) {
