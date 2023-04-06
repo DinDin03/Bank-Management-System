@@ -1,35 +1,50 @@
 #include <iostream>
+#include <string>
+#include <vector>
+#include "Vehicle.h"
 #include "Car.h"
-#include "Motorbike.h"
 #include "Bus.h"
+#include "Motorbike.h"
 #include "ParkingLot.h"
 
 int main() {
-    ParkingLot parkingLot(10);
-    int option = 0;
-    while (parkingLot.getCount() < 10) {
-        std::cout << "Enter 1 for car, 2 for motorbike, 3 for bus: ";
-        std::cin >> option;
-        int id = 0;
-        std::cout << "Enter ID of the vehicle: ";
-        std::cin >> id;
-        if (option == 1) {
-            Car* car = new Car(id);
-            parkingLot.parkVehicle(car);
-        } else if (option == 2) {
-            Motorbike* motorbike = new Motorbike(id);
-            parkingLot.parkVehicle(motorbike);
-        } else if (option == 3) {
-            Bus* bus = new Bus(id);
-            parkingLot.parkVehicle(bus);
-        } else {
-            std::cout << "Invalid option" << std::endl;
+    // Create ParkingLot object with capacity of 10 vehicles
+    int maxCapacity = 10;
+    ParkingLot lot(maxCapacity);
+
+    // Prompt user for each vehicle type and ID and park in the lot
+    while (lot.getCount() < maxCapacity) {
+        std::string vehicleType;
+        int vehicleID;
+        std::cout << "Enter vehicle type (car, bus, or motorbike) and ID separated by a space: ";
+        std::cin >> vehicleType >> vehicleID;
+
+        if (vehicleType == "car") {
+            Car* car = new Car(vehicleID);
+            lot.parkVehicle(car);
+        }
+        else if (vehicleType == "bus") {
+            Bus* bus = new Bus(vehicleID);
+            lot.parkVehicle(bus);
+        }
+        else if (vehicleType == "motorbike") {
+            Motorbike* motorbike = new Motorbike(vehicleID);
+            lot.parkVehicle(motorbike);
+        }
+        else {
+            std::cout << "Invalid vehicle type. Please try again." << std::endl;
         }
     }
 
+    // Count the number of vehicles that have overstayed in the parking lot for more than 15 seconds
     int maxParkingDuration = 15;
-    int overstayingCount = parkingLot.countOverStayingVehicles(maxParkingDuration);
-    std::cout << "Number of overstaying vehicles: " << overstayingCount << std::endl;
+    int overstayingVehicles = lot.countOverStayingVehicles(maxParkingDuration);
+
+    // Print current count of vehicles in lot
+    std::cout << "The lot is full. " << lot.getCount() << " vehicles are parked in the lot." << std::endl;
+
+    // Print the number of vehicles that have overstayed in the parking lot for more than 15 seconds
+    std::cout << "There are " << overstayingVehicles << " vehicles that have overstayed for more than " << maxParkingDuration << " seconds." << std::endl;
 
     return 0;
 }
