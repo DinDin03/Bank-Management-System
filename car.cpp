@@ -1,8 +1,10 @@
-#include <iostream>
+#include "Car.h"
 #include <string>
-#include <time>
-#include "car.h"
+Car::Car(int id) : Vehicle(id) {}
 
-Car::getParkingDuration(int timeOfEntry){
-    
-};
+int Car::getParkingDuration() {
+    return 0.9 * std::difftime(std::time(nullptr), timeOfEntry);
+}
+std::string Car::getType() {
+    return "car";
+}

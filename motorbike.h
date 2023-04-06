@@ -1,11 +1,11 @@
-#ifndef CAR_H
-#define CAR_H
+#ifndef MOTORBIKE_H
+#define MOTORBIKE_H
 #include <string>
 #include "Vehicle.h"
 
-class Car : public Vehicle {
+class Motorbike : public Vehicle {
 public:
-    Car(int id);
+    Motorbike(int id);
     int getParkingDuration();
     std::string getType();
 
