@@ -33,6 +33,11 @@ void ParkingLot::unparkVehicle(int id) {
             vehicles[i] = nullptr;
             vehicleFound = true;
             std::cout << "Vehicle with ID " << id << " unparked successfully!" << std::endl;
+            // Shift all vehicles after the unparked vehicle one index to the left
+            for (int j = i + 1; j < count; j++) {
+                vehicles[j - 1] = vehicles[j];
+            }
+            count--;
             break;
         }
     }
@@ -43,4 +48,14 @@ void ParkingLot::unparkVehicle(int id) {
 
 int ParkingLot::getCount() const {
     return count;
+}
+
+int ParkingLot::countOverStayingVehicles(int maxParkingDuration) {
+    int overstayingCount = 0;
+    for (int i = 0; i < count; i++) {
+        if (vehicles[i]->getParkingDuration() > maxParkingDuration) {
+            overstayingCount++;
+        }
+    }
+    return overstayingCount;
 }
