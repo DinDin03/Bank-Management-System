@@ -1,8 +1,8 @@
 #include "ParkingLot.h"
 #include <iostream>
 
-ParkingLot::ParkingLot(int capacity) {
-    maxCapacity = capacity;
+ParkingLot::ParkingLot(int maxCapacity) {
+    this->maxCapacity = maxCapacity;
     count = 0;
     vehicles = new Vehicle*[maxCapacity];
 }
@@ -15,47 +15,33 @@ ParkingLot::~ParkingLot() {
 }
 
 void ParkingLot::parkVehicle(Vehicle* vehicle) {
-    if (count < maxCapacity) {
+    if (count == maxCapacity) {
+        std::cout << "The lot is full" << std::endl;
+    } else {
         vehicles[count] = vehicle;
         count++;
-        std::cout << vehicle->getType() << " with ID " << vehicle->getID() << " parked successfully!" << std::endl;
-    }
-    else {
-        std::cout << "The lot is full" << std::endl;
     }
 }
 
 void ParkingLot::unparkVehicle(int id) {
-    bool vehicleFound = false;
+    int index = -1;
     for (int i = 0; i < count; i++) {
         if (vehicles[i]->getID() == id) {
-            delete vehicles[i];
-            vehicles[i] = nullptr;
-            vehicleFound = true;
-            std::cout << "Vehicle with ID " << id << " unparked successfully!" << std::endl;
-            // Shift all vehicles after the unparked vehicle one index to the left
-            for (int j = i + 1; j < count; j++) {
-                vehicles[j - 1] = vehicles[j];
-            }
-            count--;
+            index = i;
             break;
         }
     }
-    if (!vehicleFound) {
+    if (index == -1) {
         std::cout << "Vehicle not in the lot" << std::endl;
+    } else {
+        delete vehicles[index];
+        count--;
+        for (int i = index; i < count; i++) {
+            vehicles[i] = vehicles[i + 1];
+        }
     }
 }
 
 int ParkingLot::getCount() const {
     return count;
-}
-
-int ParkingLot::countOverStayingVehicles(int maxParkingDuration) {
-    int overstayingCount = 0;
-    for (int i = 0; i < count; i++) {
-        if (vehicles[i]->getParkingDuration() > maxParkingDuration) {
-            overstayingCount++;
-        }
-    }
-    return overstayingCount;
 }
