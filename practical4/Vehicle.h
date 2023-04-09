@@ -7,10 +7,14 @@ using namespace std;
 
 class Vehicle {
  protected:
-  std::time_t timeOfEntry;
+  time_t timeOfEntry;
   int ID;
+  int parkingDuration;
 
  public:
-  void setID(int ID);
   int getID();
+  Vehicle(int ID);
+  virtual int getParkingDuration() const;
 };
+
+#endif
