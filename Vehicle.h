@@ -11,7 +11,6 @@ protected:
 public:
     Vehicle(int id);
     int getID();
-    virtual int getParkingDuration() = 0;
     std::string getType();
 
 };
