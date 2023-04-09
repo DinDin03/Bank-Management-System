@@ -38,7 +38,7 @@ int main() {
 
     // Count the number of vehicles that have overstayed in the parking lot for more than 15 seconds
     int maxParkingDuration = 15;
-    int overstayingVehicles = lot.countOverStayingVehicles(maxParkingDuration);
+    int overstayingVehicles = lot.countOverstayingVehicles(maxParkingDuration);
 
     // Print current count of vehicles in lot
     std::cout << "The lot is full. " << lot.getCount() << " vehicles are parked in the lot." << std::endl;
