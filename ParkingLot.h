@@ -12,7 +12,7 @@ private:
 
 public:
     ParkingLot(int capacity);
-    ~ParkingLot();
+    virtual ~ParkingLot();
     void parkVehicle(Vehicle* vehicle);
     void unparkVehicle(int id);
     int getCount() const;
