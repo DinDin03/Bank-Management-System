@@ -1,12 +1,28 @@
 #include <iostream>
+#include "House.h"
+#include "Fridge.h"
 #include "TV.h"
 
 int main() {
-    TV tv1;
-    TV tv2(100, 50.0);
+    House house(2);
+    Fridge fridge(150, 300);
+    TV tv(200, 55);
 
-    std::cout << "TV 1 power consumption: " << tv1.getPowerConsumption() << std::endl;
-    std::cout << "TV 2 power consumption: " << tv2.getPowerConsumption() << std::endl;
+    if (house.addAppliance(&fridge)) {
+        std::cout << "Fridge added to the house" << std::endl;
+    }
+    else {
+        std::cout << "House is full" << std::endl;
+    }
+
+    if (house.addAppliance(&tv)) {
+        std::cout << "TV added to the house" << std::endl;
+    }
+    else {
+        std::cout << "House is full" << std::endl;
+    }
+
+    std::cout << "Total power consumption of the house is: " << house.getTotalPowerConsumption() << std::endl;
 
     return 0;
 }
