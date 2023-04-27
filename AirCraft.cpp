@@ -4,12 +4,12 @@ AirCraft::AirCraft() {}
 
 AirCraft::AirCraft(int w) {
     weight = w;
-    fuel = 100.0f;
+    fuel = 80.0f;
     numberOfFlights = 0;
 }
 
 void AirCraft::refuel() {
-    fuel = 100.0f;
+    fuel = 80.0f;
 }
 
 void AirCraft::fly(int headwind, int minutes) {
