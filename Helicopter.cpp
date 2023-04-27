@@ -23,7 +23,7 @@ void Helicopter::fly(int headwind, int minutes) {
       fuelUsed += 0.01 * dif * minutes;  
     }
   }
-  if ((fuel - fuelUsed) < 0.2) {
+  if ((fuel - fuelUsed) <= 0.2) {
     fuel = 100.0;
     return;
   }
