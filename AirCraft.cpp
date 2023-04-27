@@ -18,26 +18,26 @@ void AirCraft::fly(int headwind, int minutes) {
     numberOfFlights++;
 }
 
-int AirCraft::get_Weight() {
+int AirCraft::get_weight() {
     return weight;
 }
 
-void AirCraft::set_Weight(int w) {
+void AirCraft::set_weight(int w) {
     weight = w;
 }
 
-float AirCraft::get_Fuel() {
+float AirCraft::get_fuel() {
     return fuel;
 }
 
-void AirCraft::set_Fuel(float f) {
+void AirCraft::set_fuel(float f) {
     fuel = f;
 }
 
-int AirCraft::get_NumberOfFlights() {
+int AirCraft::get_numberOfFlights() {
     return numberOfFlights;
 }
 
-void AirCraft::set_NumberOfFlights(int n) {
+void AirCraft::set_numberOfFlights(int n) {
     numberOfFlights = n;
 }

@@ -7,12 +7,12 @@ public:
     AirCraft(int w);
     void refuel();
     virtual void fly(int headwind, int minutes);
-    int get_Weight();
-    void set_Weight(int w);
-    float get_Fuel();
-    void set_Fuel(float f);
-    int get_NumberOfFlights();
-    void set_NumberOfFlights(int n);
+    int get_weight();
+    void set_weight(int w);
+    float get_fuel();
+    void set_fuel(float f);
+    int get_numberOfFlights();
+    void set_numberOfFlights(int n);
 
 protected:
     int weight;
