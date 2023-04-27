@@ -10,6 +10,8 @@ void Helicopter::set_name(std::string n) { name = n; }
 
 void Helicopter::fly(int headwind, int minutes) {
   double fuelUsed;
+  double initialFuel;
+  initialFuel = fuel;
   if (headwind >= 40) {
     fuelUsed = (minutes * 0.4);
     if (weight > 5670) {
@@ -24,7 +26,7 @@ void Helicopter::fly(int headwind, int minutes) {
     }
   }
   if ((fuel - fuelUsed) < 0.2) {
-    fuel = 100.0;
+    fuel = initialFuel;
     return;
   }
   else{
