@@ -2,11 +2,11 @@
 
 Helicopter::Helicopter(int w, std::string n) : AirCraft(w), name(n) {}
 
-std::string Helicopter::get_Name() const {
+std::string Helicopter::get_name() const {
     return name;
 }
 
-void Helicopter::set_Name(std::string n) {
+void Helicopter::set_name(std::string n) {
     name = n;
 }
 

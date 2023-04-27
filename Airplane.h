@@ -9,7 +9,7 @@ public:
     Airplane(int w, int p);
 
     void reducePassengers(int x);
-    int get_NumPassengers();
+    int get_numPassengers();
     virtual void fly(int headwind, int minutes);
 
 private:

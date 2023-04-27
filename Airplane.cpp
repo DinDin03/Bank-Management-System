@@ -18,7 +18,7 @@ void Airplane::reducePassengers(int x) {
     }
 }
 
-int Airplane::get_NumPassengers() {
+int Airplane::get_numPassengers() {
     return numPassengers;
 }
 
