@@ -1,10 +1,11 @@
 #include <iostream>
 
 #include "Account.h"
+#include "Transaction.h"
 
 int main() {
   // Create a new account with initial balance of 1000
-  Account myAccount(123456789, "John Doe", 1000);
+  Account myAccount("123456789", "John Doe", 1000);
 
   // Print initial account information
   std::cout << "Account Number: " << myAccount.getAccountNumber() << "\n";
@@ -27,7 +28,7 @@ int main() {
             << myAccount.getAccountBalance() << "\n";
 
   // Create a second account
-  Account myOtherAccount(987654321, "Jane Smith", 500);
+  Account myOtherAccount("987654321", "Jane Smith", 500);
 
   // Transfer 300 from myAccount to myOtherAccount
   myAccount.transfer(myOtherAccount, 300);
