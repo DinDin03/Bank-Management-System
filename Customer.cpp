@@ -88,12 +88,28 @@ void Customer::loadCustomerInfo(std::string filename) {
         std::getline(inFile, address);
         std::getline(inFile, phone);
         std::getline(inFile, email);
-        std::string accountNumber;
-        while (std::getline(inFile, accountNumber)) {
-            Account* account = new Account(accountNumber, "", 0.0);
-            accounts.push_back(account);
-        }
         inFile.close();
     }
 }
+bool Customer::customerLogin(std::string name, std::string phone) {
+    std::ifstream inFile(name + ".txt");
+    if (inFile.is_open()) {
+        
+        std::string accountName;
+        std::string accountAddress;
+        std::string accountPhone;
+        std::string accountEmail;
+        std::getline(inFile, accountName);
+        std::getline(inFile, accountAddress);
+        std::getline(inFile, accountPhone);
+        std::getline(inFile, accountEmail);
+        inFile.close();
+        if (accountPhone == phone) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 

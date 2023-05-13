@@ -30,6 +30,7 @@ public:
 
     void saveCustomerInfo(std::string filename);
     void loadCustomerInfo(std::string filename);
+    bool customerLogin(std::string name, std::string phone);
 };
 
 #endif

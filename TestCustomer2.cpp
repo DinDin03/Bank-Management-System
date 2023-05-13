@@ -9,8 +9,10 @@ int main() {
     while (running) {
         std::cout << "Please choose an option:" << std::endl;
         std::cout << "1. Create a new customer" << std::endl;
-        std::cout << "2. Quit" << std::endl;
+        std::cout << "2. Existing customer login" << std::endl;
+        std::cout << "3. Quit" << std::endl;
         int choice;
+        std::cout << "Enter your choice: ";
         std::cin >> choice;
         switch (choice) {
             case 1: {
@@ -37,6 +39,24 @@ int main() {
                 break;
             }
             case 2: {
+                std::string name, phone;
+                std::cout << "Enter customer's name: ";
+                std::cin >> name;
+                std::cout << std::endl;
+                std::cout << "Enter customer's phone number: ";
+                std::cin >> phone;
+                std::cout << std::endl;
+                Customer customer(name, "", phone, "");
+                bool loginSuccessful = customer.customerLogin(name,phone);
+                if (loginSuccessful) {
+                    std::cout << "Login successful!" << std::endl;
+                    // TODO: Implement account and transaction functionality here
+                } else {
+                    std::cout << "Login failed. Please try again." << std::endl;
+                }
+                break;
+            }
+            case 3: {
                 running = false;
                 std::cout << "Goodbye!" << std::endl;
                 break;
