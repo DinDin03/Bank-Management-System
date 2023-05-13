@@ -11,31 +11,28 @@ std::mt19937 gen(rd());
 std::uniform_int_distribution<long long> dis(0, 9999999999);
 
 int main() {
-  std::cout << "Welcome to the banking system!" << std::endl;
+  std::cout << "Welcome to the banking system!!!\n" << std::endl;
   bool running = true;
   while (running) {
-    std::cout << "Please choose an option:" << std::endl;
+    std::cout << "Please choose an option\n" << std::endl;
     std::cout << "1. Create a new customer" << std::endl;
     std::cout << "2. Existing customer login" << std::endl;
-    std::cout << "3. Quit" << std::endl;
+    std::cout << "3. Quit\n" << std::endl;
     int choice;
     std::cout << "Enter your choice: ";
     std::cin >> choice;
+    std::cout << std::endl;
     switch (choice) {
       case 1: {
         std::string name, address, phone, email;
         std::cout << "Enter customer's name: ";
         std::cin >> name;
-        std::cout << std::endl;
         std::cout << "Enter customer's address: ";
         std::cin >> address;
-        std::cout << std::endl;
         std::cout << "Enter customer's phone number: ";
         std::cin >> phone;
-        std::cout << std::endl;
         std::cout << "Enter customer's email: ";
         std::cin >> email;
-        std::cout << std::endl;
         Customer customer(name, address, phone, email);
         customer.saveCustomerInfo(name + ".txt");
         std::cout << "New customer information saved." << std::endl;
@@ -51,15 +48,12 @@ int main() {
         std::string name, phone;
         std::cout << "Enter customer's name: ";
         std::cin >> name;
-        std::cout << std::endl;
         std::cout << "Enter customer's phone number: ";
         std::cin >> phone;
-        std::cout << std::endl;
         Customer customer(name, "", phone, "");
         bool loginSuccessful = customer.customerLogin(name, phone);
         if (loginSuccessful) {
           std::cout << "Login successful!" << std::endl;
-
           int accountChoice;
           while (true) {
             std::cout << "Please choose an option:" << std::endl;
