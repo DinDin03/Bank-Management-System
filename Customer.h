@@ -2,17 +2,18 @@
 #define CUSTOMER_H
 
 #include <vector>
+#include <fstream>
 #include "Account.h"
 
 class Customer {
-  private:
+private:
     std::string name;
     std::string address;
     std::string phone;
     std::string email;
     std::vector<Account*> accounts;
 
-  public:
+public:
     Customer(std::string name, std::string address, std::string phone, std::string email);
     ~Customer();
     std::string getName() const;
@@ -26,6 +27,9 @@ class Customer {
     void addAccount(std::string accountNumber, std::string accountName, double balance);
     Account* getAccount(std::string accountNumber);
     std::vector<Account*> getAccounts();
+
+    void saveCustomerInfo(std::string filename);
+    void loadCustomerInfo(std::string filename);
 };
 
 #endif

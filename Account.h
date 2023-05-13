@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 #include "Transaction.h"
 
 class Account {
@@ -14,6 +15,8 @@ public:
     std::string getAccountHolderName() const;
     double getAccountBalance() const;
     std::vector<Transaction> getTransactionHistory() const;
+    void saveData() const;
+
 private:
     std::string m_accountNumber;
     std::string m_accountHolderName;

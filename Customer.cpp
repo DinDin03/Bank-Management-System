@@ -1,61 +1,99 @@
 #include "Customer.h"
 
 Customer::Customer(std::string name, std::string address, std::string phone, std::string email)
-  : name(name), address(address), phone(phone), email(email) {}
+    : name(name), address(address), phone(phone), email(email)
+{
+}
 
 Customer::~Customer() {
-  for (Account* account : accounts) {
-    delete account;
-  }
+    for (Account* account : accounts) {
+        delete account;
+    }
 }
 
 std::string Customer::getName() const {
-  return name;
+    return name;
 }
 
 void Customer::setName(std::string name) {
-  this->name = name;
+    this->name = name;
 }
 
 std::string Customer::getAddress() const {
-  return address;
+    return address;
 }
 
 void Customer::setAddress(std::string address) {
-  this->address = address;
+    this->address = address;
 }
 
 std::string Customer::getPhone() const {
-  return phone;
+    return phone;
 }
 
 void Customer::setPhone(std::string phone) {
-  this->phone = phone;
+    this->phone = phone;
 }
 
 std::string Customer::getEmail() const {
-  return email;
+    return email;
 }
 
 void Customer::setEmail(std::string email) {
-  this->email = email;
+    this->email = email;
 }
 
 void Customer::addAccount(std::string accountNumber, std::string accountName, double balance) {
     Account* account = new Account(accountNumber, accountName, balance);
     accounts.push_back(account);
+    std::ofstream outFile(accountNumber + ".txt");
+    outFile << "Account Holder Name: " << name << std::endl;
+    outFile << "Account Number: " << accountNumber << std::endl;
+    outFile << "Account Name: " << accountName << std::endl;
+    outFile << "Initial Balance: " << balance << std::endl;
+    outFile.close();
 }
 
-
 Account* Customer::getAccount(std::string accountNumber) {
-  for (Account* account : accounts) {
-    if (account->getAccountNumber() == accountNumber) {
-      return account;
+    for (Account* account : accounts) {
+        if (account->getAccountNumber() == accountNumber) {
+            return account;
+        }
     }
-  }
-  return nullptr;
+    return nullptr;
 }
 
 std::vector<Account*> Customer::getAccounts() {
-  return accounts;
+    return accounts;
 }
+
+void Customer::saveCustomerInfo(std::string filename) {
+    std::ofstream outFile(filename);
+    if (outFile.is_open()) {
+        outFile << name << std::endl;
+        outFile << address << std::endl;
+        outFile << phone << std::endl;
+        outFile << email << std::endl;
+        for (Account* account : accounts) {
+            outFile << account->getAccountNumber() << std::endl;
+        }
+        outFile.close();
+    }
+}
+
+void Customer::loadCustomerInfo(std::string filename) {
+    std::ifstream inFile(filename);
+    if (inFile.is_open()) {
+        std::getline(inFile, name);
+        std::getline(inFile, address);
+        std::getline(inFile, phone);
+        std::getline(inFile, email);
+        std::string accountNumber;
+        while (std::getline(inFile, accountNumber)) {
+            Account* account = new Account(accountNumber, "", 0.0);
+            accounts.push_back(account);
+        }
+        inFile.close();
+    }
+}
+
