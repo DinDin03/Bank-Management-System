@@ -94,7 +94,7 @@ void Customer::loadCustomerInfo(std::string filename) {
 bool Customer::customerLogin(std::string name, std::string phone) {
     std::ifstream inFile(name + ".txt");
     if (inFile.is_open()) {
-        
+
         std::string accountName;
         std::string accountAddress;
         std::string accountPhone;
@@ -109,6 +109,17 @@ bool Customer::customerLogin(std::string name, std::string phone) {
         }
     }
     return false;
+}
+
+void Customer::deleteAccount(std::string accountNumber) {
+    for (auto it = accounts.begin(); it != accounts.end(); ++it) {
+        if ((*it)->getAccountNumber() == accountNumber) {
+            delete (*it);
+            accounts.erase(it);
+            std::remove((accountNumber + ".txt").c_str());
+            return;
+        }
+    }
 }
 
 

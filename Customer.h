@@ -27,6 +27,7 @@ public:
     void addAccount(std::string accountNumber, std::string accountName, double balance);
     Account* getAccount(std::string accountNumber);
     std::vector<Account*> getAccounts();
+    void deleteAccount(std::string accountNumber);
 
     void saveCustomerInfo(std::string filename);
     void loadCustomerInfo(std::string filename);
