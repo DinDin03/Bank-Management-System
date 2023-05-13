@@ -1,24 +1,16 @@
 #include "Account.h"
 #include <fstream>
-#include <random>
 
-Account::Account(std::string accountHolderName, double accountBalance)
-    : m_accountHolderName(accountHolderName), m_accountBalance(accountBalance)
+Account::Account(std::string accountNumber, std::string accountHolderName, double accountBalance)
+    : m_accountNumber(accountNumber), m_accountHolderName(accountHolderName), m_accountBalance(accountBalance)
 {
-    // Generate a random account number
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 9999999999);
-    m_accountNumber = std::to_string(dis(gen));
-
     // Load account information from file
-    std::ifstream file(m_accountNumber + ".txt");
+    std::ifstream file(accountNumber + ".txt");
     if (file.is_open()) {
         file >> m_accountHolderName >> m_accountBalance;
         file.close();
     }
 }
-
 
 void Account::deposit(double amount)
 {
