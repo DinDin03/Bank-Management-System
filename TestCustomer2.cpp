@@ -5,12 +5,14 @@
 #include "Account.h"
 #include "Customer.h"
 #include "Transaction.h"
+#include "Bank.h"
 
 std::random_device rd;
 std::mt19937 gen(rd());
 std::uniform_int_distribution<long long> dis(0, 9999999999);
 
 int main() {
+  Bank bank("MyBank", "123 Main Street", "123-456-7890", "info@mybank.com", "customerList.txt");
   std::cout << "Welcome to the banking system!!!\n" << std::endl;
   bool running = true;
   while (running) {
@@ -35,6 +37,8 @@ int main() {
         std::cin >> email;
         Customer customer(name, address, phone, email);
         customer.saveCustomerInfo(name + ".txt");
+        bank.addCustomer(&customer);
+        bank.saveCustomerList("customerList.txt");
         std::cout << "\nNew customer information saved." << std::endl;
         std::cout << "Customer's name: " << customer.getName() << std::endl;
         std::cout << "Customer's address: " << customer.getAddress()
