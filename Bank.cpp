@@ -1,37 +1,107 @@
 #include "Bank.h"
-#include <algorithm>
+#include <sstream>
 
-// Adds the specified customer to the list of customers associated with the bank.
+Bank::Bank(const std::string& bankName, const std::string& bankAddress, const std::string& bankPhone, const std::string& bankEmail, const std::string& customerListFilename)
+    : bankName(bankName), bankAddress(bankAddress), bankPhone(bankPhone), bankEmail(bankEmail), customerListFilename(customerListFilename)
+{
+    loadCustomerList("customerList.txt");
+}
+
+Bank::~Bank() {
+    for (Customer* customer : customers) {
+        delete customer;
+    }
+}
+
 void Bank::addCustomer(Customer* customer) {
     customers.push_back(customer);
+
+    // Update the customer list file
+    std::ofstream outFile(customerListFilename, std::ios::app); // Open the file in append mode
+    if (outFile.is_open()) {
+        outFile << customer->getName() << "\n"; // Add the new customer's name to the file
+        outFile.close();
+    }
 }
 
-// Removes the specified customer from the list of customers associated with the bank.
 void Bank::removeCustomer(Customer* customer) {
-    customers.erase(std::remove(customers.begin(), customers.end(), customer), customers.end());
+    for (auto it = customers.begin(); it != customers.end(); ++it) {
+        if (*it == customer) {
+            customers.erase(it);
+            delete customer;
+            break;
+        }
+    }
+
+    // Update the customer list file
+    std::ofstream outFile(customerListFilename);
+    if (outFile.is_open()) {
+        for (const auto& customer : customers) {
+            outFile << customer->getName() << "\n";
+        }
+        outFile.close();
+    }
 }
 
-// Returns the name of the bank.
 std::string Bank::getBankName() const {
     return bankName;
 }
 
-// Returns the address of the bank.
 std::string Bank::getBankAddress() const {
     return bankAddress;
 }
 
-// Returns the phone number of the bank.
 std::string Bank::getBankPhone() const {
     return bankPhone;
 }
 
-// Returns the email address of the bank.
 std::string Bank::getBankEmail() const {
     return bankEmail;
 }
 
-// Returns a list of customers associated with the bank.
 std::vector<Customer*> Bank::getCustomers() const {
     return customers;
 }
+
+void Bank::saveCustomerList(std::string customerListFilename) const {
+    std::ofstream outFile(customerListFilename);
+    if (outFile.is_open()) {
+        for (const auto& customer : customers) {
+            outFile << customer->getName() << "\n";
+        }
+        outFile.close();
+    }
+}
+
+void Bank::loadCustomerList(std::string customerListFilename) {
+    std::ifstream file(customerListFilename);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::stringstream iss(line);
+            std::string name, address, phone, email;
+            if (std::getline(iss, name, ',') && std::getline(iss, address, ',') &&
+                std::getline(iss, phone, ',') && std::getline(iss, email)) {
+                Customer* customer = new Customer(name, address, phone, email);
+                customers.push_back(customer);
+            }
+        }
+        file.close();
+    }
+}
+void Bank::displayBankInformation(const Bank& bank) {
+    std::cout << "Bank Name: " << bank.getBankName() << std::endl;
+    std::cout << "Bank Address: " << bank.getBankAddress() << std::endl;
+    std::cout << "Bank Phone: " << bank.getBankPhone() << std::endl;
+    std::cout << "Bank Email: " << bank.getBankEmail() << std::endl;
+}
+
+void Bank::displayCustomerList(const Bank& bank) {
+    std::cout << "Customers:" << std::endl;
+    std::vector<Customer*> customers = bank.getCustomers();
+    for (const auto& customer : customers) {
+        std::cout << " - " << customer->getName() << std::endl;
+    }
+}
+
+

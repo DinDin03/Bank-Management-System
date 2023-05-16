@@ -14,6 +14,7 @@ private:
     std::vector<Account*> accounts;
 
 public:
+    Customer();
     Customer(std::string name, std::string address, std::string phone, std::string email);
     ~Customer();
     std::string getName() const;

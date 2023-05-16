@@ -1,5 +1,7 @@
 #include "Customer.h"
 
+Customer::Customer(){}
+
 Customer::Customer(std::string name, std::string address, std::string phone, std::string email)
     : name(name), address(address), phone(phone), email(email)
 {

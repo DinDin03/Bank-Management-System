@@ -35,7 +35,7 @@ int main() {
         std::cin >> email;
         Customer customer(name, address, phone, email);
         customer.saveCustomerInfo(name + ".txt");
-        std::cout << "New customer information saved." << std::endl;
+        std::cout << "\nNew customer information saved." << std::endl;
         std::cout << "Customer's name: " << customer.getName() << std::endl;
         std::cout << "Customer's address: " << customer.getAddress()
                   << std::endl;
@@ -53,10 +53,10 @@ int main() {
         Customer customer(name, "", phone, "");
         bool loginSuccessful = customer.customerLogin(name, phone);
         if (loginSuccessful) {
-          std::cout << "Login successful!" << std::endl;
+          std::cout << "\nLogin successful!" << std::endl;
           int accountChoice;
           while (true) {
-            std::cout << "Please choose an option:" << std::endl;
+            std::cout << "\nPlease choose an option:" << std::endl;
             std::cout << "1. Create new account" << std::endl;
             std::cout << "2. Log in to existing account" << std::endl;
             std::cout << "3. Delete account" << std::endl;
@@ -71,13 +71,11 @@ int main() {
                 double initialBalance;
                 std::cout << "Enter account holder's name: ";
                 std::cin >> accountHolderName;
-                std::cout << std::endl;
                 std::cout << "Enter initial balance: ";
                 std::cin >> initialBalance;
-                std::cout << std::endl;
                 customer.addAccount(accountNumber, accountHolderName,
                                     initialBalance);
-                std::cout << "New account added successfully." << std::endl;
+                std::cout << "\nNew account added successfully.\n" << std::endl;
                 std::cout << "Account holder's name: " << accountHolderName
                           << std::endl;
                 std::cout << "Account Number: "

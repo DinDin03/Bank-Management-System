@@ -1,27 +1,34 @@
 #ifndef BANK_H
 #define BANK_H
 
-#include <string>
+#include <iostream>
+#include <fstream>
 #include <vector>
 #include "Customer.h"
-#include "Employee.h"
 
-class Bank {
+class Bank : public Customer{
 private:
     std::string bankName;
     std::string bankAddress;
     std::string bankPhone;
     std::string bankEmail;
-    std::vector<Customer> customers;
+    std::vector<Customer*> customers;
+    std::string customerListFilename; // Filename for customer list
+
 public:
-    Bank(std::string name, std::string address, std::string phone, std::string email);
-    void addCustomer(const Customer& customer);
-    void removeCustomer(const Customer& customer);
+    Bank(const std::string& bankName, const std::string& bankAddress, const std::string& bankPhone, const std::string& bankEmail, const std::string& customerListFile);
+    ~Bank();
+    void addCustomer(Customer* customer);
+    void removeCustomer(Customer* customer);
     std::string getBankName() const;
     std::string getBankAddress() const;
     std::string getBankPhone() const;
     std::string getBankEmail() const;
-    std::vector<Customer> getCustomers() const;
+    std::vector<Customer*> getCustomers() const;
+    void saveCustomerList(std::string customerListFilename) const;
+    void loadCustomerList(std::string customerListFilename);
+    void displayBankInformation(const Bank& bank);
+    void displayCustomerList(const Bank& bank);
 };
 
-#endif //BANK_H
+#endif
