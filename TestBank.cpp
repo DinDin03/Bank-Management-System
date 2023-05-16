@@ -6,7 +6,7 @@
 
 int main() {
     // Create a Bank object
-    Bank bank("MyBank", "123 Main Street", "123-456-7890", "info@mybank.com", "customerList.txt");
+    Bank bank("MyBank", "123 Main Street", "123-456-7890", "info@mybank.com", "customerListTest.txt");
 
     // Create some customer objects
     Customer* customer1 = new Customer("John Doe", "5/14", "046576463", "Dineth.Himash@");
@@ -14,9 +14,6 @@ int main() {
     Customer* customer3 = new Customer("David Johnson", "5/14", "046576463", "Dineth.Himash@");
 
     // Add customers to the bank
-    bank.addCustomer(customer1);
-    bank.addCustomer(customer2);
-    bank.addCustomer(customer3);
     bank.addCustomer(customer1);
     bank.addCustomer(customer2);
     bank.addCustomer(customer3);
@@ -56,7 +53,7 @@ int main() {
     delete customer3;
 
     // Save the customer list to the file
-    bank.saveCustomerList("customerList.txt");
+    bank.saveCustomerList("customerListTest.txt");
 
     return 0;
 }
