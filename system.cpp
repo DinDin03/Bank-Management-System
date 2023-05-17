@@ -41,9 +41,32 @@ int main() {
           std::cout << std::endl;
           switch (customersChoice) {
             case 1: {
-              // Create Customer logic
+              std::string name, address, phone, email;
+              std::cout << "Enter customer's name: ";
+              std::cin.ignore();
+              std::getline(std::cin, name);
+              std::cout << "Enter customer's address: ";
+              std::getline(std::cin, address);
+              std::cout << "Enter customer's phone number: ";
+              std::cin >> phone;
+              std::cout << "Enter customer's email: ";
+              std::cin >> email;
+              Customer customer(name, address, phone, email);
+              customer.saveCustomerInfo(name + ".txt");
+              bank.addCustomer(&customer);
+              bank.saveCustomerList("customerList.txt");
+              std::cout << "\nNew customer information saved." << std::endl;
+              std::cout << "Customer's name: " << customer.getName()
+                        << std::endl;
+              std::cout << "Customer's address: " << customer.getAddress()
+                        << std::endl;
+              std::cout << "Customer's phone number: " << customer.getPhone()
+                        << std::endl;
+              std::cout << "Customer's email: " << customer.getEmail()
+                        << std::endl;
               break;
             }
+
             case 2: {
               // Existing Customer Login logic
               break;
@@ -90,9 +113,44 @@ int main() {
         break;
       }
       case 3: {
-        // Bank logic
+        bool bankRunning = true;
+        while (bankRunning) {
+          std::cout << "Bank Menu\n" << std::endl;
+          std::cout << "1. Bank Information" << std::endl;
+          std::cout << "2. Customer List" << std::endl;
+          std::cout << "3. Employee List" << std::endl;
+          std::cout << "4. Go Back" << std::endl;
+          int bankChoice;
+          std::cout << "Enter your choice: ";
+          std::cin >> bankChoice;
+          std::cout << std::endl;
+          switch (bankChoice) {
+            case 1: {
+              // Bank Information logic
+              break;
+            }
+            case 2: {
+              // Customer List logic
+              break;
+            }
+            case 3: {
+              // Employee List logic
+              break;
+            }
+            case 4: {
+              bankRunning = false;
+              std::cout << "Going back to the main menu..." << std::endl;
+              break;
+            }
+            default: {
+              std::cout << "Invalid choice. Please try again." << std::endl;
+              break;
+            }
+          }
+        }
         break;
       }
+
       case 4: {
         running = false;
         std::cout << "Goodbye!" << std::endl;
