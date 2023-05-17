@@ -25,7 +25,7 @@ public:
     void setPhone(std::string phone);
     std::string getEmail() const;
     void setEmail(std::string email);
-    void addAccount(std::string accountNumber, std::string accountName, double balance);
+    void addAccount(std::string accountNumber, std::string accountName, double balance, std::string transactionHistoryFilename);
     Account* getAccount(std::string accountNumber);
     std::vector<Account*> getAccounts();
     void deleteAccount(std::string accountNumber);

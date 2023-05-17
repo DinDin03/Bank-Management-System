@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-
 #include "Customer.h"
 #include "Employee.h"
 
@@ -15,13 +14,14 @@ class Bank {
   std::string bankPhone;
   std::string bankEmail;
   std::vector<Customer*> customers;
+  std::vector<Employee*> employees; 
   std::string customerListFilename;  // Filename for customer list
   std::string employeeListFilename;
 
  public:
   Bank(const std::string& bankName, const std::string& bankAddress,
        const std::string& bankPhone, const std::string& bankEmail,
-       const std::string& customerListFile,
+       const std::string& customerListFilename,
        const std::string& employeeListFilename);
   ~Bank();
   void addCustomer(Customer* customer);
@@ -33,12 +33,14 @@ class Bank {
   std::string getBankPhone() const;
   std::string getBankEmail() const;
   std::vector<Customer*> getCustomers() const;
+  std::vector<Employee*> getEmployees() const;
   void saveCustomerList(std::string customerListFilename) const;
   void loadCustomerList(std::string customerListFilename);
   void saveEmployeeList(std::string employeeListFilename) const;
   void loadEmployeeList(std::string employeeListFilename);
   void displayBankInformation(const Bank& bank);
   void displayCustomerList(const Bank& bank);
+  void displayEmployeeList(const Bank& bank);
 };
 
 #endif

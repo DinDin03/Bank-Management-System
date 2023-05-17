@@ -55,7 +55,7 @@ void Bank::addEmployee(Employee* employee) {
 }
 
 void Bank::removeEmployee(Employee* employee) {
-    for (auto it = employee.begin(); it != employee.end(); ++it) {
+    for (auto it = employees.begin(); it != employees.end(); ++it) {
         if (*it == employee) {
             employees.erase(it);
             delete employee;
@@ -89,6 +89,10 @@ std::string Bank::getBankEmail() const {
 
 std::vector<Customer*> Bank::getCustomers() const {
     return customers;
+}
+
+std::vector<Employee*> Bank::getEmployees() const {
+    return employees;
 }
 
 void Bank::saveCustomerList(std::string customerListFilename) const {
@@ -133,10 +137,10 @@ void Bank::loadEmployeeList(std::string employeeListFilename) {
         std::string line;
         while (std::getline(file, line)) {
             std::stringstream iss(line);
-            std::string name, address, phone, email;
-            if (std::getline(iss, name, ',') && std::getline(iss, address, ',') &&
-                std::getline(iss, phone, ',') && std::getline(iss, email)) {
-                Employee* employee = new employee(name, address, phone, email);
+            std::string name, phone, email, id, department;
+            if (std::getline(iss, name, ',') && std::getline(iss, id, ',') &&
+                std::getline(iss, phone, ',') && std::getline(iss, email) && std::getline(iss, department)) {
+                Employee* employee = new Employee(name, id, department, email, phone);
                 employees.push_back(employee);
             }
         }
@@ -155,6 +159,13 @@ void Bank::displayCustomerList(const Bank& bank) {
     std::vector<Customer*> customers = bank.getCustomers();
     for (const auto& customer : customers) {
         std::cout << " - " << customer->getName() << std::endl;
+    }
+}
+void Bank::displayEmployeeList(const Bank& bank) {
+    std::cout << "Employees:" << std::endl;
+    std::vector<Employee*> employees = bank.getEmployees();
+    for (const auto& employee : employees) {
+        std::cout << " - " << employee->getEmployeeName() << std::endl;
     }
 }
 

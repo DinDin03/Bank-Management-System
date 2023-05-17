@@ -11,7 +11,7 @@ std::mt19937 gen(rd());
 std::uniform_int_distribution<long long> dis(0, 9999999999);
 
 int main() {
-  Bank bank("MyBank", "123 Main Street", "123-456-7890", "info@mybank.com", "customerList.txt");
+  Bank bank("Uncommonwealth Bank", "123 Main Street", "123-456-7890", "info@uncommonwealthbank.com", "customerList.txt","employeeList.txt");
   std::cout << "Welcome to the banking system!!!\n" << std::endl;
   bool running = true;
   while (running) {
@@ -70,14 +70,14 @@ int main() {
               case 1: {
                 std::string accountHolderName;
                 std::string accountNumber = std::to_string(dis(gen));
-                ;
+                std::string transactionHistoryFilename = accountNumber + "TransactionHistory";
                 double initialBalance;
                 std::cout << "Enter account holder's name: ";
                 std::cin >> accountHolderName;
                 std::cout << "Enter initial balance: ";
                 std::cin >> initialBalance;
                 customer.addAccount(accountNumber, accountHolderName,
-                                    initialBalance);
+                                    initialBalance, transactionHistoryFilename);
                 std::cout << "\nNew account added successfully.\n" << std::endl;
                 std::cout << "Account holder's name: " << accountHolderName
                           << std::endl;
