@@ -71,7 +71,6 @@ void Bank::saveCustomerList(const std::string& customerListFilename) const {
     for (const Customer* customer : customers) {
       file << customer->getName() << std::endl;
     }
-    
     file.close();
   } else {
     std::cout << "Unable to save customer list. File could not be opened." << std::endl;
