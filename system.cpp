@@ -52,7 +52,7 @@ int main() {
               std::cout << "Enter customer's email: ";
               std::cin >> email;
               Customer customer(name, address, phone, email);
-              customer.saveCustomerInfo(name + ".txt");
+              ///customer.saveCustomerInfo(name + ".txt");
               bank.addCustomer(&customer);
               bank.saveCustomerList("customerList.txt");
               std::cout << "\nNew customer information saved." << std::endl;

@@ -18,6 +18,7 @@ int main() {
     bank.addCustomer(customer1);
     bank.addCustomer(customer2);
     bank.addCustomer(customer3);
+    bank.saveCustomerList("customerList.txt");
 
     int choice;
     do {

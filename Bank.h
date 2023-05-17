@@ -34,9 +34,9 @@ class Bank {
   std::string getBankEmail() const;
   std::vector<Customer*> getCustomers() const;
   std::vector<Employee*> getEmployees() const;
-  void saveCustomerList(std::string customerListFilename) const;
+  void saveCustomerList(const std::string& customerListFilename) const;
   void loadCustomerList(std::string customerListFilename);
-  void saveEmployeeList(std::string employeeListFilename) const;
+  void saveEmployeeList(const std::string& employeeListFilename) const;
   void loadEmployeeList(std::string employeeListFilename);
   void displayBankInformation(const Bank& bank);
   void displayCustomerList(const Bank& bank);

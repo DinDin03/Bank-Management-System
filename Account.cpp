@@ -1,5 +1,4 @@
 #include "Account.h"
-
 #include <fstream>
 #include <sstream>
 #include <iomanip>

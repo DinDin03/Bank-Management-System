@@ -16,13 +16,6 @@ Bank::~Bank() {
 
 void Bank::addCustomer(Customer* customer) {
     customers.push_back(customer);
-
-    // Update the customer list file
-    std::ofstream outFile(customerListFilename, std::ios::app); // Open the file in append mode
-    if (outFile.is_open()) {
-        outFile << customer->getName() << "\n"; // Add the new customer's name to the file
-        outFile.close();
-    }
 }
 
 void Bank::removeCustomer(Customer* customer) {
@@ -33,25 +26,9 @@ void Bank::removeCustomer(Customer* customer) {
             break;
         }
     }
-
-    // Update the customer list file
-    std::ofstream outFile(customerListFilename);
-    if (outFile.is_open()) {
-        for (const auto& customer : customers) {
-            outFile << customer->getName() << "\n";
-        }
-        outFile.close();
-    }
 }
 void Bank::addEmployee(Employee* employee) {
     employees.push_back(employee);
-
-    // Update the customer list file
-    std::ofstream outFile(employeeListFilename, std::ios::app); // Open the file in append mode
-    if (outFile.is_open()) {
-        outFile << employee->getEmployeeName() << "\n"; // Add the new customer's name to the file
-        outFile.close();
-    }
 }
 
 void Bank::removeEmployee(Employee* employee) {
@@ -61,13 +38,6 @@ void Bank::removeEmployee(Employee* employee) {
             delete employee;
             break;
         }
-    }
-    std::ofstream outFile(employeeListFilename);
-    if (outFile.is_open()) {
-        for (const auto& employee : employees) {
-            outFile << employee->getEmployeeName() << "\n";
-        }
-        outFile.close();
     }
 }
 
@@ -95,15 +65,19 @@ std::vector<Employee*> Bank::getEmployees() const {
     return employees;
 }
 
-void Bank::saveCustomerList(std::string customerListFilename) const {
-    std::ofstream outFile(customerListFilename);
-    if (outFile.is_open()) {
-        for (const auto& customer : customers) {
-            outFile << customer->getName() << "\n";
-        }
-        outFile.close();
+void Bank::saveCustomerList(const std::string& customerListFilename) const {
+  std::ofstream file(customerListFilename, std::ofstream::app);
+  if (file.is_open()) {
+    for (const Customer* customer : customers) {
+      file << customer->getName() << std::endl;
     }
+    
+    file.close();
+  } else {
+    std::cout << "Unable to save customer list. File could not be opened." << std::endl;
+  }
 }
+
 
 void Bank::loadCustomerList(std::string customerListFilename) {
     std::ifstream file(customerListFilename);
@@ -121,14 +95,16 @@ void Bank::loadCustomerList(std::string customerListFilename) {
         file.close();
     }
 }
-void Bank::saveEmployeeList(std::string employeeListFilename) const {
-    std::ofstream outFile(employeeListFilename);
-    if (outFile.is_open()) {
-        for (const auto& employee : employees) {
-            outFile << employee->getEmployeeName() << "\n";
-        }
-        outFile.close();
+void Bank::saveEmployeeList(const std::string& employeeListFilename) const {
+  std::ofstream outFile(employeeListFilename, std::ios::app);
+  if (outFile.is_open()) {
+    for (const auto& employee : employees) {
+      outFile << employee->getEmployeeName() << "\n";
     }
+    outFile.close();
+  } else {
+    std::cout << "Unable to save employee list. File could not be opened." << std::endl;
+  }
 }
 
 void Bank::loadEmployeeList(std::string employeeListFilename) {
