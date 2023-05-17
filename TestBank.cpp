@@ -3,10 +3,11 @@
 #include "Customer.h"
 #include "Account.h"
 #include "Transaction.h"
+#include "Employee.h"
 
 int main() {
     // Create a Bank object
-    Bank bank("MyBank", "123 Main Street", "123-456-7890", "info@mybank.com", "customerListTest.txt");
+    Bank bank("MyBank", "123 Main Street", "123-456-7890", "info@mybank.com", "customerListTest.txt","employeeListTest.txt");
 
     // Create some customer objects
     Customer* customer1 = new Customer("John Doe", "5/14", "046576463", "Dineth.Himash@");

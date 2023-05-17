@@ -1,44 +1,26 @@
-#include <iostream>
-#include "Transaction.h"
-#include "Account.h"
-#include "Customer.h"
+void Bank::saveCustomerList(std::string customerListFilename) const {
+    std::ofstream outFile(customerListFilename);
+    if (outFile.is_open()) {
+        for (const auto& customer : customers) {
+            outFile << customer->getName() << "\n";
+        }
+        outFile.close();
+    }
+}
 
-int main() {
-  // Create a customer object
-  Customer customer("John Doe", "123 Main St", "555-1234",
-                    "johndoe@example.com");
-  std::cout << "Customer Name: " << customer.getName() << std::endl;
-  std::cout << "Customer Address: " << customer.getAddress() << std::endl;
-  std::cout << "Customer Phone: " << customer.getPhone() << std::endl;
-  std::cout << "Customer Email: " << customer.getEmail() << std::endl;
-
-  // Add two accounts to the customer
-  customer.addAccount("123456", "John Doe", 1000.0);
-  customer.addAccount("789012", "John Doe", 2000.0);
-
-  // Print out the account information for the customer
-  std::vector<Account*> accounts = customer.getAccounts();
-  for (Account* account : accounts) {
-    std::cout << "Account number: " << account->getAccountNumber()
-              << ", balance: " << account->getAccountBalance() << "\n";
-  }
-
-  // Make a withdrawal from one of the accounts
-  std::string accountNumber = "123456";
-  double withdrawalAmount = 500.0;
-  Account* account = customer.getAccount(accountNumber);
-  if (account != nullptr) {
-    account->withdraw(withdrawalAmount);
-    std::cout << "New balance for account " << accountNumber << ": "
-              << account->getAccountBalance() << "\n";
-  }
-  // Print out the updated account information for the customer
-  accounts = customer.getAccounts();
-  for (auto account : accounts) {
-    std::cout << "Account Number: " << account->getAccountNumber() << std::endl;
-    std::cout << "Account Balance: $" << account->getAccountBalance()
-              << std::endl;
-  }
-
-  return 0;
+void Bank::loadCustomerList(std::string customerListFilename) {
+    std::ifstream file(customerListFilename);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::stringstream iss(line);
+            std::string name, address, phone, email;
+            if (std::getline(iss, name, ',') && std::getline(iss, address, ',') &&
+                std::getline(iss, phone, ',') && std::getline(iss, email)) {
+                Customer* customer = new Customer(name, address, phone, email);
+                customers.push_back(customer);
+            }
+        }
+        file.close();
+    }
 }

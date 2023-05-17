@@ -1,5 +1,0 @@
-Jane Smith
-12345
-HR Department
-jane.smith@example.com
-9876543210
