@@ -1,0 +1,4 @@
+Account Holder Name: ayaka
+Account Number: 214395643
+Account Name: ayakaa
+Initial Balance: 100

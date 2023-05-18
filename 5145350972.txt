@@ -1,4 +1,0 @@
-Account Holder Name: Dineth Himasha
-Account Number: 5145350972
-Account Name: Dineth
-Initial Balance: 10000

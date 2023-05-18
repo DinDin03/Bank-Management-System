@@ -1,5 +1,6 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
+
 #include <vector>
 #include <fstream>
 #include "Account.h"
@@ -10,13 +11,12 @@ private:
     std::string address;
     std::string phone;
     std::string email;
-    std::string accountsListFilename;
+    std::vector<Account*> accounts;
     Account* account;
-
 
 public:
     Customer();
-    Customer(std::string name, std::string address, std::string phone, std::string email, std::string accountListFilename);
+    Customer(std::string name, std::string address, std::string phone, std::string email);
     ~Customer();
     std::string getName() const;
     void setName(std::string name);
@@ -31,7 +31,7 @@ public:
     std::vector<Account*> getAccounts();
     void deleteAccount(std::string accountNumber);
 
-    void saveAccountsList(std::string accountsListFilename);
+    void saveAccountsList(const std::string& accountsListFilename, Account* account);
     void saveCustomerInfo(std::string filename);
     void loadCustomerInfo(std::string filename);
     bool customerLogin(std::string name, std::string phone);

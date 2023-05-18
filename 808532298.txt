@@ -1,4 +1,0 @@
-Account Holder Name: din
-Account Number: 808532298
-Account Name: dindd
-Initial Balance: 1000

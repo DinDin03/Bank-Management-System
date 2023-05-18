@@ -53,8 +53,7 @@ int main() {
               std::cout << "Enter customer's email: ";
               std::cin >> email;
               std::string accountsListFilename = name + "List.txt";
-              Customer customer(name, address, phone, email,
-                                accountsListFilename);
+              Customer customer(name, address, phone, email);
               customer.saveCustomerInfo(name + ".txt");
               bank.addCustomer(&customer);
               bank.saveCustomerList("customerList.txt");
@@ -105,20 +104,21 @@ int main() {
                       customer.addAccount(accountNumber, accountHolderName,
                                           initialBalance,
                                           transactionHistoryFilename);
+                      Account* account = customer.getAccount(accountNumber);
                       std::string accountsListFilename = name + "List.txt";
-                      customer.saveAccountsList(accountsListFilename);
+                      customer.saveAccountsList(accountsListFilename,account);
                       std::cout << "\nNew account added successfully.\n"
                                 << std::endl;
                       std::cout
                           << "Account holder's name: " << accountHolderName
                           << std::endl;
                       std::cout
-                          << "Account Number: "
-                          << customer.getAccounts().back()->getAccountNumber()
+                          << "Account Number: " 
+                          << accountNumber
                           << std::endl;
                       std::cout
                           << "Account Balance: "
-                          << customer.getAccounts().back()->getAccountBalance()
+                          << initialBalance
                           << std::endl;
                       break;
                     }

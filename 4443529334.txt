@@ -1,0 +1,4 @@
+Account Holder Name: ayaka
+Account Number: 4443529334
+Account Name: akaka
+Initial Balance: 10000
