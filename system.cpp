@@ -43,6 +43,7 @@ int main() {
           switch (customersChoice) {
             case 1: {
               std::string name, address, phone, email;
+              std::string accountsListFilename = name + "List.txt";
               std::cout << "Enter customer's name: ";
               std::cin.ignore();
               std::getline(std::cin, name);
@@ -52,7 +53,6 @@ int main() {
               std::cin >> phone;
               std::cout << "Enter customer's email: ";
               std::cin >> email;
-              std::string accountsListFilename = name + "List.txt";
               Customer customer(name, address, phone, email);
               customer.saveCustomerInfo(name + ".txt");
               bank.addCustomer(&customer);
@@ -82,6 +82,7 @@ int main() {
                 std::cout << "\nLogin successful!" << std::endl;
                 int accountChoice;
                 while (true) {
+                  std::string accountsListFilename = name + "List.txt";
                   std::cout << "\nPlease choose an option:" << std::endl;
                   std::cout << "1. Create new account" << std::endl;
                   std::cout << "2. Log in to existing account" << std::endl;
@@ -105,7 +106,6 @@ int main() {
                                           initialBalance,
                                           transactionHistoryFilename);
                       Account* account = customer.getAccount(accountNumber);
-                      std::string accountsListFilename = name + "List.txt";
                       customer.saveAccountsList(accountsListFilename,account);
                       std::cout << "\nNew account added successfully.\n"
                                 << std::endl;
@@ -162,7 +162,7 @@ int main() {
                       break;
                     }
                     case 4: {
-                      customer.getAccounts();
+                      customer.loadAccountsList(accountsListFilename);
                     }
                     case 5: {
                       accountChoice = false;
