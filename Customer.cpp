@@ -125,6 +125,20 @@ void Customer::saveAccountsList(const std::string& accountsListFilename, Account
         std::cout << "Unable to open file." << std::endl;
     }
 }
+void Customer::loadAccountsList(const std::string& accountsListFilename) {
+    std::ifstream file(accountsListFilename);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::cout << line << std::endl;
+        }
+        file.close();
+        std::cout << "Account list loaded successfully." << std::endl;
+    } else {
+        std::cout << "Unable to open file." << std::endl;
+    }
+}
+
 
 
 

@@ -32,6 +32,7 @@ public:
     void deleteAccount(std::string accountNumber);
 
     void saveAccountsList(const std::string& accountsListFilename, Account* account);
+    void loadAccountsList(const std::string& accountsListFilename);
     void saveCustomerInfo(std::string filename);
     void loadCustomerInfo(std::string filename);
     bool customerLogin(std::string name, std::string phone);

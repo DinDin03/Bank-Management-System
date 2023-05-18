@@ -1,4 +1,0 @@
-Account Holder Name: ayaka
-Account Number: 6853938402
-Account Name: a
-Initial Balance: 1111
