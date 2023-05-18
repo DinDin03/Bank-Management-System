@@ -20,8 +20,7 @@ Account::Account(std::string accountNumber, std::string accountHolderName,
   }
 }
 
-void Account::deposit(double amount) {
-  std::string name;
+void Account::deposit(std::string accountHolderName, double amount) {
   accountBalance += amount;
   transactions.emplace_back(
       Transaction(std::chrono::system_clock::now(), amount, "Deposit"));
@@ -29,26 +28,27 @@ void Account::deposit(double amount) {
   // Save account information to file
   std::ofstream file(accountNumber + ".txt");
   if (file.is_open()) {
-    file << "Account Holder Name: " << name << std::endl;
+    file << "Account Holder Name: " << accountHolderName << std::endl;
     file << "Account Number: " << accountNumber << std::endl;
     file << "Initial Balance: " << accountBalance << std::endl;
     file.close();
   }
 }
 
-bool Account::withdraw(double amount) {
+bool Account::withdraw(std::string accountHolderName, double amount) {
   if (accountBalance >= amount) {
     accountBalance -= amount;
     transactions.emplace_back(
         Transaction(std::chrono::system_clock::now(), -amount, "Withdraw"));
 
     // Save account information to file
-    std::ofstream file(accountNumber + ".txt");
-    if (file.is_open()) {
-      file << accountHolderName << std::endl;
-      file << accountBalance << std::endl;
-      file.close();
-    }
+  std::ofstream file(accountNumber + ".txt");
+  if (file.is_open()) {
+    file << "Account Holder Name: " << accountHolderName << std::endl;
+    file << "Account Number: " << accountNumber << std::endl;
+    file << "Initial Balance: " << accountBalance << std::endl;
+    file.close();
+  }
 
     return true;
   } else {

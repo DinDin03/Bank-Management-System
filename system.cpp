@@ -106,7 +106,7 @@ int main() {
                                           initialBalance,
                                           transactionHistoryFilename);
                       Account* account = customer.getAccount(accountNumber);
-                      customer.saveAccountsList(accountsListFilename, account);
+                      customer.saveAccountsList(accountsListFilename, accountNumber);
                       std::cout << "\nNew account added successfully.\n"
                                 << std::endl;
                       std::cout
@@ -124,6 +124,7 @@ int main() {
                       std::cin >> accountNumber;
                       std::cout << std::endl;
                       Account* account = customer.getAccount(accountNumber);
+                      std::string accountHolderName = account->getAccountHolderName();
                       if (account != nullptr) {
                         int choice;
                         std::cout << "Please choose an option:" << std::endl;
@@ -140,7 +141,7 @@ int main() {
                             double amount;
                             std::cout << "Enter the amount to deposit: ";
                             std::cin >> amount;
-                            account->deposit(amount);
+                            account->deposit(accountHolderName, amount);
                             std::cout << "Amount deposited successfully."
                                       << std::endl;
                             break;
@@ -149,7 +150,7 @@ int main() {
                             double amount;
                             std::cout << "Enter the amount to withdraw: ";
                             std::cin >> amount;
-                            if (account->withdraw(amount)) {
+                            if (account->withdraw(accountHolderName, amount)) {
                               std::cout << "Amount withdrawn successfully."
                                         << std::endl;
                             } else {

@@ -31,7 +31,7 @@ public:
     std::vector<Account*> getAccounts();
     void deleteAccount(std::string accountNumber);
 
-    void saveAccountsList(const std::string& accountsListFilename, Account* account);
+    void saveAccountsList(const std::string& accountsListFilename, std::string accountNumber);
     void loadAccountsList(const std::string& accountsListFilename);
     void saveCustomerInfo(std::string filename);
     void loadCustomerInfo(std::string filename);

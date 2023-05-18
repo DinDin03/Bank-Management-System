@@ -10,8 +10,8 @@ class Account {
  public:
   Account(std::string accountNumber, std::string accountHolderName,
           double accountBalance, std::string transactionHistoryFilename);
-  void deposit(double amount);
-  bool withdraw(double amount);
+  void deposit(std::string accountHolderName, double amount);
+  bool withdraw(std::string accountHolderName,double amount);
   bool transfer(const std::string& toAccountNumber, double amount);
   std::string getAccountNumber() const;
   std::string getAccountHolderName() const;

@@ -31,12 +31,8 @@ std::string Customer::getEmail() const { return email; }
 
 void Customer::setEmail(std::string email) { this->email = email; }
 
-void Customer::addAccount(std::string accountNumber, std::string accountName,
-                          double balance,
-                          std::string transactionHistoryFilename) {
-    Account* account = new Account(accountNumber, accountName, balance,
-                                   transactionHistoryFilename);
-    accounts.push_back(account);
+void Customer::addAccount(std::string accountNumber, std::string accountName, double balance, std::string transactionHistoryFilename) {
+    // Create and save the account information
     std::ofstream outFile(accountNumber + ".txt");
     outFile << "Account Holder Name: " << name << std::endl;
     outFile << "Account Number: " << accountNumber << std::endl;
@@ -44,20 +40,26 @@ void Customer::addAccount(std::string accountNumber, std::string accountName,
     outFile.close();
 }
 
-Account* Customer::getAccount(std::string accountNumber) {
-    for (Account* account : accounts) {
-        if (account->getAccountNumber() == accountNumber) {
-            return account;
-        }
-    }
-    return nullptr;
-}
 
-std::vector<Account*> Customer::getAccounts() {
-    for (Account* account : accounts) {
-        std::cout << account->getAccountNumber() << std::endl;
+Account* Customer::getAccount(std::string accountNumber) {
+    std::string transactionHistoryFilename;
+    // Check if the account file exists
+    std::ifstream accountFile(accountNumber + ".txt");
+    if (accountFile.is_open()) {
+        // Create and populate the Account object with the information from the file
+        std::string line;
+        std::getline(accountFile, line);  // Read the account holder name (ignore for now)
+        std::getline(accountFile, line);  // Read the account number
+        std::string storedAccountNumber = line.substr(line.find(":") + 2);
+        std::getline(accountFile, line);  // Read the initial balance
+        double balance = std::stod(line.substr(line.find(":") + 2));
+        accountFile.close();
+
+        // Create and return the Account object
+        return new Account(storedAccountNumber, name, balance, transactionHistoryFilename);
     }
-    return accounts;
+
+    return nullptr;  // Account not found
 }
 
 void Customer::saveCustomerInfo(std::string filename) {
@@ -105,25 +107,45 @@ bool Customer::customerLogin(std::string name, std::string phone) {
 }
 
 void Customer::deleteAccount(std::string accountNumber) {
-    for (auto it = accounts.begin(); it != accounts.end(); ++it) {
-        if ((*it)->getAccountNumber() == accountNumber) {
-            delete (*it);
-            accounts.erase(it);
-            std::remove((accountNumber + ".txt").c_str());
-            return;
+    // Remove the account file
+    std::remove((accountNumber + ".txt").c_str());
+
+    // Remove the account number from the customer's account list file
+    std::string accountsListFilename = name + "_accounts.txt";
+    std::ifstream file(accountsListFilename);
+    if (file.is_open()) {
+        std::string line;
+        std::vector<std::string> accountNumbers;
+        while (std::getline(file, line)) {
+            if (line != accountNumber) {
+                accountNumbers.push_back(line);
+            }
+        }
+        file.close();
+
+        // Rewrite the account list file without the deleted account number
+        std::ofstream outFile(accountsListFilename);
+        if (outFile.is_open()) {
+            for (const std::string& account : accountNumbers) {
+                outFile << account << std::endl;
+            }
+            outFile.close();
+        } else {
+            std::cout << "Unable to open file." << std::endl;
         }
     }
 }
-void Customer::saveAccountsList(const std::string& accountsListFilename, Account* account) {
+void Customer::saveAccountsList(const std::string& accountsListFilename, std::string accountNumber) {
     std::ofstream file(accountsListFilename, std::ofstream::app);
     if (file.is_open()) {
-        file << account->getAccountNumber() << std::endl;
+        file << accountNumber << std::endl;
         file.close();
         std::cout << "Account list saved successfully." << std::endl;
     } else {
         std::cout << "Unable to open file." << std::endl;
     }
 }
+
 void Customer::loadAccountsList(const std::string& accountsListFilename) {
     std::cout << "\nYour accounts are: " << std::endl;
     std::ifstream file(accountsListFilename);
