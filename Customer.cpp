@@ -1,4 +1,5 @@
 #include "Customer.h"
+#include <iostream>
 
 Customer::Customer() {}
 
@@ -31,7 +32,8 @@ void Customer::setEmail(std::string email) { this->email = email; }
 void Customer::addAccount(std::string accountNumber, std::string accountName,
                           double balance,
                           std::string transactionHistoryFilename) {
-  Account* account = new Account(accountNumber, accountName, balance, transactionHistoryFilename);
+  Account* account = new Account(accountNumber, accountName, balance,
+                                 transactionHistoryFilename);
   accounts.push_back(account);
   std::ofstream outFile(accountNumber + ".txt");
   outFile << "Account Holder Name: " << name << std::endl;
@@ -50,7 +52,12 @@ Account* Customer::getAccount(std::string accountNumber) {
   return nullptr;
 }
 
-std::vector<Account*> Customer::getAccounts() { return accounts; }
+std::vector<Account*> Customer::getAccounts() {
+  for (Account* account : accounts) {
+    std::cout << account->getAccountNumber() << std::endl;
+  }
+  return accounts;
+}
 
 void Customer::saveCustomerInfo(std::string filename) {
   std::ofstream outFile(filename);

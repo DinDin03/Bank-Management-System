@@ -85,7 +85,8 @@ int main() {
                   std::cout << "1. Create new account" << std::endl;
                   std::cout << "2. Log in to existing account" << std::endl;
                   std::cout << "3. Delete account" << std::endl;
-                  std::cout << "4. Logout" << std::endl;
+                  std::cout << "4. Show accounts" << std::endl;
+                  std::cout << "5. Go back" << std::endl;
                   std::cout << "Enter your choice: ";
                   std::cin >> accountChoice;
                   switch (accountChoice) {
@@ -157,7 +158,12 @@ int main() {
                       break;
                     }
                     case 4: {
-                      std::cout << "Logging out..." << std::endl;
+                      customer.getAccounts();
+                    }
+                    case 5: {
+                      accountChoice = false;
+                      std::cout << "Going back to the main menu..."
+                                << std::endl;
                       break;
                     }
                     default: {
@@ -167,8 +173,7 @@ int main() {
                     }
                   }
                 }
-              }
-              else{
+              } else {
                 std::cout << "Creditientials wrong" << std::endl;
               }
             }
