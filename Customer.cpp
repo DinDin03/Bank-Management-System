@@ -1,4 +1,5 @@
 #include "Customer.h"
+
 #include <iostream>
 
 Customer::Customer() {}
@@ -7,11 +8,7 @@ Customer::Customer(std::string name, std::string address, std::string phone,
                    std::string email)
     : name(name), address(address), phone(phone), email(email) {}
 
-Customer::~Customer() {
-  for (Account* account : accounts) {
-    delete account;
-  }
-}
+Customer::~Customer() { delete account; }
 
 std::string Customer::getName() const { return name; }
 
@@ -34,7 +31,6 @@ void Customer::addAccount(std::string accountNumber, std::string accountName,
                           std::string transactionHistoryFilename) {
   Account* account = new Account(accountNumber, accountName, balance,
                                  transactionHistoryFilename);
-  accounts.push_back(account);
   std::ofstream outFile(accountNumber + ".txt");
   outFile << "Account Holder Name: " << name << std::endl;
   outFile << "Account Number: " << accountNumber << std::endl;
@@ -44,9 +40,9 @@ void Customer::addAccount(std::string accountNumber, std::string accountName,
 }
 
 Account* Customer::getAccount(std::string accountNumber) {
-  for (Account* account : accounts) {
-    if (account->getAccountNumber() == accountNumber) {
-      return account;
+  if (account->getAccountNumber() == accountNumber) {
+    if (account != nullptr) {
+      file << account->getAccountNumber() << std::endl;
     }
   }
   return nullptr;
@@ -110,5 +106,17 @@ void Customer::deleteAccount(std::string accountNumber) {
       std::remove((accountNumber + ".txt").c_str());
       return;
     }
+  }
+}
+void Customer::saveAccountsList(std::string accountsListFilename) {
+  std::ofstream file(accountsListFilename, std::ofstream::app);
+  if (file.is_open()) {
+    if (account != nullptr) {
+      file << account->getAccountHolderName() << std::endl;
+    }
+    file.close();
+  } else {
+    std::cout << "Unable to save account list. File could not be opened."
+              << std::endl;
   }
 }

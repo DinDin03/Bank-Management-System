@@ -18,7 +18,6 @@ class Account {
   double getAccountBalance() const;
   void saveTransactionHistory(std::string transactionHistoryFilename) const;
   void loadTransactionHistory(std::string transactionHistoryFilename);
-  void saveData() const;
 
  private:
   std::string accountNumber;

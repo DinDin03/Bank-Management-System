@@ -52,7 +52,9 @@ int main() {
               std::cin >> phone;
               std::cout << "Enter customer's email: ";
               std::cin >> email;
-              Customer customer(name, address, phone, email);
+              std::string accountsListFilename = name + "List.txt";
+              Customer customer(name, address, phone, email,
+                                accountsListFilename);
               customer.saveCustomerInfo(name + ".txt");
               bank.addCustomer(&customer);
               bank.saveCustomerList("customerList.txt");
@@ -103,6 +105,8 @@ int main() {
                       customer.addAccount(accountNumber, accountHolderName,
                                           initialBalance,
                                           transactionHistoryFilename);
+                      std::string accountsListFilename = name + "List.txt";
+                      customer.saveAccountsList(accountsListFilename);
                       std::cout << "\nNew account added successfully.\n"
                                 << std::endl;
                       std::cout
