@@ -1,0 +1,3 @@
+Account Holder Name: din
+Account Number: 3477963078
+Initial Balance: 1000

@@ -42,13 +42,13 @@ bool Account::withdraw(std::string accountHolderName, double amount) {
         Transaction(std::chrono::system_clock::now(), -amount, "Withdraw"));
 
     // Save account information to file
-  std::ofstream file(accountNumber + ".txt");
-  if (file.is_open()) {
-    file << "Account Holder Name: " << accountHolderName << std::endl;
-    file << "Account Number: " << accountNumber << std::endl;
-    file << "Initial Balance: " << accountBalance << std::endl;
-    file.close();
-  }
+    std::ofstream file(accountNumber + ".txt");
+    if (file.is_open()) {
+      file << "Account Holder Name: " << accountHolderName << std::endl;
+      file << "Account Number: " << accountNumber << std::endl;
+      file << "Initial Balance: " << accountBalance << std::endl;
+      file.close();
+    }
 
     return true;
   } else {
@@ -65,8 +65,9 @@ bool Account::transfer(const std::string& toAccountNumber, double amount) {
     // Save account information to sender's file
     std::ofstream senderFile(accountNumber + ".txt");
     if (senderFile.is_open()) {
-      senderFile << accountHolderName << std::endl;
-      senderFile << accountBalance << std::endl;
+      senderFile << "Account Holder Name: " << accountHolderName << std::endl;
+      senderFile << "Account Number: " << accountNumber << std::endl;
+      senderFile << "Initial Balance: " << accountBalance << std::endl;
       senderFile.close();
     } else {
       std::cout << "Unable to open sender's account file." << std::endl;
@@ -87,8 +88,9 @@ bool Account::transfer(const std::string& toAccountNumber, double amount) {
       // Save updated recipient's account information to file
       std::ofstream updatedRecipientFile(toAccountNumber + ".txt");
       if (updatedRecipientFile.is_open()) {
-        updatedRecipientFile << recipientAccountHolderName << std::endl;
-        updatedRecipientFile << recipientAccountBalance << std::endl;
+        updatedRecipientFile << "Account Holder Name: " << recipientAccountHolderName << std::endl;
+        updatedRecipientFile << "Account Number: " << toAccountNumber << std::endl;
+        updatedRecipientFile << "Initial Balance: " << recipientAccountBalance << std::endl;
         updatedRecipientFile.close();
       } else {
         std::cout << "Unable to open recipient's account file." << std::endl;
