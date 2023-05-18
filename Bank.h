@@ -13,9 +13,9 @@ class Bank {
   std::string bankAddress;
   std::string bankPhone;
   std::string bankEmail;
-  std::vector<Customer*> customers;
-  std::vector<Employee*> employees; 
-  std::string customerListFilename;  // Filename for customer list
+  Customer* customer;
+  Employee* employee;
+  std::string customerListFilename;
   std::string employeeListFilename;
 
  public:
@@ -32,8 +32,6 @@ class Bank {
   std::string getBankAddress() const;
   std::string getBankPhone() const;
   std::string getBankEmail() const;
-  std::vector<Customer*> getCustomers() const;
-  std::vector<Employee*> getEmployees() const;
   void saveCustomerList(const std::string& customerListFilename) const;
   void loadCustomerList(std::string customerListFilename);
   void saveEmployeeList(const std::string& employeeListFilename) const;

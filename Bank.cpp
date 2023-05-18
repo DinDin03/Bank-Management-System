@@ -1,5 +1,8 @@
 #include "Bank.h"
 #include <sstream>
+#include <fstream>
+#include <iostream>
+
 
 Bank::Bank(const std::string& bankName, const std::string& bankAddress, const std::string& bankPhone, const std::string& bankEmail, const std::string& customerListFilename, const std::string& employeeListFilename)
     : bankName(bankName), bankAddress(bankAddress), bankPhone(bankPhone), bankEmail(bankEmail), customerListFilename(customerListFilename), employeeListFilename(employeeListFilename)
@@ -9,36 +12,24 @@ Bank::Bank(const std::string& bankName, const std::string& bankAddress, const st
 }
 
 Bank::~Bank() {
-    for (Customer* customer : customers) {
-        delete customer;
-    }
+
 }
 
-void Bank::addCustomer(Customer* customer) {
-    customers.push_back(customer);
+void Bank::addCustomer(Customer* newCustomer) {
+    customer = newCustomer;
 }
 
 void Bank::removeCustomer(Customer* customer) {
-    for (auto it = customers.begin(); it != customers.end(); ++it) {
-        if (*it == customer) {
-            customers.erase(it);
-            delete customer;
-            break;
-        }
-    }
+    delete customer;
+    customer = nullptr; 
 }
-void Bank::addEmployee(Employee* employee) {
-    employees.push_back(employee);
+void Bank::addEmployee(Employee* newEmployee) {
+    employee = newEmployee;
 }
 
 void Bank::removeEmployee(Employee* employee) {
-    for (auto it = employees.begin(); it != employees.end(); ++it) {
-        if (*it == employee) {
-            employees.erase(it);
-            delete employee;
-            break;
-        }
-    }
+    delete employee;
+    employee = nullptr;
 }
 
 std::string Bank::getBankName() const {
@@ -57,19 +48,11 @@ std::string Bank::getBankEmail() const {
     return bankEmail;
 }
 
-std::vector<Customer*> Bank::getCustomers() const {
-    return customers;
-}
-
-std::vector<Employee*> Bank::getEmployees() const {
-    return employees;
-}
-
 void Bank::saveCustomerList(const std::string& customerListFilename) const {
   std::ofstream file(customerListFilename, std::ofstream::app);
   if (file.is_open()) {
-    for (const Customer* customer : customers) {
-      file << customer->getName() << std::endl;
+    if(customer != nullptr){
+        file << customer->getName() << std::endl;
     }
     file.close();
   } else {
@@ -88,19 +71,19 @@ void Bank::loadCustomerList(std::string customerListFilename) {
             if (std::getline(iss, name, ',') && std::getline(iss, address, ',') &&
                 std::getline(iss, phone, ',') && std::getline(iss, email)) {
                 Customer* customer = new Customer(name, address, phone, email);
-                customers.push_back(customer);
+                Customer* newCustomer = customer;
             }
         }
         file.close();
     }
 }
 void Bank::saveEmployeeList(const std::string& employeeListFilename) const {
-  std::ofstream outFile(employeeListFilename, std::ios::app);
-  if (outFile.is_open()) {
-    for (const auto& employee : employees) {
-      outFile << employee->getEmployeeName() << "\n";
+  std::ofstream file(employeeListFilename, std::ios::app);
+  if (file.is_open()) {
+    if(employee != nullptr){
+        file << employee->getEmployeeName() << std::endl;
     }
-    outFile.close();
+    file.close();
   } else {
     std::cout << "Unable to save employee list. File could not be opened." << std::endl;
   }
@@ -116,7 +99,7 @@ void Bank::loadEmployeeList(std::string employeeListFilename) {
             if (std::getline(iss, name, ',') && std::getline(iss, id, ',') &&
                 std::getline(iss, phone, ',') && std::getline(iss, email) && std::getline(iss, department)) {
                 Employee* employee = new Employee(name, id, department, email, phone);
-                employees.push_back(employee);
+                Employee* newEmployee = employee;
             }
         }
         file.close();
@@ -129,18 +112,33 @@ void Bank::displayBankInformation(const Bank& bank) {
     std::cout << "Bank Email: " << bank.getBankEmail() << std::endl;
 }
 
-void Bank::displayCustomerList(const Bank& bank) {
+void Bank::displayCustomerList(const Bank& bank){
     std::cout << "Customers:" << std::endl;
-    std::vector<Customer*> customers = bank.getCustomers();
-    for (const auto& customer : customers) {
-        std::cout << " - " << customer->getName() << std::endl;
+    
+    std::ifstream file(customerListFilename);
+    if (file.is_open()) {
+        std::string customerName;
+        while (std::getline(file, customerName)) {
+            std::cout << " - " << customerName << std::endl;
+        }
+        file.close();
+    } else {
+        std::cout << "Unable to open customer list file." << std::endl;
     }
 }
-void Bank::displayEmployeeList(const Bank& bank) {
+
+void Bank::displayEmployeeList(const Bank& bank){
     std::cout << "Employees:" << std::endl;
-    std::vector<Employee*> employees = bank.getEmployees();
-    for (const auto& employee : employees) {
-        std::cout << " - " << employee->getEmployeeName() << std::endl;
+    
+    std::ifstream file(employeeListFilename);
+    if (file.is_open()) {
+        std::string employeeName;
+        while (std::getline(file, employeeName)) {
+            std::cout << " - " << employeeName << std::endl;
+        }
+        file.close();
+    } else {
+        std::cout << "Unable to open employees list file." << std::endl;
     }
 }
 

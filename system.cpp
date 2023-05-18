@@ -1,11 +1,11 @@
 #include <chrono>
 #include <iostream>
 #include <random>
-
 #include "Account.h"
 #include "Bank.h"
 #include "Customer.h"
 #include "Transaction.h"
+#include "Employee.h"
 
 std::random_device rd;
 std::mt19937 gen(rd());
@@ -52,7 +52,7 @@ int main() {
               std::cout << "Enter customer's email: ";
               std::cin >> email;
               Customer customer(name, address, phone, email);
-              ///customer.saveCustomerInfo(name + ".txt");
+              customer.saveCustomerInfo(name + ".txt");
               bank.addCustomer(&customer);
               bank.saveCustomerList("customerList.txt");
               std::cout << "\nNew customer information saved." << std::endl;
@@ -68,7 +68,7 @@ int main() {
             }
 
             case 2: {
-              // Existing Customer Login logic
+
               break;
             }
             case 3: {
@@ -96,7 +96,7 @@ int main() {
           std::cout << std::endl;
           switch (employeesChoice) {
             case 1: {
-              // Create Employee logic
+            
               break;
             }
             case 2: {
@@ -126,15 +126,15 @@ int main() {
           std::cout << std::endl;
           switch (bankChoice) {
             case 1: {
-              // Bank Information logic
+              
               break;
             }
             case 2: {
-              // Customer List logic
+              
               break;
             }
             case 3: {
-              // Employee List logic
+              
               break;
             }
             case 4: {
