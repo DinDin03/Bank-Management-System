@@ -40,7 +40,6 @@ void Customer::addAccount(std::string accountNumber, std::string accountName,
     std::ofstream outFile(accountNumber + ".txt");
     outFile << "Account Holder Name: " << name << std::endl;
     outFile << "Account Number: " << accountNumber << std::endl;
-    outFile << "Account Name: " << accountName << std::endl;
     outFile << "Initial Balance: " << balance << std::endl;
     outFile.close();
 }

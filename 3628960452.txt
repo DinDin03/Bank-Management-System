@@ -1,4 +1,0 @@
-Account Holder Name: ayaka
-Account Number: 3628960452
-Account Name: b
-Initial Balance: 111111

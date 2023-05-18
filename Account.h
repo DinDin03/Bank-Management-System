@@ -12,7 +12,7 @@ class Account {
           double accountBalance, std::string transactionHistoryFilename);
   void deposit(double amount);
   bool withdraw(double amount);
-  bool transfer(Account& toAccount, double amount);
+  bool transfer(const std::string& toAccountNumber, double amount);
   std::string getAccountNumber() const;
   std::string getAccountHolderName() const;
   double getAccountBalance() const;

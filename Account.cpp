@@ -1,8 +1,10 @@
 #include "Account.h"
-#include <fstream>
-#include <sstream>
-#include <iomanip>
+
 #include <chrono>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 
 Account::Account(std::string accountNumber, std::string accountHolderName,
                  double accountBalance, std::string transactionHistoryFilename)
@@ -19,6 +21,7 @@ Account::Account(std::string accountNumber, std::string accountHolderName,
 }
 
 void Account::deposit(double amount) {
+  std::string name;
   accountBalance += amount;
   transactions.emplace_back(
       Transaction(std::chrono::system_clock::now(), amount, "Deposit"));
@@ -26,8 +29,9 @@ void Account::deposit(double amount) {
   // Save account information to file
   std::ofstream file(accountNumber + ".txt");
   if (file.is_open()) {
-    file << accountHolderName << std::endl;
-    file << accountBalance << std::endl;
+    file << "Account Holder Name: " << name << std::endl;
+    file << "Account Number: " << accountNumber << std::endl;
+    file << "Initial Balance: " << accountBalance << std::endl;
     file.close();
   }
 }
@@ -52,36 +56,53 @@ bool Account::withdraw(double amount) {
   }
 }
 
-bool Account::transfer(Account& toAccount, double amount) {
+bool Account::transfer(const std::string& toAccountNumber, double amount) {
   if (accountBalance >= amount) {
     accountBalance -= amount;
     transactions.emplace_back(
         Transaction(std::chrono::system_clock::now(), -amount, "Transfer"));
 
-    toAccount.accountBalance += amount;
-    toAccount.transactions.emplace_back(
-        Transaction(std::chrono::system_clock::now(), amount, "Transfer"));
-
-    // Save account information to file
-    std::ofstream file(accountNumber + ".txt");
-    if (file.is_open()) {
-      file << accountHolderName << std::endl;
-      file << accountBalance << std::endl;
-      file.close();
+    // Save account information to sender's file
+    std::ofstream senderFile(accountNumber + ".txt");
+    if (senderFile.is_open()) {
+      senderFile << accountHolderName << std::endl;
+      senderFile << accountBalance << std::endl;
+      senderFile.close();
+    } else {
+      std::cout << "Unable to open sender's account file." << std::endl;
+      return false;
     }
 
-    // Save recipient account information to file
-    std::ofstream recipientFile(toAccount.accountNumber + ".txt");
+    // Load recipient's account information from file
+    std::ifstream recipientFile(toAccountNumber + ".txt");
     if (recipientFile.is_open()) {
-      recipientFile << toAccount.accountHolderName << std::endl;
-      recipientFile << toAccount.accountBalance << std::endl;
+      std::string recipientAccountHolderName;
+      double recipientAccountBalance;
+      recipientFile >> recipientAccountHolderName >> recipientAccountBalance;
       recipientFile.close();
+
+      // Update recipient's account balance
+      recipientAccountBalance += amount;
+
+      // Save updated recipient's account information to file
+      std::ofstream updatedRecipientFile(toAccountNumber + ".txt");
+      if (updatedRecipientFile.is_open()) {
+        updatedRecipientFile << recipientAccountHolderName << std::endl;
+        updatedRecipientFile << recipientAccountBalance << std::endl;
+        updatedRecipientFile.close();
+      } else {
+        std::cout << "Unable to open recipient's account file." << std::endl;
+        return false;
+      }
+    } else {
+      std::cout << "Recipient's account not found." << std::endl;
+      return false;
     }
 
     return true;
-  } else {
-    return false;
   }
+
+  return false;
 }
 
 std::string Account::getAccountNumber() const { return accountNumber; }
@@ -114,19 +135,23 @@ void Account::loadTransactionHistory(std::string transactionHistoryFilename) {
       double amount;
       if (std::getline(iss, date, ',') && std::getline(iss, time, ',') &&
           std::getline(iss, amountStr, ',') && std::getline(iss, type)) {
-        // Convert the date and time strings to std::chrono::system_clock::time_point
+        // Convert the date and time strings to
+        // std::chrono::system_clock::time_point
         std::tm timeInfo = {};
         std::istringstream dateStream(date);
         dateStream >> std::get_time(&timeInfo, "%Y-%m-%d");
-        std::chrono::system_clock::time_point dateTime = std::chrono::system_clock::from_time_t(std::mktime(&timeInfo));
+        std::chrono::system_clock::time_point dateTime =
+            std::chrono::system_clock::from_time_t(std::mktime(&timeInfo));
 
         std::tm timeInfo2 = {};
         std::istringstream timeStream(time);
         timeStream >> std::get_time(&timeInfo2, "%H:%M:%S");
-        std::chrono::system_clock::time_point timePoint = std::chrono::system_clock::from_time_t(std::mktime(&timeInfo2));
+        std::chrono::system_clock::time_point timePoint =
+            std::chrono::system_clock::from_time_t(std::mktime(&timeInfo2));
 
         // Combine date and time
-        std::chrono::system_clock::time_point transactionTime = dateTime + (timePoint - std::chrono::system_clock::time_point());
+        std::chrono::system_clock::time_point transactionTime =
+            dateTime + (timePoint - std::chrono::system_clock::time_point());
 
         // Convert the amount string to double
         double amount = std::stod(amountStr);
@@ -141,5 +166,3 @@ void Account::loadTransactionHistory(std::string transactionHistoryFilename) {
     file.close();
   }
 }
-
-
