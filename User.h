@@ -8,6 +8,7 @@ protected:
     std::string name;
     std::string phone;
     std::string email;
+    std::string filename;
 
 public:
     User(const std::string& name, const std::string& phone, const std::string& email);
@@ -17,8 +18,7 @@ public:
     void setName(const std::string& newName);
     void setPhone(const std::string& newPhone);
     void setEmail(const std::string& newEmail);
-    void addUser();
-    void removeUser();
+    virtual void loadUserInfo(std::string filename);
 };
 
 #endif  // USER_H

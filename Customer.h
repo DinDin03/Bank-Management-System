@@ -26,7 +26,7 @@ public:
     void saveAccountsList(const std::string& accountsListFilename, std::string accountNumber);
     void loadAccountsList(const std::string& accountsListFilename);
     void saveCustomerInfo(std::string filename);
-    void loadCustomerInfo(std::string filename);
+    void loadUserInfo(std::string filename) override;
     bool customerLogin(std::string name, std::string phone);
 };
 

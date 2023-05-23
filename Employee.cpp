@@ -32,7 +32,7 @@ void Employee::saveEmployeeInfo(std::string filename) {
     }
 }
 
-void Employee::loadEmployeeInfo(std::string filename) {
+void Employee::loadUserInfo(std::string filename) {
     std::ifstream inFile(filename);
     if (inFile.is_open()) {
         std::getline(inFile, name);

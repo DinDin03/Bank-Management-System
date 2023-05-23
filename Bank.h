@@ -8,7 +8,7 @@
 #include "Employee.h"
 
 class Bank {
- private:
+ protected:
   std::string bankName;
   std::string bankAddress;
   std::string bankPhone;

@@ -6,18 +6,23 @@
 #include "Bank.h"
 #include "Customer.h"
 #include "Employee.h"
-#include "Transaction.h"
 #include "Manager.h"
+#include "Transaction.h"
 
 std::random_device rd;
 std::mt19937 gen(rd());
-std::uniform_int_distribution<long long> dis(0, 9999999999);
+std::uniform_int_distribution<long long> number(0, 9999999999);
+std::uniform_int_distribution<long long> emplID(0, 999999);
 
 int main() {
   Bank bank("Uncommonwealth Bank", "123 Main Street", "123-456-7890",
             "info@uncommonwealthbank.com", "customerList.txt",
             "employeeList.txt");
   std::cout << "Welcome to the banking system!!!\n" << std::endl;
+  ///Manager manager("Head Manager","000000","Management","manager@gmail.com","0466055813");
+  ///manager.saveEmployeeInfo("Head Manager.txt");
+  ///bank.addEmployee(&manager);
+  ///bank.saveEmployeeList("employeeList.txt");
   bool running = true;
   while (running) {
     std::cout << "Please choose an option\n" << std::endl;
@@ -95,7 +100,7 @@ int main() {
                   switch (accountChoice) {
                     case 1: {
                       std::string accountHolderName;
-                      std::string accountNumber = std::to_string(dis(gen));
+                      std::string accountNumber = std::to_string(number(gen));
                       std::string transactionHistoryFilename =
                           accountNumber + "TransactionHistory";
                       double initialBalance;
@@ -311,9 +316,41 @@ int main() {
                   std::cout << std::endl;
                   switch (managerChoice) {
                     case 1: {
+                      std::string empName, empPhone, empDepartment, empEmail,
+                          empId = std::to_string(emplID(gen));
+                      std::cout << "Enter employee name: ";
+                      std::cin.ignore();
+                      std::getline(std::cin, empName);
+                      std::cout << "Enter employee phone: ";
+                      std::cin.ignore();
+                      std::getline(std::cin, empPhone);
+                      std::cout << "Enter employee department: ";
+                      std::getline(std::cin, empDepartment);
+                      std::cout << "Enter employee email: ";
+                      std::getline(std::cin, empEmail);
+                      Employee employee(empName, empId, empDepartment, empEmail,
+                                        empPhone);
+                      employee.saveEmployeeInfo(empName + ".txt");
+                      bank.addEmployee(&employee);
+                      bank.saveEmployeeList("employeeList.txt");
+                      std::cout << "\nNew employee information saved."
+                                << std::endl;
+                      std::cout
+                          << "Employee's name: " << employee.User::getName()
+                          << std::endl;
+                      std::cout << "Employee's ID: " << employee.getEmployeeID()
+                                << std::endl;
+                      std::cout << "Employee's department: "
+                                << employee.getDepartment() << std::endl;
+                      std::cout << "Employee's phone number: "
+                                << employee.User::getPhone() << std::endl;
+                      std::cout
+                          << "Employee's email: " << employee.User::getEmail()
+                          << std::endl;
                       break;
                     }
                     case 2: {
+                      
                       break;
                     }
                     case 3: {

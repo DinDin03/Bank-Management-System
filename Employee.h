@@ -20,7 +20,7 @@ public:
     void setID(std::string employeeID);
 
     void saveEmployeeInfo(std::string filename);
-    void loadEmployeeInfo(std::string filename);
+    void loadUserInfo(std::string filename) override;
     bool employeeLogin(std::string name, std::string phone);
 };
 

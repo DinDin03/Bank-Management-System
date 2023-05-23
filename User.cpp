@@ -27,13 +27,8 @@ void User::setPhone(const std::string& newPhone) {
 void User::setEmail(const std::string& newEmail){
     email = newEmail;
 }
-
-void User::addUser() {
-    // Implementation for adding a user
-    std::cout << "User added: " << name << std::endl;
-}
-
-void User::removeUser() {
-    // Implementation for removing a user
-    std::cout << "User removed: " << name << std::endl;
+void User::loadUserInfo(std::string filename){
+    std::cout << "User's name is: " << name << std::endl;
+    std::cout << "User's phone is: " << phone << std::endl;
+    std::cout << "User's email is: " << email << std::endl;
 }

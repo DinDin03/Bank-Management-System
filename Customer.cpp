@@ -62,7 +62,7 @@ void Customer::saveCustomerInfo(std::string filename) {
     }
 }
 
-void Customer::loadCustomerInfo(std::string filename) {
+void Customer::loadUserInfo(std::string filename) {
     std::ifstream inFile(filename);
     if (inFile.is_open()) {
         std::getline(inFile, name);
@@ -84,7 +84,7 @@ bool Customer::customerLogin(std::string name, std::string phone) {
         std::getline(inFile, accountAddress);
         std::getline(inFile, accountPhone);
         std::getline(inFile, accountEmail);
-        inFile.close();
+        inFile.close(); 
         if (accountPhone == phone) {
             return true;
         }
