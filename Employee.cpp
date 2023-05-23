@@ -1,4 +1,5 @@
 #include "Employee.h"
+#include <iostream>
 
 Employee::Employee() : User("","","") {}
 
@@ -36,11 +37,16 @@ void Employee::loadUserInfo(std::string filename) {
     std::ifstream inFile(filename);
     if (inFile.is_open()) {
         std::getline(inFile, name);
+        std::cout << "New Employee's name: "<< name << std::endl;
         inFile >> id;
+        std::cout << "New Employee's ID: " << id << std::endl;
         inFile.ignore(); // Ignore the newline character
         std::getline(inFile, department);
+        std::cout << "New Employee's Department: " << department << std::endl;
         std::getline(inFile, email);
+        std::cout << "New Employee's Email: " << email << std::endl;
         std::getline(inFile, phone);
+        std::cout << "New Employee's Phone: " << phone << std::endl;
         inFile.close();
     }
 }

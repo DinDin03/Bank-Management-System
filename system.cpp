@@ -63,15 +63,8 @@ int main() {
               customer.saveCustomerInfo(name + ".txt");
               bank.addCustomer(&customer);
               bank.saveCustomerList("customerList.txt");
-              std::cout << "\nNew customer information saved." << std::endl;
-              std::cout << "Customer's name: " << customer.User::getName()
-                        << std::endl;
-              std::cout << "Customer's address: " << customer.getAddress()
-                        << std::endl;
-              std::cout << "Customer's phone number: "
-                        << customer.User::getPhone() << std::endl;
-              std::cout << "Customer's email: " << customer.User::getEmail()
-                        << std::endl;
+              std::cout << "\nNew Customer added" << std::endl;
+              customer.loadUserInfo(name + ".txt");
               break;
             }
 
@@ -333,20 +326,8 @@ int main() {
                       employee.saveEmployeeInfo(empName + ".txt");
                       bank.addEmployee(&employee);
                       bank.saveEmployeeList("employeeList.txt");
-                      std::cout << "\nNew employee information saved."
-                                << std::endl;
-                      std::cout
-                          << "Employee's name: " << employee.User::getName()
-                          << std::endl;
-                      std::cout << "Employee's ID: " << employee.getEmployeeID()
-                                << std::endl;
-                      std::cout << "Employee's department: "
-                                << employee.getDepartment() << std::endl;
-                      std::cout << "Employee's phone number: "
-                                << employee.User::getPhone() << std::endl;
-                      std::cout
-                          << "Employee's email: " << employee.User::getEmail()
-                          << std::endl;
+                      std::cout << "\nNew Employee added" << std::endl;
+                      employee.loadUserInfo(empName + ".txt");
                       break;
                     }
                     case 2: {

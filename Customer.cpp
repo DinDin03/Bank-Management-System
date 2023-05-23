@@ -66,9 +66,13 @@ void Customer::loadUserInfo(std::string filename) {
     std::ifstream inFile(filename);
     if (inFile.is_open()) {
         std::getline(inFile, name);
+        std::cout << "New Customer's name: " << name << std::endl;
         std::getline(inFile, address);
+        std::cout << "New Customer's address: " << address << std::endl;
         std::getline(inFile, phone);
+        std::cout << "New Customer's phone: " << phone << std::endl;
         std::getline(inFile, email);
+        std::cout << "New Customer's email: " << email << std::endl;
         inFile.close();
     }
 }
