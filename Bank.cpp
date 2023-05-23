@@ -52,7 +52,7 @@ void Bank::saveCustomerList(const std::string& customerListFilename) const {
   std::ofstream file(customerListFilename, std::ofstream::app);
   if (file.is_open()) {
     if(customer != nullptr){
-        file << customer->getName() << std::endl;
+        file << customer->User::getName() << std::endl;
     }
     file.close();
   } else {
@@ -81,7 +81,7 @@ void Bank::saveEmployeeList(const std::string& employeeListFilename) const {
   std::ofstream file(employeeListFilename, std::ios::app);
   if (file.is_open()) {
     if(employee != nullptr){
-        file << employee->getEmployeeName() << std::endl;
+        file << employee->User::getName() << std::endl;
     }
     file.close();
   } else {

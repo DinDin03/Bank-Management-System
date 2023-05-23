@@ -58,13 +58,13 @@ int main() {
               bank.addCustomer(&customer);
               bank.saveCustomerList("customerList.txt");
               std::cout << "\nNew customer information saved." << std::endl;
-              std::cout << "Customer's name: " << customer.getName()
+              std::cout << "Customer's name: " << customer.User::getName()
                         << std::endl;
               std::cout << "Customer's address: " << customer.getAddress()
                         << std::endl;
-              std::cout << "Customer's phone number: " << customer.getPhone()
+              std::cout << "Customer's phone number: " << customer.User::getPhone()
                         << std::endl;
-              std::cout << "Customer's email: " << customer.getEmail()
+              std::cout << "Customer's email: " << customer.User::getEmail()
                         << std::endl;
               break;
             }

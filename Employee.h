@@ -3,27 +3,20 @@
 
 #include <string>
 #include <fstream>
+#include "User.h"
 
-class Employee {
-private:
-    std::string employeeName;
-    std::string employeeID;
-    std::string employeeDepartment;
-    std::string employeeEmail;
-    std::string employeePhone;
+class Employee :public User {
+protected:
+    std::string id;
+    std::string department;
 
 public:
-    Employee(std::string employeeName, std::string employeeID, std::string employeeDepartment, std::string employeeEmail, std::string employeePhone);
-    std::string getEmployeeName() const;
+    Employee();
+    Employee(std::string name, std::string id, std::string department, std::string email, std::string phone);
     std::string getEmployeeID() const;
     std::string getDepartment() const;
-    std::string getEmail() const;
-    std::string getPhone() const;
 
-    void setName(std::string name);
-    void setEmail(std::string email);
     void setDepartment(std::string department);
-    void setPhone(std::string phone);
     void setID(std::string employeeID);
 
     void saveEmployeeInfo(std::string filename);
