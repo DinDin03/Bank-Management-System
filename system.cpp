@@ -7,6 +7,7 @@
 #include "Customer.h"
 #include "Employee.h"
 #include "Transaction.h"
+#include "Manager.h"
 
 std::random_device rd;
 std::mt19937 gen(rd());
@@ -62,8 +63,8 @@ int main() {
                         << std::endl;
               std::cout << "Customer's address: " << customer.getAddress()
                         << std::endl;
-              std::cout << "Customer's phone number: " << customer.User::getPhone()
-                        << std::endl;
+              std::cout << "Customer's phone number: "
+                        << customer.User::getPhone() << std::endl;
               std::cout << "Customer's email: " << customer.User::getEmail()
                         << std::endl;
               break;
@@ -280,7 +281,7 @@ int main() {
         bool employeesRunning = true;
         while (employeesRunning) {
           std::cout << "Employees Menu\n" << std::endl;
-          std::cout << "1. Create Employee" << std::endl;
+          std::cout << "1. Manager Login" << std::endl;
           std::cout << "2. Go Back" << std::endl;
           int employeesChoice;
           std::cout << "Enter your choice: ";
@@ -288,6 +289,50 @@ int main() {
           std::cout << std::endl;
           switch (employeesChoice) {
             case 1: {
+              std::string name, id;
+              std::cout << "Manager Login\n" << std::endl;
+              std::cout << "Enter your name: ";
+              std::cin.ignore();
+              std::getline(std::cin, name);
+              std::cout << "Enter your ID: ";
+              std::cin >> id;
+              std::cout << std::endl;
+              Manager manager;
+              if (manager.managerLogin(name, id)) {
+                bool managerLoggedIn = true;
+                while (managerLoggedIn) {
+                  std::cout << "Manager Menu\n" << std::endl;
+                  std::cout << "1. Create Employee" << std::endl;
+                  std::cout << "2. Remove Employee" << std::endl;
+                  std::cout << "3. Go Back" << std::endl;
+                  int managerChoice;
+                  std::cout << "Enter your choice: ";
+                  std::cin >> managerChoice;
+                  std::cout << std::endl;
+                  switch (managerChoice) {
+                    case 1: {
+                      break;
+                    }
+                    case 2: {
+                      break;
+                    }
+                    case 3: {
+                      managerLoggedIn = false;
+                      std::cout << "Going back to the Employees Menu..."
+                                << std::endl;
+                      break;
+                    }
+                    default: {
+                      std::cout << "Invalid choice. Please try again."
+                                << std::endl;
+                      break;
+                    }
+                  }
+                }
+              } else {
+                std::cout << "Invalid login credentials. Please try again."
+                          << std::endl;
+              }
               break;
             }
             case 2: {
@@ -303,6 +348,7 @@ int main() {
         }
         break;
       }
+
       case 3: {
         bool bankRunning = true;
         while (bankRunning) {
