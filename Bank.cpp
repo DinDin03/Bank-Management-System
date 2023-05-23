@@ -21,7 +21,9 @@ void Bank::addCustomer(Customer* newCustomer) {
 
 void Bank::removeCustomer(Customer* customer) {
     delete customer;
-    customer = nullptr; 
+    customer = nullptr;
+    std::string name = customer->User::getName();
+
 }
 void Bank::addEmployee(Employee* newEmployee) {
     employee = newEmployee;

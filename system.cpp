@@ -18,11 +18,12 @@ int main() {
   Bank bank("Uncommonwealth Bank", "123 Main Street", "123-456-7890",
             "info@uncommonwealthbank.com", "customerList.txt",
             "employeeList.txt");
-  std::cout << "Welcome to the banking system!!!\n" << std::endl;
-  ///Manager manager("Head Manager","000000","Management","manager@gmail.com","0466055813");
-  ///manager.saveEmployeeInfo("Head Manager.txt");
-  ///bank.addEmployee(&manager);
-  ///bank.saveEmployeeList("employeeList.txt");
+  std::cout << "Welcome to the bank management system!!!\n" << std::endl;
+  /// Manager manager("Head
+  /// Manager","000000","Management","manager@gmail.com","0466055813");
+  /// manager.saveEmployeeInfo("Head Manager.txt");
+  /// bank.addEmployee(&manager);
+  /// bank.saveEmployeeList("employeeList.txt");
   bool running = true;
   while (running) {
     std::cout << "Please choose an option\n" << std::endl;
@@ -41,7 +42,8 @@ int main() {
           std::cout << "Customers Menu\n" << std::endl;
           std::cout << "1. Create Customer" << std::endl;
           std::cout << "2. Existing Customer Login" << std::endl;
-          std::cout << "3. Go Back" << std::endl;
+          std::cout << "3. Remove Customer" << std::endl;
+          std::cout << "4. Go Back" << std::endl;
           int customersChoice;
           std::cout << "Enter your choice: ";
           std::cin >> customersChoice;
@@ -263,6 +265,16 @@ int main() {
               }
             }
             case 3: {
+              std::string name, phone;
+              std::cout << "Enter Customer's name: ";
+              std::cin.ignore();
+              std::getline(std::cin, name);
+              std::cout << "Enter Customer's phone number: ";
+              std::getline(std::cin, phone);
+              Customer customer(name, "", phone, "");
+              break;
+            }
+            case 4: {
               customersRunning = false;
               std::cout << "Going back to the main menu..." << std::endl;
               break;
@@ -331,7 +343,6 @@ int main() {
                       break;
                     }
                     case 2: {
-                      
                       break;
                     }
                     case 3: {
