@@ -272,6 +272,8 @@ int main() {
               std::cout << "Enter Customer's phone number: ";
               std::getline(std::cin, phone);
               Customer customer(name, "", phone, "");
+              bank.removeCustomer(&customer);
+              std::cout << "\nCustomer has been successfully removed\n" << std::endl;
               break;
             }
             case 4: {
