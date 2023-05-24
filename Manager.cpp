@@ -26,5 +26,22 @@ bool Manager::managerLogin(std::string name, std::string id) {
     return false;
 }
 bool Manager::checkManagerDetails(std::string name, std::string id) {
-    return (User::getName() == name && this->getEmployeeID() == id);
+    std::ifstream inFile(name + ".txt");
+    if (inFile.is_open()) {
+        std::string mgrName;
+        std::string mgrID;
+        std::string department;
+        std::string email;
+        std::string phone;
+        std::getline(inFile, mgrName);
+        std::getline(inFile, mgrID);
+        std::getline(inFile, department);
+        std::getline(inFile, email);
+        std::getline(inFile, phone);
+        inFile.close();
+
+        return (mgrName == name && mgrID == id);
+    }
+    
+    return false;
 }

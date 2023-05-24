@@ -134,7 +134,8 @@ int main() {
                       if (account != nullptr) {
                         bool continueLoop = true;
                         while (continueLoop) {
-                          std::string accountsListFilename = name + "_accounts.txt";
+                          std::string accountsListFilename =
+                              name + "_accounts.txt";
                           std::cout << "\n----- Customer Log in -----"
                                     << std::endl;
                           std::cout << "1. Deposit" << std::endl;
@@ -221,6 +222,10 @@ int main() {
                             default: {
                               std::cout << "Invalid option. Please try again."
                                         << std::endl;
+                              std::cin.clear();
+                              std::cin.ignore(
+                                  std::numeric_limits<std::streamsize>::max(),
+                                  '\n');
                               break;
                             }
                           }
@@ -257,7 +262,7 @@ int main() {
                       break;
                     }
                     case 4: {
-                      // Implement Show accounts functionality
+                      customer.loadAccountsList(accountsListFilename);
                       break;
                     }
                     case 5: {
@@ -267,6 +272,9 @@ int main() {
                     default: {
                       std::cout << "Invalid option. Please try again."
                                 << std::endl;
+                      std::cin.clear();
+                      std::cin.ignore(
+                          std::numeric_limits<std::streamsize>::max(), '\n');
                       break;
                     }
                   }
@@ -278,14 +286,42 @@ int main() {
               break;
             }
             case 3: {
-              // Implement Remove Customer functionality
+              std::string name, phone;
+              std::cout << "Enter Customer's name: ";
+              std::cin.ignore();
+              std::getline(std::cin, name);
+              std::cout << "Enter Customer's phone number: ";
+              std::getline(std::cin, phone);
+              Customer customer(name, "", phone, "");
+              if (customer.checkCustomerDetails(name, phone) == true) {
+                std::cout << "Are you sure you want to delete this Customer? "
+                             "(y/n): ";
+                char confirm;
+                std::cin >> confirm;
+                std::cout << std::endl;
+                if (confirm == 'y') {
+                  bank.removeCustomer(&customer);
+                  std::cout << "\nCustomer has been successfully removed\n"
+                            << std::endl;
+                } else {
+                  std::cout << "Going back to the main menu..." << std::endl;
+                  break;
+                }
+              } else {
+                std::cout << "Wrong details" << std::endl;
+                break;
+              }
               break;
             }
             case 4: {
+              std::cout << "Going back to main menu..." << std::endl;
               break;
             }
             default: {
               std::cout << "Invalid option. Please try again." << std::endl;
+              std::cin.clear();
+              std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                              '\n');
               break;
             }
           }
@@ -293,65 +329,176 @@ int main() {
         break;
       }
       case 2: {
-        do {
-          std::cout << "\n----- Employees Menu -----" << std::endl;
-          std::cout << "1. Manager log in" << std::endl;
-          std::cout << "2. Go back" << std::endl;
-
-          std::cout << "Select an option: ";
-          std::cin >> employeeOption;
-
-          switch (employeeOption) {
-            case 1: {
-              do {
+        std::cout << "\n----- Employees Menu -----" << std::endl;
+        std::cout << "1. Manager log in" << std::endl;
+        std::cout << "2. Go back" << std::endl;
+        int employeesChoice;
+        std::cout << "Enter your choice: ";
+        std::cin >> employeesChoice;
+        std::cout << std::endl;
+        switch (employeesChoice) {
+          case 1: {
+            std::string name, id;
+            std::cout << "Manager Login\n" << std::endl;
+            std::cout << "Enter your name: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::cout << "Enter your ID: ";
+            std::cin >> id;
+            std::cout << std::endl;
+            Manager manager;
+            if (manager.managerLogin(name, id)) {
+              bool managerLoggedIn = true;
+              while (managerLoggedIn) {
                 std::cout << "\n----- Manager Log in -----" << std::endl;
                 std::cout << "1. Add Employee" << std::endl;
                 std::cout << "2. Remove Employee" << std::endl;
                 std::cout << "3. Add Manager" << std::endl;
                 std::cout << "4. Remove Manager" << std::endl;
                 std::cout << "5. Go back" << std::endl;
-
-                std::cout << "Select an option: ";
-                std::cin >> employeeOption;
-
-                switch (employeeOption) {
+                int managerChoice;
+                std::cout << "Enter your choice: ";
+                std::cin >> managerChoice;
+                std::cout << std::endl;
+                switch (managerChoice) {
                   case 1: {
-                    // Implement Add Employee functionality
+                    std::string empName, empPhone, empDepartment, empEmail,
+                        empId = std::to_string(emplID(gen));
+                    std::cout << "Enter employee name: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, empName);
+                    std::cout << "Enter employee phone: ";
+                    std::getline(std::cin, empPhone);
+                    std::cout << "Enter employee department: ";
+                    std::getline(std::cin, empDepartment);
+                    std::cout << "Enter employee email: ";
+                    std::getline(std::cin, empEmail);
+                    Employee employee(empName, empId, empDepartment, empEmail,
+                                      empPhone);
+                    employee.saveEmployeeInfo(empName + ".txt");
+                    bank.addEmployee(&employee);
+                    bank.saveEmployeeList("employeeList.txt");
+                    std::cout << "\nNew Employee added" << std::endl;
+                    employee.loadUserInfo(empName + ".txt");
                     break;
                   }
                   case 2: {
-                    // Implement Remove Employee functionality
+                    std::string name, id;
+                    std::cout << "Enter Employee's name: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, name);
+                    std::cout << "Enter Employee's ID number: ";
+                    std::getline(std::cin, id);
+                    Employee employee(name, id, "", "", "");
+                    if (employee.checkEmployeeDetails(name, id) == true) {
+                      std::cout
+                          << "Are you sure you want to delete this Employee? "
+                             "(y/n): ";
+                      char confirm;
+                      std::cin >> confirm;
+                      std::cout << std::endl;
+                      if (confirm == 'y') {
+                        bank.removeEmployee(&employee);
+                        std::cout
+                            << "\nEmployee has been successfully removed\n"
+                            << std::endl;
+                      } else {
+                        managerLoggedIn = false;
+                        std::cout << "Going back to the main menu..."
+                                  << std::endl;
+                      }
+                    } else {
+                      std::cout << "Wrong details" << std::endl;
+                      managerLoggedIn = false;
+                    }
                     break;
                   }
                   case 3: {
-                    // Implement Add Manager functionality
+                    // Create Manager
+                    std::string mgrName, mgrPhone, mgrEmail, mgrDepartment,
+                        mgrId = std::to_string(mgrID(gen));
+                    std::cout << "Enter manager name: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, mgrName);
+                    std::cout << "Enter manager phone: ";
+                    std::getline(std::cin, mgrPhone);
+                    std::cout << "Enter manager email: ";
+                    std::getline(std::cin, mgrEmail);
+                    std::cout << "Enter manager department: ";
+                    std::getline(std::cin, mgrDepartment);
+                    Manager newManager(mgrName, mgrId, mgrDepartment, mgrEmail,
+                                       mgrPhone);
+                    newManager.saveEmployeeInfo(mgrName + ".txt");
+                    bank.addManager(&newManager);
+                    bank.saveManagerList("managerList.txt");
+                    std::cout << "\nNew Manager added" << std::endl;
+                    newManager.loadUserInfo(mgrName + ".txt");
                     break;
                   }
                   case 4: {
-                    // Implement Remove Manager functionality
+                    std::string name, id;
+                    std::cout << "Enter Manager's name: ";
+                    std::cin.ignore();
+                    std::getline(std::cin, name);
+                    std::cout << "Enter Manager's ID number: ";
+                    std::getline(std::cin, id);
+                    Manager manager(name, id, "", "", "");
+                    if (manager.checkManagerDetails(name, id) == true) {
+                      std::cout
+                          << "Are you sure you want to delete this Manager? "
+                             "(y/n): ";
+                      char confirm;
+                      std::cin >> confirm;
+                      std::cout << std::endl;
+                      if (confirm == 'y') {
+                        bank.removeManager(&manager);
+                        std::cout << "\nManager has been successfully removed\n"
+                                  << std::endl;
+                      } else {
+                        managerLoggedIn = false;
+                        std::cout << "Going back to the main menu..."
+                                  << std::endl;
+                      }
+                    } else {
+                      std::cout << "Wrong details" << std::endl;
+                      managerLoggedIn = false;
+                    }
+
                     break;
                   }
                   case 5: {
-                    break;
-                  }
-                  default: {
-                    std::cout << "Invalid option. Please try again."
+                    managerLoggedIn = false;
+                    std::cout << "Going back to the Employees Menu..."
                               << std::endl;
                     break;
                   }
+                  default: {
+                    std::cout << "Invalid choice. Please try again."
+                              << std::endl;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                                    '\n');
+                    break;
+                  }
                 }
-              } while (employeeOption != 5);
-              break;
+              }
+            } else {
+              std::cout << "Invalid login credentials. Please try again."
+                        << std::endl;
             }
-            case 2: {
-              break;
-            }
-            default: {
-              std::cout << "Invalid option. Please try again." << std::endl;
-              break;
-            }
+            break;
           }
-        } while (employeeOption != 2);
+          case 2: {
+            std::cout << "Going back to the main menu..." << std::endl;
+            break;
+          }
+          default: {
+            std::cout << "Invalid choice. Please try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            break;
+          }
+        }
         break;
       }
       case 3: {
@@ -368,19 +515,23 @@ int main() {
 
           switch (bankOption) {
             case 1: {
-              // Implement Bank information functionality
+              std::cout << "\n-----Bank Information-----" << std::endl;
+              bank.displayBankInformation(bank);
               break;
             }
             case 2: {
-              // Implement Customer list functionality
+              std::cout << "\n-----Customer List-----" << std::endl;
+              bank.displayCustomerList(bank);
               break;
             }
             case 3: {
-              // Implement Employee list functionality
+              std::cout << "\n-----Employee List-----" << std::endl;
+              bank.displayEmployeeList(bank);
               break;
             }
             case 4: {
-              // Implement Manager list functionality
+              std::cout << "\n-----Manager List-----" << std::endl;
+              bank.displayManagerList(bank);
               break;
             }
             case 5: {
@@ -388,6 +539,9 @@ int main() {
             }
             default: {
               std::cout << "Invalid option. Please try again." << std::endl;
+              std::cin.clear();
+              std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                              '\n');
               break;
             }
           }
@@ -400,6 +554,8 @@ int main() {
       }
       default: {
         std::cout << "Invalid option. Please try again." << std::endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         break;
       }
     }

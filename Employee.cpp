@@ -73,6 +73,22 @@ bool Employee::employeeLogin(std::string name, std::string phone) {
     return false;
 }
 bool Employee::checkEmployeeDetails(std::string name, std::string id) {
-    return (User::getName() == name && this->id == id);
-}
+    std::ifstream inFile(name + ".txt");
+    if (inFile.is_open()) {
+        std::string empName;
+        std::string empID;
+        std::string department;
+        std::string email;
+        std::string phone;
+        std::getline(inFile, empName);
+        std::getline(inFile, empID);
+        std::getline(inFile, department);
+        std::getline(inFile, email);
+        std::getline(inFile, phone);
+        inFile.close();
 
+        return (empName == name && empID == id);
+    }
+    
+    return false;
+}
