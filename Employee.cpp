@@ -1,94 +1,91 @@
 #include "Employee.h"
+
 #include <iostream>
+using namespace std;
 
-Employee::Employee() : User("","","") {}
+Employee::Employee() : User("", "", "") {}
 
-Employee::Employee(std::string name, std::string id, std::string department, std::string email, std::string phone)
-    : User(name,phone,email), id(id), department(department) {}
+Employee::Employee(string name, string id, string department, string email,
+                   string phone)
+    : User(name, phone, email), id(id), department(department) {}
 
-std::string Employee::getEmployeeID() const {
-    return id;
+string Employee::getEmployeeID() const { return id; }
+
+string Employee::getDepartment() const { return department; }
+
+void Employee::setDepartment(string department) {
+  this->department = department;
 }
 
-std::string Employee::getDepartment() const {
-    return department;
+void Employee::setID(string id) { this->id = id; }
+void Employee::saveEmployeeInfo(string filename) {
+  ofstream outFile(filename);
+  if (outFile.is_open()) {
+    outFile << User::getName() << endl;
+    outFile << id << endl;
+    outFile << department << endl;
+    outFile << User::getEmail() << endl;
+    outFile << User::getPhone() << endl;
+    outFile.close();
+  }
 }
 
-void Employee::setDepartment(std::string department) {
-    this->department = department;
+void Employee::loadUserInfo(string filename) {
+  ifstream inFile(filename);
+  if (inFile.is_open()) {
+    getline(inFile, name);
+    cout << "New Employee's name: " << name << endl;
+    inFile >> id;
+    cout << "New Employee's ID: " << id << endl;
+    inFile.ignore();  // Ignore the newline character
+    getline(inFile, department);
+    cout << "New Employee's Department: " << department << endl;
+    getline(inFile, email);
+    cout << "New Employee's Email: " << email << endl;
+    getline(inFile, phone);
+    cout << "New Employee's Phone: " << phone << endl;
+    inFile.close();
+  }
 }
 
-void Employee::setID(std::string id){
-    this->id = id;
-}
-void Employee::saveEmployeeInfo(std::string filename) {
-    std::ofstream outFile(filename);
-    if (outFile.is_open()) {
-        outFile << User::getName() << std::endl;
-        outFile << id << std::endl;
-        outFile << department << std::endl;
-        outFile << User::getEmail() << std::endl;
-        outFile << User::getPhone() << std::endl;
-        outFile.close();
+bool Employee::employeeLogin(string name, string phone) {
+  ifstream inFile(name + ".txt");
+  if (inFile.is_open()) {
+    string empName;
+    int empID;
+    string empDepartment;
+    string empEmail;
+    string empPhone;
+    getline(inFile, empName);
+    inFile >> empID;
+    inFile.ignore();  // Ignore the newline character
+    getline(inFile, empDepartment);
+    getline(inFile, empEmail);
+    getline(inFile, empPhone);
+    inFile.close();
+    if (empPhone == phone) {
+      return true;
     }
+  }
+  return false;
 }
+bool Employee::checkEmployeeDetails(string name, string id) {
+  ifstream inFile(name + ".txt");
+  if (inFile.is_open()) {
+    string empName;
+    string empID;
+    string department;
+    string email;
+    string phone;
+    getline(inFile, empName);
+    getline(inFile, empID);
+    getline(inFile, department);
+    getline(inFile, email);
+    getline(inFile, phone);
+    inFile.close();
 
-void Employee::loadUserInfo(std::string filename) {
-    std::ifstream inFile(filename);
-    if (inFile.is_open()) {
-        std::getline(inFile, name);
-        std::cout << "New Employee's name: "<< name << std::endl;
-        inFile >> id;
-        std::cout << "New Employee's ID: " << id << std::endl;
-        inFile.ignore(); // Ignore the newline character
-        std::getline(inFile, department);
-        std::cout << "New Employee's Department: " << department << std::endl;
-        std::getline(inFile, email);
-        std::cout << "New Employee's Email: " << email << std::endl;
-        std::getline(inFile, phone);
-        std::cout << "New Employee's Phone: " << phone << std::endl;
-        inFile.close();
-    }
-}
+    return (empName == name && empID == id);
+  }
 
-bool Employee::employeeLogin(std::string name, std::string phone) {
-    std::ifstream inFile(name + ".txt");
-    if (inFile.is_open()) {
-        std::string empName;
-        int empID;
-        std::string empDepartment;
-        std::string empEmail;
-        std::string empPhone;
-        std::getline(inFile, empName);
-        inFile >> empID;
-        inFile.ignore(); // Ignore the newline character
-        std::getline(inFile, empDepartment);
-        std::getline(inFile, empEmail);
-        std::getline(inFile, empPhone);
-        inFile.close();
-        if (empPhone == phone) {
-            return true;
-        }
-    }
-    return false;
-}
-bool Employee::checkEmployeeDetails(std::string name, std::string id) {
-    std::ifstream inFile(name + ".txt");
-    if (inFile.is_open()) {
-        std::string empName;
-        std::string empID;
-        std::string department;
-        std::string email;
-        std::string phone;
-        std::getline(inFile, empName);
-        std::getline(inFile, empID);
-        std::getline(inFile, department);
-        std::getline(inFile, email);
-        std::getline(inFile, phone);
-        inFile.close();
-
-        return (empName == name && empID == id);
-    }
-    
-    return false;
+  return false;
 }

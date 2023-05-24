@@ -6,24 +6,41 @@
 
 #include "Transaction.h"
 
-class Account {
- public:
-  Account(std::string accountNumber, std::string accountHolderName,
-          double accountBalance, std::string transactionHistoryFilename);
-  void deposit(std::string accountHolderName, double amount);
-  bool withdraw(std::string accountHolderName,double amount);
-  bool transfer(const std::string& toAccountNumber, double amount);
-  std::string getAccountNumber() const;
-  std::string getAccountHolderName() const;
-  double getAccountBalance() const;
-  void saveTransactionHistory(std::string transactionHistoryFilename) const;
-  void saveReciepentTransactionHistory(std::string transactionHistoryFilename) const;
-  void loadTransactionHistory(std::string transactionHistoryFilename);
+using namespace std;
 
- private:
-  std::string accountNumber;
-  std::string accountHolderName;
-  std::string transactionHistoryFilename;
-  std::vector<Transaction> transactions;
+class Account {
+public:
+  // Constructor
+  Account(string accountNumber, string accountHolderName,
+          double accountBalance, string transactionHistoryFilename);
+
+  // Deposit funds into the account
+  void deposit(string accountHolderName, double amount);
+
+  // Withdraw funds from the account
+  bool withdraw(string accountHolderName, double amount);
+
+  // Transfer funds to another account
+  bool transfer(const string& toAccountNumber, double amount);
+
+  // Getters
+  string getAccountNumber() const;
+  string getAccountHolderName() const;
+  double getAccountBalance() const;
+
+  // Save the transaction history to a file
+  void saveTransactionHistory(string transactionHistoryFilename) const;
+
+  // Save the recipient's transaction history to a file
+  void saveReciepentTransactionHistory(string transactionHistoryFilename) const;
+
+  // Load the transaction history from a file
+  void loadTransactionHistory(string transactionHistoryFilename);
+
+private:
+  string accountNumber;
+  string accountHolderName;
+  string transactionHistoryFilename;
+  vector<Transaction> transactions;
   double accountBalance;
 };

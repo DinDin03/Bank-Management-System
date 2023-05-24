@@ -1,16 +1,18 @@
 #ifndef MANAGER_H
 #define MANAGER_H
-
-#include <string>
 #include <fstream>
+#include <string>
+
 #include "Employee.h"
+using namespace std;
 
 class Manager : public Employee {
-public:
-    Manager();
-    Manager(std::string name, std::string id, std::string department, std::string email, std::string phone);
-    bool managerLogin(std::string name, std::string id);
-    bool checkManagerDetails(std::string name, std::string id);
+ public:
+  Manager();
+  Manager(string name, string id, string department, string email,
+          string phone);
+  bool managerLogin(string name, string id);
+  bool checkManagerDetails(string name, string id);
 };
 
-#endif // MANAGER_H
+#endif  // MANAGER_H

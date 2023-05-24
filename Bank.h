@@ -4,49 +4,95 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+
 #include "Customer.h"
 #include "Employee.h"
 #include "Manager.h"
 
+// Import the entire std namespace
+using namespace std;
+
 class Bank {
  protected:
-  std::string bankName;
-  std::string bankAddress;
-  std::string bankPhone;
-  std::string bankEmail;
+  string bankName;
+  string bankAddress;
+  string bankPhone;
+  string bankEmail;
   Customer* customer;
   Employee* employee;
   Manager* manager;
-  std::string customerListFilename;
-  std::string employeeListFilename;
-  std::string managerListFilename;
+  string customerListFilename;
+  string employeeListFilename;
+  string managerListFilename;
 
  public:
-  Bank(const std::string& bankName, const std::string& bankAddress,
-       const std::string& bankPhone, const std::string& bankEmail,
-       const std::string& customerListFilename,
-       const std::string& employeeListFilename,
-       const std::string& managerListFilename);
+  // Constructor
+  Bank(const string& bankName, const string& bankAddress,
+       const string& bankPhone, const string& bankEmail,
+       const string& customerListFilename, const string& employeeListFilename,
+       const string& managerListFilename);
+
+  // Destructor
   ~Bank();
+
+  // Method to add a customer to the bank
   void addCustomer(Customer* customer);
+
+  // Method to remove a customer from the bank
   void removeCustomer(Customer* customer);
+
+  // Method to add an employee to the bank
   void addEmployee(Employee* employee);
+
+  // Method to remove an employee from the bank
   void removeEmployee(Employee* employee);
+
+  // Method to add a manager to the bank
   void addManager(Manager* manager);
+
+  // Method to remove a manager from the bank
   void removeManager(Manager* manager);
-  std::string getBankName() const;
-  std::string getBankAddress() const;
-  std::string getBankPhone() const;
-  std::string getBankEmail() const;
-  void saveCustomerList(const std::string& customerListFilename) const;
-  void loadCustomerList(std::string customerListFilename);
-  void saveEmployeeList(const std::string& employeeListFilename) const;
-  void loadEmployeeList(std::string employeeListFilename);
-  void saveManagerList(const std::string& managerListFilename) const;
-  void loadManagerList(std::string managerListFilename);
+
+  // Getter method for the bank name
+  string getBankName() const;
+
+  // Getter method for the bank address
+  string getBankAddress() const;
+
+  // Getter method for the bank phone number
+  string getBankPhone() const;
+
+  // Getter method for the bank email address
+  string getBankEmail() const;
+
+  // Method to save the customer list to a file
+  void saveCustomerList(const string& customerListFilename) const;
+
+  // Method to load the customer list from a file
+  void loadCustomerList(string customerListFilename);
+
+  // Method to save the employee list to a file
+  void saveEmployeeList(const string& employeeListFilename) const;
+
+  // Method to load the employee list from a file
+  void loadEmployeeList(string employeeListFilename);
+
+  // Method to save the manager list to a file
+  void saveManagerList(const string& managerListFilename) const;
+
+  // Method to load the manager list from a file
+  void loadManagerList(string managerListFilename);
+
+  // Method to display the bank's information
   void displayBankInformation(const Bank& bank);
+
+  // Method to display the customer list
   void displayCustomerList(const Bank& bank);
+
+  // Method to display the employee list
   void displayEmployeeList(const Bank& bank);
+
+  // Method to display the manager list
   void displayManagerList(const Bank& bank);
 };
 

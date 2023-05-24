@@ -1,27 +1,26 @@
 #include "Transaction.h"
-#include <iomanip>
 
-Transaction::Transaction(const std::chrono::system_clock::time_point& datetime, double amount, const std::string& type)
+#include <iomanip>
+using namespace std;
+
+Transaction::Transaction(const chrono::system_clock::time_point& datetime,
+                         double amount, const string& type)
     : datetime_(datetime), amount_(amount), type_(type) {}
 
-std::string Transaction::getDate() const {
-    auto time = std::chrono::system_clock::to_time_t(datetime_);
-    std::ostringstream ss;
-    ss << std::put_time(std::localtime(&time), "%Y-%m-%d");
-    return ss.str();
+string Transaction::getDate() const {
+  auto time = chrono::system_clock::to_time_t(datetime_);
+  ostringstream ss;
+  ss << put_time(localtime(&time), "%Y-%m-%d");
+  return ss.str();
 }
 
-std::string Transaction::getTime() const {
-    auto time = std::chrono::system_clock::to_time_t(datetime_);
-    std::ostringstream ss;
-    ss << std::put_time(std::localtime(&time), "%H:%M:%S");
-    return ss.str();
+string Transaction::getTime() const {
+  auto time = chrono::system_clock::to_time_t(datetime_);
+  ostringstream ss;
+  ss << put_time(localtime(&time), "%H:%M:%S");
+  return ss.str();
 }
 
-double Transaction::getAmount() const {
-    return amount_;
-}
+double Transaction::getAmount() const { return amount_; }
 
-std::string Transaction::getType() const {
-    return type_;
-}
+string Transaction::getType() const { return type_; }

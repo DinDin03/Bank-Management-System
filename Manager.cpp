@@ -1,47 +1,49 @@
 #include "Manager.h"
+using namespace std;
 
 Manager::Manager() : Employee() {}
 
-Manager::Manager(std::string name, std::string id, std::string department, std::string email, std::string phone)
+Manager::Manager(string name, string id, string department, string email,
+                 string phone)
     : Employee(name, id, department, email, phone) {}
 
-bool Manager::managerLogin(std::string name, std::string id) {
-    std::ifstream inFile(name + ".txt");
-    if (inFile.is_open()) {
-        std::string empName;
-        std::string empID;
-        std::string empDepartment;
-        std::string empEmail;
-        std::string empPhone;
-        std::getline(inFile, empName);
-        std::getline(inFile, empID);
-        std::getline(inFile, empDepartment);
-        std::getline(inFile, empEmail);
-        std::getline(inFile, empPhone);
-        inFile.close();
-        if (empID == id && empName == name) {
-            return true;
-        }
+bool Manager::managerLogin(string name, string id) {
+  ifstream inFile(name + ".txt");
+  if (inFile.is_open()) {
+    string empName;
+    string empID;
+    string empDepartment;
+    string empEmail;
+    string empPhone;
+    getline(inFile, empName);
+    getline(inFile, empID);
+    getline(inFile, empDepartment);
+    getline(inFile, empEmail);
+    getline(inFile, empPhone);
+    inFile.close();
+    if (empID == id && empName == name) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
-bool Manager::checkManagerDetails(std::string name, std::string id) {
-    std::ifstream inFile(name + ".txt");
-    if (inFile.is_open()) {
-        std::string mgrName;
-        std::string mgrID;
-        std::string department;
-        std::string email;
-        std::string phone;
-        std::getline(inFile, mgrName);
-        std::getline(inFile, mgrID);
-        std::getline(inFile, department);
-        std::getline(inFile, email);
-        std::getline(inFile, phone);
-        inFile.close();
+bool Manager::checkManagerDetails(string name, string id) {
+  ifstream inFile(name + ".txt");
+  if (inFile.is_open()) {
+    string mgrName;
+    string mgrID;
+    string department;
+    string email;
+    string phone;
+    getline(inFile, mgrName);
+    getline(inFile, mgrID);
+    getline(inFile, department);
+    getline(inFile, email);
+    getline(inFile, phone);
+    inFile.close();
 
-        return (mgrName == name && mgrID == id);
-    }
-    
-    return false;
+    return (mgrName == name && mgrID == id);
+  }
+
+  return false;
 }

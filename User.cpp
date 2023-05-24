@@ -1,34 +1,24 @@
 #include "user.h"
-#include <iostream>
 
-User::User(const std::string& name, const std::string& phone, const std::string& email)
+#include <iostream>
+using namespace std;
+
+User::User(const string& name, const string& phone, const string& email)
     : name(name), phone(phone), email(email) {}
 
-std::string User::getName() const {
-    return name;
-}
+string User::getName() const { return name; }
 
-std::string User::getPhone() const {
-    return phone;
-}
+string User::getPhone() const { return phone; }
 
-std::string User::getEmail() const{
-    return email;
-}
+string User::getEmail() const { return email; }
 
-void User::setName(const std::string& newName) {
-    name = newName;
-}
+void User::setName(const string& newName) { name = newName; }
 
-void User::setPhone(const std::string& newPhone) {
-    phone = newPhone;
-}
+void User::setPhone(const string& newPhone) { phone = newPhone; }
 
-void User::setEmail(const std::string& newEmail){
-    email = newEmail;
-}
-void User::loadUserInfo(std::string filename){
-    std::cout << "User's name is: " << name << std::endl;
-    std::cout << "User's phone is: " << phone << std::endl;
-    std::cout << "User's email is: " << email << std::endl;
+void User::setEmail(const string& newEmail) { email = newEmail; }
+void User::loadUserInfo(string filename) {
+  cout << "User's name is: " << name << endl;
+  cout << "User's phone is: " << phone << endl;
+  cout << "User's email is: " << email << endl;
 }

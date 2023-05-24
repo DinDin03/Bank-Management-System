@@ -8,18 +8,20 @@
 #include "Employee.h"
 #include "Manager.h"
 #include "Transaction.h"
+#include "User.h"
+using namespace std;
 
-std::random_device rd;
-std::mt19937 gen(rd());
-std::uniform_int_distribution<long long> number(0, 9999999999);
-std::uniform_int_distribution<long long> emplID(0, 999999);
-std::uniform_int_distribution<long long> mgrID(0, 99999);
+random_device rd;
+mt19937 gen(rd());
+uniform_int_distribution<long long> number(0, 9999999999);
+uniform_int_distribution<long long> emplID(0, 999999);
+uniform_int_distribution<long long> mgrID(0, 99999);
 
 int main() {
   Bank bank("Uncommonwealth Bank", "123 Main Street", "123-456-7890",
             "info@uncommonwealthbank.com", "customerList.txt",
             "employeeList.txt", "managerList.txt");
-  std::cout << "Welcome to the bank management system!!!" << std::endl;
+  cout << "Welcome to the bank management system!!!" << endl;
 
   int mainOption;
   int customerOption;
@@ -27,198 +29,189 @@ int main() {
   int bankOption;
 
   do {
-    std::cout << "\n----- Main Menu -----" << std::endl;
-    std::cout << "1. Customers" << std::endl;
-    std::cout << "2. Employees" << std::endl;
-    std::cout << "3. Bank" << std::endl;
-    std::cout << "4. Goodbye" << std::endl;
+    cout << "\n----- Main Menu -----" << endl;
+    cout << "1. Customers" << endl;
+    cout << "2. Employees" << endl;
+    cout << "3. Bank" << endl;
+    cout << "4. Goodbye" << endl;
 
-    std::cout << "Select an option: ";
-    std::cin >> mainOption;
+    cout << "Select an option: ";
+    cin >> mainOption;
 
     switch (mainOption) {
       case 1: {
         do {
-          std::cout << "\n----- Customers Menu -----" << std::endl;
-          std::cout << "1. Customer Sign up" << std::endl;
-          std::cout << "2. Customer Log in" << std::endl;
-          std::cout << "3. Remove Customer" << std::endl;
-          std::cout << "4. Go back" << std::endl;
+          cout << "\n----- Customers Menu -----" << endl;
+          cout << "1. Customer Sign up" << endl;
+          cout << "2. Customer Log in" << endl;
+          cout << "3. Remove Customer" << endl;
+          cout << "4. Go back" << endl;
 
-          std::cout << "Select an option: ";
-          std::cin >> customerOption;
+          cout << "Select an option: ";
+          cin >> customerOption;
 
           switch (customerOption) {
             case 1: {
-              std::cout << "\n----- Customer Sign up -----" << std::endl;
-              std::string name, address, phone, email;
-              std::string accountsListFilename = name + "_accounts.txt";
-              std::cout << "Enter customer's name: ";
-              std::cin.ignore();
-              std::getline(std::cin, name);
-              std::cout << "Enter customer's address: ";
-              std::getline(std::cin, address);
-              std::cout << "Enter customer's phone number: ";
-              std::cin >> phone;
-              std::cout << "Enter customer's email: ";
-              std::cin >> email;
+              cout << "\n----- Customer Sign up -----" << endl;
+              string name, address, phone, email;
+              string accountsListFilename = name + "_accounts.txt";
+              cout << "Enter customer's name: ";
+              cin.ignore();
+              getline(cin, name);
+              cout << "Enter customer's address: ";
+              getline(cin, address);
+              cout << "Enter customer's phone number: ";
+              cin >> phone;
+              cout << "Enter customer's email: ";
+              cin >> email;
               Customer customer(name, address, phone, email);
               customer.saveCustomerInfo(name + ".txt");
               bank.addCustomer(&customer);
               bank.saveCustomerList("customerList.txt");
-              std::cout << "\nNew Customer added" << std::endl;
+              cout << "\nNew Customer added" << endl;
               customer.loadUserInfo(name + ".txt");
               break;
             }
             case 2: {
               bool choice = true;
-              std::string name, phone;
-              std::cout << "Enter customer's name: ";
-              std::cin.ignore();
-              std::getline(std::cin, name);
-              std::cout << "Enter customer's phone number: ";
-              std::getline(std::cin, phone);
+              string name, phone;
+              cout << "Enter customer's name: ";
+              cin.ignore();
+              getline(cin, name);
+              cout << "Enter customer's phone number: ";
+              getline(cin, phone);
               Customer customer(name, "", phone, "");
               bool loginSuccessful = customer.customerLogin(name, phone);
               if (loginSuccessful) {
-                std::cout << "\nLogin successful!" << std::endl;
+                cout << "\nLogin successful!" << endl;
                 while (choice) {
-                  std::string accountsListFilename = name + "_accounts.txt";
-                  std::cout << "\n----- Customer Log in -----" << std::endl;
-                  std::cout << "1. Add a new account" << std::endl;
-                  std::cout << "2. Account log in" << std::endl;
-                  std::cout << "3. Delete account" << std::endl;
-                  std::cout << "4. Show accounts" << std::endl;
-                  std::cout << "5. Go back" << std::endl;
+                  string accountsListFilename = name + "_accounts.txt";
+                  cout << "\n----- Customer Log in -----" << endl;
+                  cout << "1. Add a new account" << endl;
+                  cout << "2. Account log in" << endl;
+                  cout << "3. Delete account" << endl;
+                  cout << "4. Show accounts" << endl;
+                  cout << "5. Go back" << endl;
 
-                  std::cout << "Select an option: ";
-                  std::cin >> customerOption;
+                  cout << "Select an option: ";
+                  cin >> customerOption;
 
                   switch (customerOption) {
                     case 1: {
-                      std::string accountHolderName;
-                      std::string accountNumber = std::to_string(number(gen));
-                      std::string transactionHistoryFilename =
+                      string accountHolderName;
+                      string accountNumber = to_string(number(gen));
+                      string transactionHistoryFilename =
                           accountNumber + "TransactionHistory";
                       double initialBalance;
-                      std::cout << "Enter account holder's name: ";
-                      std::cin.ignore();
-                      std::getline(std::cin, accountHolderName);
-                      std::cout << "Enter initial balance: ";
-                      std::cin >> initialBalance;
+                      cout << "Enter account holder's name: ";
+                      cin.ignore();
+                      getline(cin, accountHolderName);
+                      cout << "Enter initial balance: ";
+                      cin >> initialBalance;
                       customer.addAccount(accountNumber, accountHolderName,
                                           initialBalance,
                                           transactionHistoryFilename);
                       Account* account = customer.getAccount(accountNumber);
                       customer.saveAccountsList(accountsListFilename,
                                                 accountNumber);
-                      std::cout << "\nNew account added successfully.\n"
-                                << std::endl;
-                      std::cout
-                          << "Account holder's name: " << accountHolderName
-                          << std::endl;
-                      std::cout << "Account Number: " << accountNumber
-                                << std::endl;
-                      std::cout << "Account Balance: " << initialBalance
-                                << std::endl;
+                      cout << "\nNew account added successfully.\n" << endl;
+                      cout << "Account holder's name: " << accountHolderName
+                           << endl;
+                      cout << "Account Number: " << accountNumber << endl;
+                      cout << "Account Balance: " << initialBalance << endl;
                       break;
                     }
                     case 2: {
-                      std::string accountNumber;
-                      std::cout << "Enter account number: ";
-                      std::cin >> accountNumber;
-                      std::cout << std::endl;
+                      string accountNumber;
+                      cout << "Enter account number: ";
+                      cin >> accountNumber;
+                      cout << endl;
                       Account* account = customer.getAccount(accountNumber);
-                      std::string accountHolderName =
+                      string accountHolderName =
                           account->getAccountHolderName();
                       if (account != nullptr) {
                         bool continueLoop = true;
                         while (continueLoop) {
-                          std::string accountsListFilename =
-                              name + "_accounts.txt";
-                          std::cout << "\n----- Customer Log in -----"
-                                    << std::endl;
-                          std::cout << "1. Deposit" << std::endl;
-                          std::cout << "2. Withdraw" << std::endl;
-                          std::cout << "3. Transfer" << std::endl;
-                          std::cout << "4. Account Information" << std::endl;
-                          std::cout << "5. Transaction History" << std::endl;
-                          std::cout << "6. Go back" << std::endl;
+                          string accountsListFilename = name + "_accounts.txt";
+                          cout << "\n----- Customer Log in -----" << endl;
+                          cout << "1. Deposit" << endl;
+                          cout << "2. Withdraw" << endl;
+                          cout << "3. Transfer" << endl;
+                          cout << "4. Account Information" << endl;
+                          cout << "5. Transaction History" << endl;
+                          cout << "6. Go back" << endl;
 
-                          std::cout << "Select an option: ";
-                          std::cin >> customerOption;
+                          cout << "Select an option: ";
+                          cin >> customerOption;
 
                           switch (customerOption) {
                             case 1: {
                               double amount;
-                              std::cout << "Enter the amount to deposit: ";
-                              std::cin >> amount;
+                              cout << "Enter the amount to deposit: ";
+                              cin >> amount;
                               account->deposit(accountHolderName, amount);
                               account->saveTransactionHistory(
                                   accountNumber + "_TransactionHistory.txt");
-                              std::cout << "Amount deposited successfully."
-                                        << std::endl;
+                              cout << "Amount deposited successfully." << endl;
                               break;
                             }
                             case 2: {
                               double amount;
-                              std::cout << "Enter the amount to withdraw: ";
-                              std::cin >> amount;
+                              cout << "Enter the amount to withdraw: ";
+                              cin >> amount;
                               if (account->withdraw(accountHolderName,
                                                     amount)) {
                                 account->saveTransactionHistory(
                                     accountNumber + "_TransactionHistory.txt");
-                                std::cout << "Amount withdrawn successfully."
-                                          << std::endl;
+                                cout << "Amount withdrawn successfully."
+                                     << endl;
                               } else {
-                                std::cout
-                                    << "Insufficient funds. Withdrawal failed."
-                                    << std::endl;
+                                cout << "Insufficient funds. Withdrawal failed."
+                                     << endl;
                               }
                               break;
                             }
                             case 3: {
-                              std::string transferToAccountNumber;
-                              std::cout << "Enter the account number to "
-                                           "transfer to: ";
-                              std::cin >> transferToAccountNumber;
+                              string transferToAccountNumber;
+                              cout << "Enter the account number to "
+                                      "transfer to: ";
+                              cin >> transferToAccountNumber;
                               double transferAmount;
-                              std::cout << "Enter the amount to transfer: ";
-                              std::cin >> transferAmount;
+                              cout << "Enter the amount to transfer: ";
+                              cin >> transferAmount;
                               if (account->transfer(transferToAccountNumber,
                                                     transferAmount)) {
-                                std::cout << "Amount transferred successfully."
-                                          << std::endl;
+                                cout << "Amount transferred successfully."
+                                     << endl;
                                 account->saveTransactionHistory(
                                     accountNumber + "_TransactionHistory.txt");
                                 account->saveReciepentTransactionHistory(
                                     transferToAccountNumber +
                                     "_TransactionHistory.txt");
                               } else {
-                                std::cout
-                                    << "Transfer failed. Please check the "
-                                       "account numbers and available balance."
-                                    << std::endl;
+                                cout << "Transfer failed. Please check the "
+                                        "account numbers and available balance."
+                                     << endl;
                               }
                               break;
                             }
                             case 4: {
-                              std::cout << "Account information:\n"
-                                        << std::endl;
-                              std::cout << "Account holder's name: "
-                                        << account->getAccountHolderName()
-                                        << std::endl;
-                              std::cout << "Account number: "
-                                        << account->getAccountNumber()
-                                        << std::endl;
-                              std::cout << "Account balance: "
-                                        << account->getAccountBalance()
-                                        << std::endl;
+                              cout << "Account information:\n" << endl;
+                              cout << "Account holder's name: "
+                                   << account->getAccountHolderName() << endl;
+                              cout << "Account number: "
+                                   << account->getAccountNumber() << endl;
+                              cout << "Account balance: "
+                                   << account->getAccountBalance() << endl;
                               break;
                             }
-                            case 5:{
-                              std::cout << "\n-----Transaction History for Account NO: " << accountNumber << "-----\n" << std::endl;
-                              account->loadTransactionHistory(accountNumber + "_TransactionHistory.txt");
+                            case 5: {
+                              cout << "\n-----Transaction History for Account "
+                                      "NO: "
+                                   << accountNumber << "-----\n"
+                                   << endl;
+                              account->loadTransactionHistory(
+                                  accountNumber + "_TransactionHistory.txt");
                               break;
                             }
                             case 6: {
@@ -226,44 +219,39 @@ int main() {
                               break;
                             }
                             default: {
-                              std::cout << "Invalid option. Please try again."
-                                        << std::endl;
-                              std::cin.clear();
-                              std::cin.ignore(
-                                  std::numeric_limits<std::streamsize>::max(),
-                                  '\n');
+                              cout << "Invalid option. Please try again."
+                                   << endl;
+                              cin.clear();
+                              cin.ignore(numeric_limits<streamsize>::max(),
+                                         '\n');
                               break;
                             }
                           }
                         }
                       } else {
-                        std::cout << "Account not found. Please try again."
-                                  << std::endl;
+                        cout << "Account not found. Please try again." << endl;
                       }
                       break;
                     }
                     case 3: {
-                      std::string accountNumber;
-                      std::cout << "Enter account number: ";
-                      std::cin >> accountNumber;
-                      std::cout << std::endl;
+                      string accountNumber;
+                      cout << "Enter account number: ";
+                      cin >> accountNumber;
+                      cout << endl;
                       Account* account = customer.getAccount(accountNumber);
                       if (account != nullptr) {
-                        std::cout
-                            << "Are you sure you want to delete this account? "
-                               "(y/n): ";
+                        cout << "Are you sure you want to delete this account? "
+                                "(y/n): ";
                         char confirm;
-                        std::cin >> confirm;
-                        std::cout << std::endl;
+                        cin >> confirm;
+                        cout << endl;
                         if (confirm == 'y') {
                           customer.deleteAccount(accountNumber);
-                          std::cout << "Account deleted successfully."
-                                    << std::endl;
+                          cout << "Account deleted successfully." << endl;
                         }
                       } else {
                         choice = false;
-                        std::cout << "Going back to the main menu..."
-                                  << std::endl;
+                        cout << "Going back to the main menu..." << endl;
                       }
                       break;
                     }
@@ -276,58 +264,53 @@ int main() {
                       break;
                     }
                     default: {
-                      std::cout << "Invalid option. Please try again."
-                                << std::endl;
-                      std::cin.clear();
-                      std::cin.ignore(
-                          std::numeric_limits<std::streamsize>::max(), '\n');
+                      cout << "Invalid option. Please try again." << endl;
+                      cin.clear();
+                      cin.ignore(numeric_limits<streamsize>::max(), '\n');
                       break;
                     }
                   }
                 }
               } else {
-                std::cout << "Name or Phone number wrong. Unable to Log in"
-                          << std::endl;
+                cout << "Name or Phone number wrong. Unable to Log in" << endl;
               }
               break;
             }
             case 3: {
-              std::string name, phone;
-              std::cout << "Enter Customer's name: ";
-              std::cin.ignore();
-              std::getline(std::cin, name);
-              std::cout << "Enter Customer's phone number: ";
-              std::getline(std::cin, phone);
+              string name, phone;
+              cout << "Enter Customer's name: ";
+              cin.ignore();
+              getline(cin, name);
+              cout << "Enter Customer's phone number: ";
+              getline(cin, phone);
               Customer customer(name, "", phone, "");
               if (customer.checkCustomerDetails(name, phone) == true) {
-                std::cout << "Are you sure you want to delete this Customer? "
-                             "(y/n): ";
+                cout << "Are you sure you want to delete this Customer? "
+                        "(y/n): ";
                 char confirm;
-                std::cin >> confirm;
-                std::cout << std::endl;
+                cin >> confirm;
+                cout << endl;
                 if (confirm == 'y') {
                   bank.removeCustomer(&customer);
-                  std::cout << "\nCustomer has been successfully removed\n"
-                            << std::endl;
+                  cout << "\nCustomer has been successfully removed\n" << endl;
                 } else {
-                  std::cout << "Going back to the main menu..." << std::endl;
+                  cout << "Going back to the main menu..." << endl;
                   break;
                 }
               } else {
-                std::cout << "Wrong details" << std::endl;
+                cout << "Wrong details" << endl;
                 break;
               }
               break;
             }
             case 4: {
-              std::cout << "Going back to main menu..." << std::endl;
+              cout << "Going back to main menu..." << endl;
               break;
             }
             default: {
-              std::cout << "Invalid option. Please try again." << std::endl;
-              std::cin.clear();
-              std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                              '\n');
+              cout << "Invalid option. Please try again." << endl;
+              cin.clear();
+              cin.ignore(numeric_limits<streamsize>::max(), '\n');
               break;
             }
           }
@@ -335,138 +318,133 @@ int main() {
         break;
       }
       case 2: {
-        std::cout << "\n----- Employees Menu -----" << std::endl;
-        std::cout << "1. Manager log in" << std::endl;
-        std::cout << "2. Go back" << std::endl;
+        cout << "\n----- Employees Menu -----" << endl;
+        cout << "1. Manager log in" << endl;
+        cout << "2. Go back" << endl;
         int employeesChoice;
-        std::cout << "Enter your choice: ";
-        std::cin >> employeesChoice;
-        std::cout << std::endl;
+        cout << "Enter your choice: ";
+        cin >> employeesChoice;
+        cout << endl;
         switch (employeesChoice) {
           case 1: {
-            std::string name, id;
-            std::cout << "Manager Login\n" << std::endl;
-            std::cout << "Enter your name: ";
-            std::cin.ignore();
-            std::getline(std::cin, name);
-            std::cout << "Enter your ID: ";
-            std::cin >> id;
-            std::cout << std::endl;
+            string name, id;
+            cout << "Manager Login\n" << endl;
+            cout << "Enter your name: ";
+            cin.ignore();
+            getline(cin, name);
+            cout << "Enter your ID: ";
+            cin >> id;
+            cout << endl;
             Manager manager;
             if (manager.managerLogin(name, id)) {
               bool managerLoggedIn = true;
               while (managerLoggedIn) {
-                std::cout << "\n----- Manager Log in -----" << std::endl;
-                std::cout << "1. Add Employee" << std::endl;
-                std::cout << "2. Remove Employee" << std::endl;
-                std::cout << "3. Add Manager" << std::endl;
-                std::cout << "4. Remove Manager" << std::endl;
-                std::cout << "5. Go back" << std::endl;
+                cout << "\n----- Manager Log in -----" << endl;
+                cout << "1. Add Employee" << endl;
+                cout << "2. Remove Employee" << endl;
+                cout << "3. Add Manager" << endl;
+                cout << "4. Remove Manager" << endl;
+                cout << "5. Go back" << endl;
                 int managerChoice;
-                std::cout << "Enter your choice: ";
-                std::cin >> managerChoice;
-                std::cout << std::endl;
+                cout << "Enter your choice: ";
+                cin >> managerChoice;
+                cout << endl;
                 switch (managerChoice) {
                   case 1: {
-                    std::string empName, empPhone, empDepartment, empEmail,
-                        empId = std::to_string(emplID(gen));
-                    std::cout << "Enter employee name: ";
-                    std::cin.ignore();
-                    std::getline(std::cin, empName);
-                    std::cout << "Enter employee phone: ";
-                    std::getline(std::cin, empPhone);
-                    std::cout << "Enter employee department: ";
-                    std::getline(std::cin, empDepartment);
-                    std::cout << "Enter employee email: ";
-                    std::getline(std::cin, empEmail);
+                    string empName, empPhone, empDepartment, empEmail,
+                        empId = to_string(emplID(gen));
+                    cout << "Enter employee name: ";
+                    cin.ignore();
+                    getline(cin, empName);
+                    cout << "Enter employee phone: ";
+                    getline(cin, empPhone);
+                    cout << "Enter employee department: ";
+                    getline(cin, empDepartment);
+                    cout << "Enter employee email: ";
+                    getline(cin, empEmail);
                     Employee employee(empName, empId, empDepartment, empEmail,
                                       empPhone);
                     employee.saveEmployeeInfo(empName + ".txt");
                     bank.addEmployee(&employee);
                     bank.saveEmployeeList("employeeList.txt");
-                    std::cout << "\nNew Employee added" << std::endl;
+                    cout << "\nNew Employee added" << endl;
                     employee.loadUserInfo(empName + ".txt");
                     break;
                   }
                   case 2: {
-                    std::string name, id;
-                    std::cout << "Enter Employee's name: ";
-                    std::cin.ignore();
-                    std::getline(std::cin, name);
-                    std::cout << "Enter Employee's ID number: ";
-                    std::getline(std::cin, id);
+                    string name, id;
+                    cout << "Enter Employee's name: ";
+                    cin.ignore();
+                    getline(cin, name);
+                    cout << "Enter Employee's ID number: ";
+                    getline(cin, id);
                     Employee employee(name, id, "", "", "");
                     if (employee.checkEmployeeDetails(name, id) == true) {
-                      std::cout
-                          << "Are you sure you want to delete this Employee? "
-                             "(y/n): ";
+                      cout << "Are you sure you want to delete this Employee? "
+                              "(y/n): ";
                       char confirm;
-                      std::cin >> confirm;
-                      std::cout << std::endl;
+                      cin >> confirm;
+                      cout << endl;
                       if (confirm == 'y') {
                         bank.removeEmployee(&employee);
-                        std::cout
-                            << "\nEmployee has been successfully removed\n"
-                            << std::endl;
+                        cout << "\nEmployee has been successfully removed\n"
+                             << endl;
                       } else {
                         managerLoggedIn = false;
-                        std::cout << "Going back to the main menu..."
-                                  << std::endl;
+                        cout << "Going back to the main menu..." << endl;
                       }
                     } else {
-                      std::cout << "Wrong details" << std::endl;
+                      cout << "Wrong details" << endl;
                       managerLoggedIn = false;
                     }
                     break;
                   }
                   case 3: {
                     // Create Manager
-                    std::string mgrName, mgrPhone, mgrEmail, mgrDepartment,
-                        mgrId = std::to_string(mgrID(gen));
-                    std::cout << "Enter manager name: ";
-                    std::cin.ignore();
-                    std::getline(std::cin, mgrName);
-                    std::cout << "Enter manager phone: ";
-                    std::getline(std::cin, mgrPhone);
-                    std::cout << "Enter manager email: ";
-                    std::getline(std::cin, mgrEmail);
-                    std::cout << "Enter manager department: ";
-                    std::getline(std::cin, mgrDepartment);
+                    string mgrName, mgrPhone, mgrEmail, mgrDepartment,
+                        mgrId = to_string(mgrID(gen));
+                    cout << "Enter manager name: ";
+                    cin.ignore();
+                    getline(cin, mgrName);
+                    cout << "Enter manager phone: ";
+                    getline(cin, mgrPhone);
+                    cout << "Enter manager email: ";
+                    getline(cin, mgrEmail);
+                    cout << "Enter manager department: ";
+                    getline(cin, mgrDepartment);
                     Manager newManager(mgrName, mgrId, mgrDepartment, mgrEmail,
                                        mgrPhone);
                     newManager.saveEmployeeInfo(mgrName + ".txt");
                     bank.addManager(&newManager);
                     bank.saveManagerList("managerList.txt");
-                    std::cout << "\nNew Manager added" << std::endl;
+                    cout << "\nNew Manager added" << endl;
                     newManager.loadUserInfo(mgrName + ".txt");
                     break;
                   }
                   case 4: {
-                    std::string name, id;
-                    std::cout << "Enter Manager's name: ";
-                    std::cin.ignore();
-                    std::getline(std::cin, name);
-                    std::cout << "Enter Manager's ID number: ";
-                    std::getline(std::cin, id);
+                    string name, id;
+                    cout << "Enter Manager's name: ";
+                    cin.ignore();
+                    getline(cin, name);
+                    cout << "Enter Manager's ID number: ";
+                    getline(cin, id);
                     Manager manager(name, id, "", "", "");
                     if (manager.checkManagerDetails(name, id) == true) {
-                      std::cout
-                          << "Are you sure you want to delete this Manager? "
-                             "(y/n): ";
+                      cout << "Are you sure you want to delete this Manager? "
+                              "(y/n): ";
                       char confirm;
-                      std::cin >> confirm;
-                      std::cout << std::endl;
+                      cin >> confirm;
+                      cout << endl;
                       if (confirm == 'y') {
                         bank.removeManager(&manager);
-                        std::cout << "\nManager has been successfully removed\n"
-                                  << std::endl;
+                        cout << "\nManager has been successfully removed\n"
+                             << endl;
                       } else {
                         managerLoggedIn = false;
-                        std::cout << "Going back to the main menu..."
-                                  << std::endl;
+                        cout << "Going back to the main menu..." << endl;
                       }
                     } else {
-                      std::cout << "Wrong details" << std::endl;
+                      cout << "Wrong details" << endl;
                       managerLoggedIn = false;
                     }
 
@@ -474,34 +452,30 @@ int main() {
                   }
                   case 5: {
                     managerLoggedIn = false;
-                    std::cout << "Going back to the Employees Menu..."
-                              << std::endl;
+                    cout << "Going back to the Employees Menu..." << endl;
                     break;
                   }
                   default: {
-                    std::cout << "Invalid choice. Please try again."
-                              << std::endl;
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                                    '\n');
+                    cout << "Invalid choice. Please try again." << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                   }
                 }
               }
             } else {
-              std::cout << "Invalid login credentials. Please try again."
-                        << std::endl;
+              cout << "Invalid login credentials. Please try again." << endl;
             }
             break;
           }
           case 2: {
-            std::cout << "Going back to the main menu..." << std::endl;
+            cout << "Going back to the main menu..." << endl;
             break;
           }
           default: {
-            std::cout << "Invalid choice. Please try again." << std::endl;
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout << "Invalid choice. Please try again." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
           }
         }
@@ -509,34 +483,34 @@ int main() {
       }
       case 3: {
         do {
-          std::cout << "\n----- Bank Menu -----" << std::endl;
-          std::cout << "1. Bank information" << std::endl;
-          std::cout << "2. Customer list" << std::endl;
-          std::cout << "3. Employee list" << std::endl;
-          std::cout << "4. Manager list" << std::endl;
-          std::cout << "5. Go back" << std::endl;
+          cout << "\n----- Bank Menu -----" << endl;
+          cout << "1. Bank information" << endl;
+          cout << "2. Customer list" << endl;
+          cout << "3. Employee list" << endl;
+          cout << "4. Manager list" << endl;
+          cout << "5. Go back" << endl;
 
-          std::cout << "Select an option: ";
-          std::cin >> bankOption;
+          cout << "Select an option: ";
+          cin >> bankOption;
 
           switch (bankOption) {
             case 1: {
-              std::cout << "\n-----Bank Information-----" << std::endl;
+              cout << "\n-----Bank Information-----" << endl;
               bank.displayBankInformation(bank);
               break;
             }
             case 2: {
-              std::cout << "\n-----Customer List-----" << std::endl;
+              cout << "\n-----Customer List-----" << endl;
               bank.displayCustomerList(bank);
               break;
             }
             case 3: {
-              std::cout << "\n-----Employee List-----" << std::endl;
+              cout << "\n-----Employee List-----" << endl;
               bank.displayEmployeeList(bank);
               break;
             }
             case 4: {
-              std::cout << "\n-----Manager List-----" << std::endl;
+              cout << "\n-----Manager List-----" << endl;
               bank.displayManagerList(bank);
               break;
             }
@@ -544,10 +518,9 @@ int main() {
               break;
             }
             default: {
-              std::cout << "Invalid option. Please try again." << std::endl;
-              std::cin.clear();
-              std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                              '\n');
+              cout << "Invalid option. Please try again." << endl;
+              cin.clear();
+              cin.ignore(numeric_limits<streamsize>::max(), '\n');
               break;
             }
           }
@@ -555,13 +528,13 @@ int main() {
         break;
       }
       case 4: {
-        std::cout << "Goodbye!" << std::endl;
+        cout << "Goodbye!" << endl;
         return 0;
       }
       default: {
-        std::cout << "Invalid option. Please try again." << std::endl;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Invalid option. Please try again." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         break;
       }
     }

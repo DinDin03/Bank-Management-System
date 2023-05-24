@@ -1,34 +1,37 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
-
-#include <vector>
 #include <fstream>
+#include <vector>
+
 #include "Account.h"
 #include "User.h"
+using namespace std;
 
 class Customer : public User {
-protected:
-    std::string address;
-    std::vector<Account*> accounts;
-    Account* account;
+ protected:
+  string address;
+  vector<Account*> accounts;
+  Account* account;
 
-public:
-    Customer();
-    Customer(std::string name, std::string address, std::string phone, std::string email);
-    ~Customer();
-    std::string getAddress() const;
-    void setAddress(std::string address);
-    void addAccount(std::string accountNumber, std::string accountName, double balance, std::string transactionHistoryFilename);
-    Account* getAccount(std::string accountNumber);
-    std::vector<Account*> getAccounts();
-    void deleteAccount(std::string accountNumber);
+ public:
+  Customer();
+  Customer(string name, string address, string phone, string email);
+  ~Customer();
+  string getAddress() const;
+  void setAddress(string address);
+  void addAccount(string accountNumber, string accountName, double balance,
+                  string transactionHistoryFilename);
+  Account* getAccount(string accountNumber);
+  vector<Account*> getAccounts();
+  void deleteAccount(string accountNumber);
 
-    bool checkCustomerDetails(std::string name, std::string phone);
-    void saveAccountsList(const std::string& accountsListFilename, std::string accountNumber);
-    void loadAccountsList(const std::string& accountsListFilename);
-    void saveCustomerInfo(std::string filename);
-    void loadUserInfo(std::string filename) override;
-    bool customerLogin(std::string name, std::string phone);
+  bool checkCustomerDetails(string name, string phone);
+  void saveAccountsList(const string& accountsListFilename,
+                        string accountNumber);
+  void loadAccountsList(const string& accountsListFilename);
+  void saveCustomerInfo(string filename);
+  void loadUserInfo(string filename) override;
+  bool customerLogin(string name, string phone);
 };
 
 #endif

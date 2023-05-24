@@ -1,27 +1,29 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
-
-#include <string>
 #include <fstream>
+#include <string>
+
 #include "User.h"
+using namespace std;
 
-class Employee :public User {
-protected:
-    std::string id;
-    std::string department;
+class Employee : public User {
+ protected:
+  string id;
+  string department;
 
-public:
-    Employee();
-    Employee(std::string name, std::string id, std::string department, std::string email, std::string phone);
-    std::string getEmployeeID() const;
-    std::string getDepartment() const;
+ public:
+  Employee();
+  Employee(string name, string id, string department, string email,
+           string phone);
+  string getEmployeeID() const;
+  string getDepartment() const;
 
-    void setDepartment(std::string department);
-    void setID(std::string employeeID);
-    bool checkEmployeeDetails(std::string name, std::string id);
-    void saveEmployeeInfo(std::string filename);
-    void loadUserInfo(std::string filename) override;
-    bool employeeLogin(std::string name, std::string phone);
+  void setDepartment(string department);
+  void setID(string employeeID);
+  bool checkEmployeeDetails(string name, string id);
+  void saveEmployeeInfo(string filename);
+  void loadUserInfo(string filename) override;
+  bool employeeLogin(string name, string phone);
 };
 
-#endif // EMPLOYEE_H
+#endif  // EMPLOYEE_H

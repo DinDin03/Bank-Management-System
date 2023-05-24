@@ -1,52 +1,52 @@
 #include "Account.h"
-
 #include <chrono>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+using namespace std;
 
-Account::Account(std::string accountNumber, std::string accountHolderName,
-                 double accountBalance, std::string transactionHistoryFilename)
+Account::Account(string accountNumber, string accountHolderName,
+                 double accountBalance, string transactionHistoryFilename)
     : accountNumber(accountNumber),
       accountHolderName(accountHolderName),
       accountBalance(accountBalance),
       transactionHistoryFilename(transactionHistoryFilename) {
   // Load account information from file
-  std::ifstream file(accountNumber + ".txt");
+  ifstream file(accountNumber + ".txt");
   if (file.is_open()) {
     file >> accountHolderName >> accountBalance;
     file.close();
   }
 }
 
-void Account::deposit(std::string accountHolderName, double amount) {
+void Account::deposit(string accountHolderName, double amount) {
   accountBalance += amount;
   transactions.emplace_back(
-      Transaction(std::chrono::system_clock::now(), amount, "Deposit"));
+      Transaction(chrono::system_clock::now(), amount, "Deposit"));
 
   // Save account information to file
-  std::ofstream file(accountNumber + ".txt");
+  ofstream file(accountNumber + ".txt");
   if (file.is_open()) {
-    file << "Account Holder Name: " << accountHolderName << std::endl;
-    file << "Account Number: " << accountNumber << std::endl;
-    file << "Initial Balance: " << accountBalance << std::endl;
+    file << "Account Holder Name: " << accountHolderName << endl;
+    file << "Account Number: " << accountNumber << endl;
+    file << "Initial Balance: " << accountBalance << endl;
     file.close();
   }
 }
 
-bool Account::withdraw(std::string accountHolderName, double amount) {
+bool Account::withdraw(string accountHolderName, double amount) {
   if (accountBalance >= amount) {
     accountBalance -= amount;
     transactions.emplace_back(
-        Transaction(std::chrono::system_clock::now(), -amount, "Withdraw"));
+        Transaction(chrono::system_clock::now(), -amount, "Withdraw"));
 
     // Save account information to file
-    std::ofstream file(accountNumber + ".txt");
+    ofstream file(accountNumber + ".txt");
     if (file.is_open()) {
-      file << "Account Holder Name: " << accountHolderName << std::endl;
-      file << "Account Number: " << accountNumber << std::endl;
-      file << "Initial Balance: " << accountBalance << std::endl;
+      file << "Account Holder Name: " << accountHolderName << endl;
+      file << "Account Number: " << accountNumber << endl;
+      file << "Initial Balance: " << accountBalance << endl;
       file.close();
     }
 
@@ -56,50 +56,50 @@ bool Account::withdraw(std::string accountHolderName, double amount) {
   }
 }
 
-bool Account::transfer(const std::string& toAccountNumber, double amount) {
+bool Account::transfer(const string& toAccountNumber, double amount) {
   if (accountBalance >= amount) {
     accountBalance -= amount;
     transactions.emplace_back(
-        Transaction(std::chrono::system_clock::now(), -amount, "Transfer"));
+        Transaction(chrono::system_clock::now(), -amount, "Transfer"));
 
     // Save account information to sender's file
-    std::ofstream senderFile(accountNumber + ".txt");
+    ofstream senderFile(accountNumber + ".txt");
     if (senderFile.is_open()) {
-      senderFile << "Account Holder Name: " << accountHolderName << std::endl;
-      senderFile << "Account Number: " << accountNumber << std::endl;
-      senderFile << "Initial Balance: " << accountBalance << std::endl;
+      senderFile << "Account Holder Name: " << accountHolderName << endl;
+      senderFile << "Account Number: " << accountNumber << endl;
+      senderFile << "Initial Balance: " << accountBalance << endl;
       senderFile.close();
     } else {
-      std::cout << "Unable to open sender's account file." << std::endl;
+      cout << "Unable to open sender's account file." << endl;
       return false;
     }
 
     // Load recipient's account information from file
     // Load recipient's account information from file
-    std::ifstream recipientFile(toAccountNumber + ".txt");
+    ifstream recipientFile(toAccountNumber + ".txt");
     if (recipientFile.is_open()) {
-      std::string recipientAccountHolderName;
-      std::string recipientAccountNumber;
+      string recipientAccountHolderName;
+      string recipientAccountNumber;
       double recipientAccountBalance;
 
       // Read the account holder name
-      std::getline(recipientFile, recipientAccountHolderName);
+      getline(recipientFile, recipientAccountHolderName);
 
       // Read the account number
-      std::getline(recipientFile, recipientAccountNumber);
+      getline(recipientFile, recipientAccountNumber);
 
       // Read the account balance line
-      std::string recipientAccountBalanceLine;
-      if (std::getline(recipientFile, recipientAccountBalanceLine)) {
+      string recipientAccountBalanceLine;
+      if (getline(recipientFile, recipientAccountBalanceLine)) {
         // Extract the account balance from the balance line
-        std::string balanceValue = recipientAccountBalanceLine.substr(
+        string balanceValue = recipientAccountBalanceLine.substr(
             recipientAccountBalanceLine.find(":") + 2);
-        recipientAccountBalance = std::stod(balanceValue);
+        recipientAccountBalance = stod(balanceValue);
 
         // Update recipient's account balance
         recipientAccountBalance += amount;
       } else {
-        std::cout << "Invalid recipient account information." << std::endl;
+        cout << "Invalid recipient account information." << endl;
         recipientFile.close();
         return false;
       }
@@ -107,24 +107,21 @@ bool Account::transfer(const std::string& toAccountNumber, double amount) {
       recipientFile.close();
 
       // Save updated recipient's account information to file
-      std::ofstream updatedRecipientFile(toAccountNumber + ".txt");
+      ofstream updatedRecipientFile(toAccountNumber + ".txt");
       if (updatedRecipientFile.is_open()) {
-        updatedRecipientFile
-            << recipientAccountHolderName
-            << std::endl;
-        updatedRecipientFile << "Account Number: " << toAccountNumber
-                             << std::endl;
+        updatedRecipientFile << recipientAccountHolderName << endl;
+        updatedRecipientFile << "Account Number: " << toAccountNumber << endl;
         updatedRecipientFile << "Initial Balance: " << recipientAccountBalance
-                             << std::endl;
+                             << endl;
         updatedRecipientFile.close();
       } else {
-        std::cout << "Unable to open recipient's account file." << std::endl;
+        cout << "Unable to open recipient's account file." << endl;
         return false;
       }
 
       return true;
     } else {
-      std::cout << "Recipient's account not found." << std::endl;
+      cout << "Recipient's account not found." << endl;
       return false;
     }
   }
@@ -132,47 +129,44 @@ bool Account::transfer(const std::string& toAccountNumber, double amount) {
   return false;
 }
 
-std::string Account::getAccountNumber() const { return accountNumber; }
+string Account::getAccountNumber() const { return accountNumber; }
 
-std::string Account::getAccountHolderName() const { return accountHolderName; }
+string Account::getAccountHolderName() const { return accountHolderName; }
 
 double Account::getAccountBalance() const { return accountBalance; }
 
-void Account::saveTransactionHistory(
-    std::string transactionHistoryFilename) const {
-  std::ofstream outFile(transactionHistoryFilename);
+void Account::saveTransactionHistory(string transactionHistoryFilename) const {
+  ofstream outFile(transactionHistoryFilename);
   if (outFile.is_open()) {
     for (const auto& transaction : transactions) {
       outFile << "Date: " << transaction.getDate() << "\n";
       outFile << "Time: " << transaction.getTime() << "\n";
       outFile << "Amount: " << transaction.getAmount() << "\n";
       outFile << "Type: " << transaction.getType() << "\n\n";
-
     }
     outFile.close();
   }
 }
 void Account::saveReciepentTransactionHistory(
-    std::string transactionHistoryFilename) const {
-  std::ofstream outFile(transactionHistoryFilename);
+    string transactionHistoryFilename) const {
+  ofstream outFile(transactionHistoryFilename);
   if (outFile.is_open()) {
     for (const auto& transaction : transactions) {
       outFile << "Date: " << transaction.getDate() << "\n";
       outFile << "Time: " << transaction.getTime() << "\n";
       outFile << "Amount: " << -(transaction.getAmount()) << "\n";
       outFile << "Type: " << transaction.getType() << "\n\n";
-
     }
     outFile.close();
   }
 }
 
-void Account::loadTransactionHistory(std::string transactionHistoryFilename) {
-  std::ifstream file(transactionHistoryFilename);
+void Account::loadTransactionHistory(string transactionHistoryFilename) {
+  ifstream file(transactionHistoryFilename);
   if (file.is_open()) {
-    std::string line;
-    while (std::getline(file, line)) {
-      std::cout << line << std::endl;
+    string line;
+    while (getline(file, line)) {
+      cout << line << endl;
     }
     file.close();
   }

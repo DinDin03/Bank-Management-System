@@ -1,24 +1,24 @@
 #ifndef USER_H
 #define USER_H
-
 #include <string>
+using namespace std;
 
 class User {
-protected:
-    std::string name;
-    std::string phone;
-    std::string email;
-    std::string filename;
+ protected:
+  string name;
+  string phone;
+  string email;
+  string filename;
 
-public:
-    User(const std::string& name, const std::string& phone, const std::string& email);
-    std::string getName() const;
-    std::string getPhone() const;
-    std::string getEmail() const;
-    void setName(const std::string& newName);
-    void setPhone(const std::string& newPhone);
-    void setEmail(const std::string& newEmail);
-    virtual void loadUserInfo(std::string filename);
+ public:
+  User(const string& name, const string& phone, const string& email);
+  string getName() const;
+  string getPhone() const;
+  string getEmail() const;
+  void setName(const string& newName);
+  void setPhone(const string& newPhone);
+  void setEmail(const string& newEmail);
+  virtual void loadUserInfo(string filename);
 };
 
 #endif  // USER_H
