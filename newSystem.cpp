@@ -50,47 +50,106 @@ int main() {
 
           switch (customerOption) {
             case 1: {
-              // Implement Customer Sign up functionality
+              std::cout << "\n----- Customer Sign up -----" << std::endl;
+              std::string name, address, phone, email;
+              std::string accountsListFilename = name + "List.txt";
+              std::cout << "Enter customer's name: ";
+              std::cin.ignore();
+              std::getline(std::cin, name);
+              std::cout << "Enter customer's address: ";
+              std::getline(std::cin, address);
+              std::cout << "Enter customer's phone number: ";
+              std::cin >> phone;
+              std::cout << "Enter customer's email: ";
+              std::cin >> email;
+              Customer customer(name, address, phone, email);
+              customer.saveCustomerInfo(name + ".txt");
+              bank.addCustomer(&customer);
+              bank.saveCustomerList("customerList.txt");
+              std::cout << "\nNew Customer added" << std::endl;
+              customer.loadUserInfo(name + ".txt");
               break;
             }
             case 2: {
-              do {
-                std::cout << "\n----- Customer Log in -----" << std::endl;
-                std::cout << "1. Add a new account" << std::endl;
-                std::cout << "2. Account log in" << std::endl;
-                std::cout << "3. Delete account" << std::endl;
-                std::cout << "4. Show accounts" << std::endl;
-                std::cout << "5. Go back" << std::endl;
+              bool choice = true;
+              std::string name, phone;
+              std::cout << "Enter customer's name: ";
+              std::cin.ignore();
+              std::getline(std::cin, name);
+              std::cout << "Enter customer's phone number: ";
+              std::getline(std::cin, phone);
+              Customer customer(name, "", phone, "");
+              bool loginSuccessful = customer.customerLogin(name, phone);
+              if (loginSuccessful) {
+                std::cout << "\nLogin successful!" << std::endl;
+                while (choice) {
+                  std::string accountsListFilename = name + "List.txt";
+                  std::cout << "\n----- Customer Log in -----" << std::endl;
+                  std::cout << "1. Add a new account" << std::endl;
+                  std::cout << "2. Account log in" << std::endl;
+                  std::cout << "3. Delete account" << std::endl;
+                  std::cout << "4. Show accounts" << std::endl;
+                  std::cout << "5. Go back" << std::endl;
 
-                std::cout << "Select an option: ";
-                std::cin >> customerOption;
+                  std::cout << "Select an option: ";
+                  std::cin >> customerOption;
 
-                switch (customerOption) {
-                  case 1: {
-                    // Implement Add a new account functionality
-                    break;
-                  }
-                  case 2: {
-                    // Implement Account log in functionality
-                    break;
-                  }
-                  case 3: {
-                    // Implement Delete account functionality
-                    break;
-                  }
-                  case 4: {
-                    // Implement Show accounts functionality
-                    break;
-                  }
-                  case 5: {
-                    break;
-                  }
-                  default: {
-                    std::cout << "Invalid option. Please try again." << std::endl;
-                    break;
+                  switch (customerOption) {
+                    case 1: {
+                      std::string accountHolderName;
+                      std::string accountNumber = std::to_string(number(gen));
+                      std::string transactionHistoryFilename =
+                          accountNumber + "TransactionHistory";
+                      double initialBalance;
+                      std::cout << "Enter account holder's name: ";
+                      std::cin.ignore();
+                      std::getline(std::cin, accountHolderName);
+                      std::cout << "Enter initial balance: ";
+                      std::cin >> initialBalance;
+                      customer.addAccount(accountNumber, accountHolderName,
+                                          initialBalance,
+                                          transactionHistoryFilename);
+                      Account* account = customer.getAccount(accountNumber);
+                      customer.saveAccountsList(accountsListFilename,
+                                                accountNumber);
+                      std::cout << "\nNew account added successfully.\n"
+                                << std::endl;
+                      std::cout
+                          << "Account holder's name: " << accountHolderName
+                          << std::endl;
+                      std::cout << "Account Number: " << accountNumber
+                                << std::endl;
+                      std::cout << "Account Balance: " << initialBalance
+                                << std::endl;
+                      break;
+                    }
+                    case 2: {
+                      // Implement Account log in functionality
+                      break;
+                    }
+                    case 3: {
+                      // Implement Delete account functionality
+                      break;
+                    }
+                    case 4: {
+                      // Implement Show accounts functionality
+                      break;
+                    }
+                    case 5: {
+                      choice = false;
+                      break;
+                    }
+                    default: {
+                      std::cout << "Invalid option. Please try again."
+                                << std::endl;
+                      break;
+                    }
                   }
                 }
-              } while (customerOption != 5);
+              } else {
+                std::cout << "Name or Phone number wrong. Unable to Log in"
+                          << std::endl;
+              }
               break;
             }
             case 3: {
@@ -151,7 +210,8 @@ int main() {
                     break;
                   }
                   default: {
-                    std::cout << "Invalid option. Please try again." << std::endl;
+                    std::cout << "Invalid option. Please try again."
+                              << std::endl;
                     break;
                   }
                 }
