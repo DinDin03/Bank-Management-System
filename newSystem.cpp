@@ -142,7 +142,8 @@ int main() {
                           std::cout << "2. Withdraw" << std::endl;
                           std::cout << "3. Transfer" << std::endl;
                           std::cout << "4. Account Information" << std::endl;
-                          std::cout << "5. Go back" << std::endl;
+                          std::cout << "5. Transaction History" << std::endl;
+                          std::cout << "6. Go back" << std::endl;
 
                           std::cout << "Select an option: ";
                           std::cin >> customerOption;
@@ -215,7 +216,12 @@ int main() {
                                         << std::endl;
                               break;
                             }
-                            case 5: {
+                            case 5:{
+                              std::cout << "\n-----Transaction History for Account NO: " << accountNumber << "-----\n" << std::endl;
+                              account->loadTransactionHistory(accountNumber + "_TransactionHistory.txt");
+                              break;
+                            }
+                            case 6: {
                               continueLoop = false;
                               break;
                             }
