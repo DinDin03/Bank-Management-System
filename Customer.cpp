@@ -89,7 +89,7 @@ bool Customer::customerLogin(std::string name, std::string phone) {
         std::getline(inFile, accountPhone);
         std::getline(inFile, accountEmail);
         inFile.close(); 
-        if (accountPhone == phone) {
+        if (accountPhone == phone && accountName == name) {
             return true;
         }
     }

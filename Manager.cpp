@@ -19,7 +19,7 @@ bool Manager::managerLogin(std::string name, std::string id) {
         std::getline(inFile, empEmail);
         std::getline(inFile, empPhone);
         inFile.close();
-        if (empID == id) {
+        if (empID == id && empName == name) {
             return true;
         }
     }

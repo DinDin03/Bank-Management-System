@@ -52,7 +52,7 @@ int main() {
             case 1: {
               std::cout << "\n----- Customer Sign up -----" << std::endl;
               std::string name, address, phone, email;
-              std::string accountsListFilename = name + "List.txt";
+              std::string accountsListFilename = name + "_accounts.txt";
               std::cout << "Enter customer's name: ";
               std::cin.ignore();
               std::getline(std::cin, name);
@@ -83,7 +83,7 @@ int main() {
               if (loginSuccessful) {
                 std::cout << "\nLogin successful!" << std::endl;
                 while (choice) {
-                  std::string accountsListFilename = name + "List.txt";
+                  std::string accountsListFilename = name + "_accounts.txt";
                   std::cout << "\n----- Customer Log in -----" << std::endl;
                   std::cout << "1. Add a new account" << std::endl;
                   std::cout << "2. Account log in" << std::endl;
@@ -134,7 +134,7 @@ int main() {
                       if (account != nullptr) {
                         bool continueLoop = true;
                         while (continueLoop) {
-                          std::string accountsListFilename = name + "List.txt";
+                          std::string accountsListFilename = name + "_accounts.txt";
                           std::cout << "\n----- Customer Log in -----"
                                     << std::endl;
                           std::cout << "1. Deposit" << std::endl;
@@ -152,6 +152,8 @@ int main() {
                               std::cout << "Enter the amount to deposit: ";
                               std::cin >> amount;
                               account->deposit(accountHolderName, amount);
+                              account->saveTransactionHistory(
+                                  accountNumber + "_TransactionHistory.txt");
                               std::cout << "Amount deposited successfully."
                                         << std::endl;
                               break;
@@ -162,6 +164,8 @@ int main() {
                               std::cin >> amount;
                               if (account->withdraw(accountHolderName,
                                                     amount)) {
+                                account->saveTransactionHistory(
+                                    accountNumber + "_TransactionHistory.txt");
                                 std::cout << "Amount withdrawn successfully."
                                           << std::endl;
                               } else {
@@ -183,6 +187,11 @@ int main() {
                                                     transferAmount)) {
                                 std::cout << "Amount transferred successfully."
                                           << std::endl;
+                                account->saveTransactionHistory(
+                                    accountNumber + "_TransactionHistory.txt");
+                                account->saveReciepentTransactionHistory(
+                                    transferToAccountNumber +
+                                    "_TransactionHistory.txt");
                               } else {
                                 std::cout
                                     << "Transfer failed. Please check the "
@@ -206,7 +215,7 @@ int main() {
                               break;
                             }
                             case 5: {
-                              choice = false;
+                              continueLoop = false;
                               break;
                             }
                             default: {
@@ -223,7 +232,28 @@ int main() {
                       break;
                     }
                     case 3: {
-                      // Implement Delete account functionality
+                      std::string accountNumber;
+                      std::cout << "Enter account number: ";
+                      std::cin >> accountNumber;
+                      std::cout << std::endl;
+                      Account* account = customer.getAccount(accountNumber);
+                      if (account != nullptr) {
+                        std::cout
+                            << "Are you sure you want to delete this account? "
+                               "(y/n): ";
+                        char confirm;
+                        std::cin >> confirm;
+                        std::cout << std::endl;
+                        if (confirm == 'y') {
+                          customer.deleteAccount(accountNumber);
+                          std::cout << "Account deleted successfully."
+                                    << std::endl;
+                        }
+                      } else {
+                        choice = false;
+                        std::cout << "Going back to the main menu..."
+                                  << std::endl;
+                      }
                       break;
                     }
                     case 4: {

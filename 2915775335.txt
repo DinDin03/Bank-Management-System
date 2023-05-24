@@ -1,0 +1,3 @@
+Account Holder Name: Kaka
+Account Number: 2915775335
+Initial Balance: 1000

@@ -1,0 +1,5 @@
+Date: 2023-05-25
+Time: 03:34:03
+Amount: -10
+Type: Transfer
+

@@ -1,4 +1,0 @@
-John Doe
-89 john street, Kensignton
-1
-johndoe@gmail.com

@@ -1,3 +1,0 @@
-Account Holder Name: John Doe
-Account Number: 3896059294
-Initial Balance: 10000

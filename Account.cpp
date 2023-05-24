@@ -143,10 +143,25 @@ void Account::saveTransactionHistory(
   std::ofstream outFile(transactionHistoryFilename);
   if (outFile.is_open()) {
     for (const auto& transaction : transactions) {
-      outFile << transaction.getDate() << "\n";
-      outFile << transaction.getTime() << "\n";
-      outFile << transaction.getAmount() << "\n";
-      outFile << transaction.getType();
+      outFile << "Date: " << transaction.getDate() << "\n";
+      outFile << "Time: " << transaction.getTime() << "\n";
+      outFile << "Amount: " << transaction.getAmount() << "\n";
+      outFile << "Type: " << transaction.getType() << "\n\n";
+
+    }
+    outFile.close();
+  }
+}
+void Account::saveReciepentTransactionHistory(
+    std::string transactionHistoryFilename) const {
+  std::ofstream outFile(transactionHistoryFilename);
+  if (outFile.is_open()) {
+    for (const auto& transaction : transactions) {
+      outFile << "Date: " << transaction.getDate() << "\n";
+      outFile << "Time: " << transaction.getTime() << "\n";
+      outFile << "Amount: " << -(transaction.getAmount()) << "\n";
+      outFile << "Type: " << transaction.getType() << "\n\n";
+
     }
     outFile.close();
   }
@@ -157,38 +172,7 @@ void Account::loadTransactionHistory(std::string transactionHistoryFilename) {
   if (file.is_open()) {
     std::string line;
     while (std::getline(file, line)) {
-      std::stringstream iss(line);
-      std::string date, time, type, amountStr;
-      double amount;
-      if (std::getline(iss, date, ',') && std::getline(iss, time, ',') &&
-          std::getline(iss, amountStr, ',') && std::getline(iss, type)) {
-        // Convert the date and time strings to
-        // std::chrono::system_clock::time_point
-        std::tm timeInfo = {};
-        std::istringstream dateStream(date);
-        dateStream >> std::get_time(&timeInfo, "%Y-%m-%d");
-        std::chrono::system_clock::time_point dateTime =
-            std::chrono::system_clock::from_time_t(std::mktime(&timeInfo));
-
-        std::tm timeInfo2 = {};
-        std::istringstream timeStream(time);
-        timeStream >> std::get_time(&timeInfo2, "%H:%M:%S");
-        std::chrono::system_clock::time_point timePoint =
-            std::chrono::system_clock::from_time_t(std::mktime(&timeInfo2));
-
-        // Combine date and time
-        std::chrono::system_clock::time_point transactionTime =
-            dateTime + (timePoint - std::chrono::system_clock::time_point());
-
-        // Convert the amount string to double
-        double amount = std::stod(amountStr);
-
-        // Create a new Transaction object
-        Transaction transaction(transactionTime, amount, type);
-
-        // Add the transaction to the transactions vector
-        transactions.emplace_back(transaction);
-      }
+      std::cout << line << std::endl;
     }
     file.close();
   }
