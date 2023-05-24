@@ -18,7 +18,7 @@ public:
 
     void setDepartment(std::string department);
     void setID(std::string employeeID);
-
+    bool checkEmployeeDetails(std::string name, std::string id);
     void saveEmployeeInfo(std::string filename);
     void loadUserInfo(std::string filename) override;
     bool employeeLogin(std::string name, std::string phone);

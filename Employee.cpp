@@ -72,3 +72,7 @@ bool Employee::employeeLogin(std::string name, std::string phone) {
     }
     return false;
 }
+bool Employee::checkEmployeeDetails(std::string name, std::string id) {
+    return (User::getName() == name && this->id == id);
+}
+

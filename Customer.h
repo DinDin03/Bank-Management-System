@@ -23,6 +23,7 @@ public:
     std::vector<Account*> getAccounts();
     void deleteAccount(std::string accountNumber);
 
+    bool checkCustomerDetails(std::string name, std::string phone);
     void saveAccountsList(const std::string& accountsListFilename, std::string accountNumber);
     void loadAccountsList(const std::string& accountsListFilename);
     void saveCustomerInfo(std::string filename);

@@ -13,17 +13,18 @@ std::random_device rd;
 std::mt19937 gen(rd());
 std::uniform_int_distribution<long long> number(0, 9999999999);
 std::uniform_int_distribution<long long> emplID(0, 999999);
+std::uniform_int_distribution<long long> mgrID(0, 99999);
 
 int main() {
   Bank bank("Uncommonwealth Bank", "123 Main Street", "123-456-7890",
             "info@uncommonwealthbank.com", "customerList.txt",
-            "employeeList.txt");
+            "employeeList.txt", "managerList.txt");
   std::cout << "Welcome to the bank management system!!!\n" << std::endl;
   /// Manager manager("Head
   /// Manager","000000","Management","manager@gmail.com","0466055813");
   /// manager.saveEmployeeInfo("Head Manager.txt");
-  /// bank.addEmployee(&manager);
-  /// bank.saveEmployeeList("employeeList.txt");
+  /// bank.addManager(&manager);
+  /// bank.saveManagerList("managerList.txt");
   bool running = true;
   while (running) {
     std::cout << "Please choose an option\n" << std::endl;
@@ -82,7 +83,7 @@ int main() {
               if (loginSuccessful) {
                 std::cout << "\nLogin successful!" << std::endl;
                 int accountChoice;
-                while (true) {
+                while (choice) {
                   std::string accountsListFilename = name + "List.txt";
                   std::cout << "\nPlease choose an option:" << std::endl;
                   std::cout << "1. Create new account" << std::endl;
@@ -100,7 +101,8 @@ int main() {
                           accountNumber + "TransactionHistory";
                       double initialBalance;
                       std::cout << "Enter account holder's name: ";
-                      std::cin >> accountHolderName;
+                      std::cin.ignore();
+                      std::getline(std::cin, accountHolderName);
                       std::cout << "Enter initial balance: ";
                       std::cin >> initialBalance;
                       customer.addAccount(accountNumber, accountHolderName,
@@ -239,18 +241,20 @@ int main() {
                                     << std::endl;
                         }
                       } else {
-                        std::cout << "Account not found. Please try again."
+                        accountChoice = false;
+                        std::cout << "Going back to the main menu..."
                                   << std::endl;
                       }
                       break;
                     }
                     case 4: {
                       customer.loadAccountsList(accountsListFilename);
+                      break;
                     }
                     case 5: {
-                      accountChoice = false;
                       std::cout << "Going back to the main menu..."
                                 << std::endl;
+                      customersRunning = false;
                       break;
                     }
                     default: {
@@ -262,7 +266,9 @@ int main() {
                 }
               } else {
                 std::cout << "Creditientials wrong" << std::endl;
+                customersRunning = false;
               }
+              break;
             }
             case 3: {
               std::string name, phone;
@@ -272,8 +278,25 @@ int main() {
               std::cout << "Enter Customer's phone number: ";
               std::getline(std::cin, phone);
               Customer customer(name, "", phone, "");
-              bank.removeCustomer(&customer);
-              std::cout << "\nCustomer has been successfully removed\n" << std::endl;
+              if (customer.checkCustomerDetails(name, phone) == true) {
+                std::cout << "Are you sure you want to delete this Customer? "
+                             "(y/n): ";
+                char confirm;
+                std::cin >> confirm;
+                std::cout << std::endl;
+                if (confirm == 'y') {
+                  bank.removeCustomer(&customer);
+                  std::cout << "\nCustomer has been successfully removed\n"
+                            << std::endl;
+                } else {
+                  customersRunning = false;
+                  std::cout << "Going back to the main menu..." << std::endl;
+                }
+              } else {
+                std::cout << "Wrong details" << std::endl;
+                customersRunning = false;
+              }
+
               break;
             }
             case 4: {
@@ -316,7 +339,9 @@ int main() {
                   std::cout << "Manager Menu\n" << std::endl;
                   std::cout << "1. Create Employee" << std::endl;
                   std::cout << "2. Remove Employee" << std::endl;
-                  std::cout << "3. Go Back" << std::endl;
+                  std::cout << "3. Create Manager" << std::endl;
+                  std::cout << "4. Remove Manager" << std::endl;
+                  std::cout << "5. Go Back" << std::endl;
                   int managerChoice;
                   std::cout << "Enter your choice: ";
                   std::cin >> managerChoice;
@@ -329,7 +354,6 @@ int main() {
                       std::cin.ignore();
                       std::getline(std::cin, empName);
                       std::cout << "Enter employee phone: ";
-                      std::cin.ignore();
                       std::getline(std::cin, empPhone);
                       std::cout << "Enter employee department: ";
                       std::getline(std::cin, empDepartment);
@@ -345,9 +369,91 @@ int main() {
                       break;
                     }
                     case 2: {
+                      std::string name, id;
+                      std::cout << "Enter Employee's name: ";
+                      std::cin.ignore();
+                      std::getline(std::cin, name);
+                      std::cout << "Enter Employee's ID number: ";
+                      std::getline(std::cin, id);
+                      Employee employee(name, id, "", "", "");
+                      if (employee.checkEmployeeDetails(name, id) == true) {
+                        std::cout
+                            << "Are you sure you want to delete this Employee? "
+                               "(y/n): ";
+                        char confirm;
+                        std::cin >> confirm;
+                        std::cout << std::endl;
+                        if (confirm == 'y') {
+                          bank.removeEmployee(&employee);
+                          std::cout
+                              << "\nEmployee has been successfully removed\n"
+                              << std::endl;
+                        } else {
+                          managerLoggedIn = false;
+                          std::cout << "Going back to the main menu..."
+                                    << std::endl;
+                        }
+                      } else {
+                        std::cout << "Wrong details" << std::endl;
+                        managerLoggedIn = false;
+                      }
                       break;
                     }
                     case 3: {
+                      // Create Manager
+                      std::string mgrName, mgrPhone, mgrEmail, mgrDepartment,
+                          mgrId = std::to_string(mgrID(gen));
+                      std::cout << "Enter manager name: ";
+                      std::cin.ignore();
+                      std::getline(std::cin, mgrName);
+                      std::cout << "Enter manager phone: ";
+                      std::getline(std::cin, mgrPhone);
+                      std::cout << "Enter manager email: ";
+                      std::getline(std::cin, mgrEmail);
+                      std::cout << "Enter manager department: ";
+                      std::getline(std::cin, mgrDepartment);
+                      Manager newManager(mgrName, mgrId, mgrDepartment,
+                                         mgrEmail, mgrPhone);
+                      newManager.saveEmployeeInfo(mgrName + ".txt");
+                      bank.addManager(&newManager);
+                      bank.saveManagerList("managerList.txt");
+                      std::cout << "\nNew Manager added" << std::endl;
+                      newManager.loadUserInfo(mgrName + ".txt");
+                      break;
+                    }
+                    case 4: {
+                      std::string name, id;
+                      std::cout << "Enter Manager's name: ";
+                      std::cin.ignore();
+                      std::getline(std::cin, name);
+                      std::cout << "Enter Manager's ID number: ";
+                      std::getline(std::cin, id);
+                      Manager manager(name, id, "", "", "");
+                      if (manager.checkManagerDetails(name, id) == true) {
+                        std::cout
+                            << "Are you sure you want to delete this Manager? "
+                               "(y/n): ";
+                        char confirm;
+                        std::cin >> confirm;
+                        std::cout << std::endl;
+                        if (confirm == 'y') {
+                          bank.removeManager(&manager);
+                          std::cout
+                              << "\nManager has been successfully removed\n"
+                              << std::endl;
+                        } else {
+                          managerLoggedIn = false;
+                          std::cout << "Going back to the main menu..."
+                                    << std::endl;
+                        }
+                      } else {
+                        std::cout << "Wrong details" << std::endl;
+                        managerLoggedIn = false;
+                      }
+
+                      break;
+                    }
+                    case 5: {
                       managerLoggedIn = false;
                       std::cout << "Going back to the Employees Menu..."
                                 << std::endl;

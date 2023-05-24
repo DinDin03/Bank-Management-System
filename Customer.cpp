@@ -151,3 +151,23 @@ void Customer::loadAccountsList(const std::string& accountsListFilename) {
         std::cout << "Unable to open file." << std::endl;
     }
 }
+bool Customer::checkCustomerDetails(std::string name, std::string phone) {
+    std::ifstream inFile(name + ".txt");
+    if (inFile.is_open()) {
+        std::string accountName;
+        std::string accountAddress;
+        std::string accountPhone;
+        std::string accountEmail;
+        std::getline(inFile, accountName);
+        std::getline(inFile, accountAddress);
+        std::getline(inFile, accountPhone);
+        std::getline(inFile, accountEmail);
+        inFile.close();
+
+        return (accountName == name && accountPhone == phone);
+    }
+    
+    return false;
+}
+
+

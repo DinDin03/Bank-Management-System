@@ -10,6 +10,7 @@ public:
     Manager();
     Manager(std::string name, std::string id, std::string department, std::string email, std::string phone);
     bool managerLogin(std::string name, std::string id);
+    bool checkManagerDetails(std::string name, std::string id);
 };
 
 #endif // MANAGER_H

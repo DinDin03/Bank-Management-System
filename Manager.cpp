@@ -25,3 +25,6 @@ bool Manager::managerLogin(std::string name, std::string id) {
     }
     return false;
 }
+bool Manager::checkManagerDetails(std::string name, std::string id) {
+    return (User::getName() == name && this->getEmployeeID() == id);
+}
