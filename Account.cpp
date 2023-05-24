@@ -96,16 +96,17 @@ bool Account::transfer(const std::string& toAccountNumber, double amount) {
         std::cout << "Unable to open recipient's account file." << std::endl;
         return false;
       }
+
+      return true;
     } else {
       std::cout << "Recipient's account not found." << std::endl;
       return false;
     }
-
-    return true;
   }
 
   return false;
 }
+
 
 std::string Account::getAccountNumber() const { return accountNumber; }
 

@@ -124,7 +124,102 @@ int main() {
                       break;
                     }
                     case 2: {
-                      // Implement Account log in functionality
+                      std::string accountNumber;
+                      std::cout << "Enter account number: ";
+                      std::cin >> accountNumber;
+                      std::cout << std::endl;
+                      Account* account = customer.getAccount(accountNumber);
+                      std::string accountHolderName =
+                          account->getAccountHolderName();
+                      if (account != nullptr) {
+                        bool continueLoop = true;
+                        while (continueLoop) {
+                          std::string accountsListFilename = name + "List.txt";
+                          std::cout << "\n----- Customer Log in -----"
+                                    << std::endl;
+                          std::cout << "1. Deposit" << std::endl;
+                          std::cout << "2. Withdraw" << std::endl;
+                          std::cout << "3. Transfer" << std::endl;
+                          std::cout << "4. Account Information" << std::endl;
+                          std::cout << "5. Go back" << std::endl;
+
+                          std::cout << "Select an option: ";
+                          std::cin >> customerOption;
+
+                          switch (customerOption) {
+                            case 1: {
+                              double amount;
+                              std::cout << "Enter the amount to deposit: ";
+                              std::cin >> amount;
+                              account->deposit(accountHolderName, amount);
+                              std::cout << "Amount deposited successfully."
+                                        << std::endl;
+                              break;
+                            }
+                            case 2: {
+                              double amount;
+                              std::cout << "Enter the amount to withdraw: ";
+                              std::cin >> amount;
+                              if (account->withdraw(accountHolderName,
+                                                    amount)) {
+                                std::cout << "Amount withdrawn successfully."
+                                          << std::endl;
+                              } else {
+                                std::cout
+                                    << "Insufficient funds. Withdrawal failed."
+                                    << std::endl;
+                              }
+                              break;
+                            }
+                            case 3: {
+                              std::string transferToAccountNumber;
+                              std::cout << "Enter the account number to "
+                                           "transfer to: ";
+                              std::cin >> transferToAccountNumber;
+                              double transferAmount;
+                              std::cout << "Enter the amount to transfer: ";
+                              std::cin >> transferAmount;
+                              if (account->transfer(transferToAccountNumber,
+                                                    transferAmount)) {
+                                std::cout << "Amount transferred successfully."
+                                          << std::endl;
+                              } else {
+                                std::cout
+                                    << "Transfer failed. Please check the "
+                                       "account numbers and available balance."
+                                    << std::endl;
+                              }
+                              break;
+                            }
+                            case 4: {
+                              std::cout << "Account information:\n"
+                                        << std::endl;
+                              std::cout << "Account holder's name: "
+                                        << account->getAccountHolderName()
+                                        << std::endl;
+                              std::cout << "Account number: "
+                                        << account->getAccountNumber()
+                                        << std::endl;
+                              std::cout << "Account balance: "
+                                        << account->getAccountBalance()
+                                        << std::endl;
+                              break;
+                            }
+                            case 5: {
+                              choice = false;
+                              break;
+                            }
+                            default: {
+                              std::cout << "Invalid option. Please try again."
+                                        << std::endl;
+                              break;
+                            }
+                          }
+                        }
+                      } else {
+                        std::cout << "Account not found. Please try again."
+                                  << std::endl;
+                      }
                       break;
                     }
                     case 3: {
