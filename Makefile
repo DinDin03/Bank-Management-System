@@ -1,7 +1,7 @@
 # Compiler
 CC = g++
 # Compiler flags
-CFLAGS = -std=c++11 -Wall
+CFLAGS = -Wall
 
 # Source files
 SRCS = newSystem.cpp Customer.cpp Account.cpp Transaction.cpp Bank.cpp User.cpp Manager.cpp Employee.cpp

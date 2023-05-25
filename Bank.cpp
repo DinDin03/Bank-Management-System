@@ -149,11 +149,6 @@ void Bank::loadCustomerList(string customerListFilename) {
     while (getline(file, line)) {
       stringstream iss(line);
       string name, address, phone, email;
-      if (getline(iss, name, ',') && getline(iss, address, ',') &&
-          getline(iss, phone, ',') && getline(iss, email)) {
-        Customer* customer = new Customer(name, address, phone, email);
-        Customer* newCustomer = customer;
-      }
     }
     file.close();
   }
@@ -177,12 +172,6 @@ void Bank::loadEmployeeList(string employeeListFilename) {
     while (getline(file, line)) {
       stringstream iss(line);
       string name, phone, email, id, department;
-      if (getline(iss, name, ',') && getline(iss, id, ',') &&
-          getline(iss, phone, ',') && getline(iss, email) &&
-          getline(iss, department)) {
-        Employee* employee = new Employee(name, id, department, email, phone);
-        Employee* newEmployee = employee;
-      }
     }
     file.close();
   }
@@ -206,12 +195,6 @@ void Bank::loadManagerList(string managerListFilename) {
     while (getline(file, line)) {
       stringstream iss(line);
       string name, phone, email, id, department;
-      if (getline(iss, name, ',') && getline(iss, id, ',') &&
-          getline(iss, phone, ',') && getline(iss, email) &&
-          getline(iss, department)) {
-        Manager* manager = new Manager(name, id, department, email, phone);
-        Manager* newManager = manager;
-      }
     }
     file.close();
   }
