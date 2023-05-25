@@ -4,13 +4,13 @@ CC = g++
 CFLAGS = -std=c++11 -Wall
 
 # Source files
-SRCS = system.cpp Customer.cpp Account.cpp Transaction.cpp Bank.cpp User.cpp Manager.cpp Employee.cpp
+SRCS = newSystem.cpp Customer.cpp Account.cpp Transaction.cpp Bank.cpp User.cpp Manager.cpp Employee.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
 
 # Executable
-EXEC = system
+EXEC = newSystem
 
 # Default target
 all: $(EXEC)
