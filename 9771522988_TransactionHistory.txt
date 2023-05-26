@@ -1,0 +1,5 @@
+Date: 2023-05-27
+Time: 00:21:51
+Amount: 1000
+Type: Deposit
+

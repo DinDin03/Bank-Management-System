@@ -1,0 +1,3 @@
+Account Holder Name: Ayaka
+Account Number: 9771522988
+Initial Balance: 2000
