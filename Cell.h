@@ -18,4 +18,4 @@ class Cell {
   virtual ~Cell() {}
 };
 
-#endif  // CELL_H
+#endif

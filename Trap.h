@@ -19,4 +19,4 @@ public:
     }
 };
 
-#endif // TRAP_H
+#endif

@@ -9,4 +9,4 @@ public:
     virtual ~Effect(){}
 };
 
-#endif // EFFECT_H
+#endif

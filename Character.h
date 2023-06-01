@@ -14,4 +14,4 @@ class Character : public Cell {
   }
 };
 
-#endif  // CHARACTER_H
+#endif

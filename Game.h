@@ -65,4 +65,4 @@ class Game {
   }
 };
 
-#endif  // GAME_H
+#endif
