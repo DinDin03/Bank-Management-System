@@ -1,25 +1,32 @@
-#include "Trap.h"
+#include <iostream>
+using namespace std;
+#include "Cell.h"
 #include "Character.h"
 #include "Effect.h"
-#include <iostream>
-#include "Cell.h"
+#include "Trap.h"
 
 int main() {
-    Trap trap(2, 3);
-    std::cout << "Trap position: (" << std::get<0>(trap.getPos()) << ", " << std::get<1>(trap.getPos()) << ")" << std::endl;
-    std::cout << "Trap type: " << trap.getType() << std::endl;
-    std::cout << "Trap active status: " << (trap.isActive() ? "Active" : "Inactive") << std::endl;
+  Trap trap(2, 3);
+  cout << "Trap position: (" << get<0>(trap.getPos()) << ", "
+       << get<1>(trap.getPos()) << ")" << endl;
+  cout << "Trap type: " << trap.getType() << endl;
+  cout << "Trap active status: " << (trap.isActive() ? "Active" : "Inactive")
+       << endl;
 
-    Character character(5, 7);
-    std::cout << "Character position: (" << std::get<0>(character.getPos()) << ", " << std::get<1>(character.getPos()) << ")" << std::endl;
-    std::cout << "Character type: " << character.getType() << std::endl;
+  Character character(5, 7);
+  cout << "Character position: (" << get<0>(character.getPos()) << ", "
+       << get<1>(character.getPos()) << ")" << endl;
+  cout << "Character type: " << character.getType() << endl;
 
-    character.move(1, -1);
-    std::cout << "Character position after move: (" << std::get<0>(character.getPos()) << ", " << std::get<1>(character.getPos()) << ")" << std::endl;
+  character.move(1, -1);
+  cout << "Character position after move: (" << get<0>(character.getPos())
+       << ", " << get<1>(character.getPos()) << ")" << endl;
 
-    trap.apply(character);
-    std::cout << "Character type after trap activation: " << character.getType() << std::endl;
-    std::cout << "Trap active status after activation: " << (trap.isActive() ? "Active" : "Inactive") << std::endl;
+  trap.apply(character);
+  cout << "Character type after trap activation: " << character.getType()
+       << endl;
+  cout << "Trap active status after activation: "
+       << (trap.isActive() ? "Active" : "Inactive") << endl;
 
-    return 0;
+  return 0;
 }

@@ -1,5 +1,5 @@
 #include "Game.h"
-
+using namespace std;
 int main() {
     int numCharacters = 2;
     int numTraps = 3;

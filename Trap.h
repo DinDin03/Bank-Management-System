@@ -3,7 +3,7 @@
 
 #include "Cell.h"
 #include "Effect.h"
-
+using namespace std;
 class Trap : public Cell, public Effect {
 private:
     bool active;

@@ -4,17 +4,18 @@ using namespace std;
 #include <tuple>
 
 class Cell {
-private:
-    std::tuple<int, int> position;
-    char type;
+ private:
+  tuple<int, int> position;
+  char type;
 
-public:
-    Cell(int x, int y, char cellType) : position(std::make_tuple(x, y)), type(cellType) {}
-    std::tuple<int, int> getPos() { return position; }
-    char getType() { return type; }
-    void setPos(int x, int y) { position = std::make_tuple(x, y); }
-    void setType(char cellType) { type = cellType; }
-    virtual ~Cell(){}
+ public:
+  Cell(int x, int y, char cellType)
+      : position(make_tuple(x, y)), type(cellType) {}
+  tuple<int, int> getPos() { return position; }
+  char getType() { return type; }
+  void setPos(int x, int y) { position = make_tuple(x, y); }
+  void setType(char cellType) { type = cellType; }
+  virtual ~Cell() {}
 };
 
-#endif // CELL_H
+#endif  // CELL_H
