@@ -25,7 +25,6 @@ int main() {
 
   int mainOption;
   int customerOption;
-  int employeeOption;
   int bankOption;
 
   do {
@@ -111,7 +110,7 @@ int main() {
                       customer.addAccount(accountNumber, accountHolderName,
                                           initialBalance,
                                           transactionHistoryFilename);
-                      Account* account = customer.getAccount(accountNumber);
+                      customer.getAccount(accountNumber);
                       customer.saveAccountsList(accountsListFilename,
                                                 accountNumber);
                       cout << "\nNew account added successfully.\n" << endl;

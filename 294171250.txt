@@ -1,0 +1,3 @@
+Account Holder Name: Din
+Account Number: 294171250
+Initial Balance: 1000
